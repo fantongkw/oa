@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script th:src="@{/js/sockjs.min.js}"></script>
+    <script th:src="@{/js/stomp.min.js}"></script>
+    <script src="/static/js/plugins/vendor.bundle.base.js" th:src="@{/js/vendors/vendor.bundle.base.js}"></script>
+</head>
+<body>
+    <p>
+        聊天室
+    </p>
+
+    <form id="wiselyForm">
+        <textarea rows="4" cols="60" name="text"></textarea>
+        <input type="submit"/>
+    </form>
+
+    <script th:inline="javascript">
+        $('#wiselyForm').submit(function(e){
+            e.preventDefault();
+            var text = $('#wiselyForm').find('textarea[name="text"]').val();
+            sendSpittle(text);
+        });
+        //链接endpoint名称为 "/endpointChat" 的endpoint。
+        let userId = 1;
+        let sock = new SockJS("/private");
+        let stomp = Stomp.over(sock);
+        stomp.connect({}, function(frame){
+            console.log('Connected:' + frame);
+            stomp.subscribe("/member/queue/msg", message=> {
+
+            });
+        });
+        function handleNotification(message) {
+            $('#output').append("<b>Received: " + message.body + "</b><br/>")
+        }
+        function sendSpittle(text) {
+            stomp.send("/app/chat", {}, JSON.stringify({ 'name': text }));//3
+        }
+        $('#stop').click(function() {sock.close()});
+
+    </script>
+
+    <div id="output"></div>
+</body>
+</html>

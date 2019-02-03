@@ -1,0 +1,81 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:tomcat.keystore
+    key-store-password: secret
+    key-store-type: PKCS12
+    key-alias: tomcat
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  profiles:
+    active: development
+  devtools:
+    add-properties: false
+  # mysql 数据库连接
+  datasource:
+    name: oa
+    url: jdbc:mysql://localhost:3306/oa?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # druid 数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # druid 连接池配置
+    druid:
+      filters: stat
+      # 连接池配置
+      max-active: 20
+      initial-size: 1
+      min-idle: 1
+      # 连接等待超时时间
+      max-wait: 60000
+      # 配置隔多久进行一次检测(检测可以关闭的空闲连接)
+      time-between-eviction-runs-millis: 60000
+      # 配置连接在池中的最小生存时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+  # redis 连接池配置
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+      shutdown-timeout: 100ms
+
+  # thymeleaf 配置
+  thymeleaf:
+    cache: true
+    prefix: classpath:/templates
+    suffix: .html
+    encoding: utf-8
+    servlet:
+      content-type: text/html
+    mode: HTML
+  # ico小图标配置
+  mvc:
+    favicon:
+      enabled: false
+# mybatis 配置
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.ccc.oa.model
+  configuration:
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: false
+    cache-enabled: true
+
+# 日志
+logging:
+  level:
+    com.ccc.oa.dao: off

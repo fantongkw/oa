@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="C:\Program Files (x86)\MySQL\Connector J 8.0\mysql-connector-java-8.0.12.jar" />
+
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接配置 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/oa?serverTimezone=UTC" userId="root" password="123456">
+        </jdbcConnection>
+
+        <!-- 实体类配置 -->
+        <javaModelGenerator targetPackage="com.ccc.oa.model"
+                            targetProject="src/main/java">
+            <property name="trimStrings" value="true" />
+            <property name="enableSubPackages" value="true" />
+        </javaModelGenerator>
+
+        <!-- mapper.xml配置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
+
+        <!-- mapper.java配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             implementationPackage="com.ccc.oa.dao.impl"
+                             targetPackage="com.ccc.oa.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaClientGenerator>
+
+        <!-- 表配置-->
+
+        <!--<table tableName="Department" mapperName="DepartmentDao" domainObjectName="Department" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>-->
+
+        <table tableName="User" mapperName="UserDao" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>
+
+        <!--<table tableName="User_has_Role" mapperName="User_has_RoleDao" domainObjectName="User_has_Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>
+
+        <table tableName="Role" mapperName="RoleDao" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>
+
+        <table tableName="Permission" mapperName="PermissionDao" domainObjectName="Permission" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>
+        <table tableName="Role_has_Permission" mapperName="Role_has_PermissionDao" domainObjectName="Role_has_Permission" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+
+        </table>-->
+    </context>
+</generatorConfiguration>

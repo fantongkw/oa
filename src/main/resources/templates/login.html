@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>登陆</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- endinject -->
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
+        <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
+          <div class="row w-100">
+            <div class="col-lg-4 mx-auto">
+              <div class="auto-form-wrapper">
+                <form id="login" th:action="@{/login}" method="post">
+                  <div th:if="${loginError}" class="alert alert-fill-danger" role="alert">
+                    <i class="mdi mdi-alert-circle"></i>
+                    用户名或密码错误
+                  </div>
+                  <div th:if="${logout}" class="alert alert-fill-success" role="alert">
+                    <i class="mdi mdi-alert-circle"></i>
+                    您已注销
+                  </div>
+                  <div class="form-group">
+                    <label class="label" for="username">用户名</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="username" name="username" minlength="4" placeholder="请输入用户名">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="mdi mdi-check-circle-outline"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="label" for="password">密码</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="请输入密码">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="mdi mdi-check-circle-outline"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary submit-btn btn-block">登陆</button>
+                  </div>
+                  <div class="form-group d-flex justify-content-between">
+                    <div class="form-check form-check-flat mt-0">
+                      <label class="form-check-label" for="remember-me">
+                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked/> 保持登录状态
+                        <i class="input-helper"></i>
+                      </label>
+                    </div>
+                    <a href="/reset_password" class="text-small forgot-password text-black">忘记密码</a>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-block g-login">
+                      <img class="mr-3" src="#" alt="">使用其他方式登录</button>
+                  </div>
+                  <div class="text-block text-center my-3">
+                    <span class="text-small font-weight-semibold">没有帐号？</span>
+                    <a href="/register" class="text-black text-small">建立新帐号</a>
+                  </div>
+                </form>
+              </div>
+              <ul class="auth-footer">
+                <li>
+                  <a href="#">Conditions</a>
+                </li>
+                <li>
+                  <a href="#">Help</a>
+                </li>
+                <li>
+                  <a href="#">Terms</a>
+                </li>
+              </ul>
+              <p class="footer-text text-center">copyright © 2018 ccc. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../static/js/plugins/vendor.bundle.base.js" th:src="@{/js/plugins/vendor.bundle.base.js}"></script>
+    <script src="../static/js/plugins/vendor.bundle.addons.js" th:src="@{/js/plugins/vendor.bundle.addons.js}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
+    <!-- End custom js for this page-->
+  </body>
+</html>

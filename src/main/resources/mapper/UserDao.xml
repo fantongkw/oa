@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccc.oa.dao.UserDao">
+  <resultMap id="BaseUserMap" type="com.ccc.oa.model.Member">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="profilePicture" jdbcType="VARCHAR" property="profilePicture" />
+    <result column="date" jdbcType="DATE" property="date"/>
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <association property="department" javaType="Department" fetchType="lazy" column="department_id" select="selectDept"/>
+    <association property="role" javaType="Role"  fetchType="lazy" column="id" select="selectRole"/>
+  </resultMap>
+
+  <sql id="Base_User_List">
+    id, department_id, role_id, username, password, name, gender, phoneNumber,
+    email, profilePicture, date, description
+  </sql>
+  <select id="selectAllUser" resultMap="BaseUserMap">
+    select
+    <include refid="Base_User_List" />
+    from member
+  </select>
+  <select id="selectById" resultMap="BaseUserMap">
+    select
+    <include refid="Base_User_List" />
+    from member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="loadUserByUsername" resultMap="BaseUserMap">
+    select
+    <include refid="Base_User_List" />
+    from member
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByEmail" resultMap="BaseUserMap">
+    select
+    <include refid="Base_User_List" />
+    from member
+    where email = #{email, jdbcType=VARCHAR}
+  </select>
+  <select id="selectDept" resultType="com.ccc.oa.model.Department">
+    select
+    id, name, date, description, parent_id
+    from department
+    where id = #{departmentId,jdbcType=BIGINT}
+  </select>
+  <select id="selectRole"  resultType="com.ccc.oa.model.Role">
+    select
+    id, name, description
+    from role
+    where id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="reg" useGeneratedKeys="true" keyProperty="id">
+    insert into member set username=#{username},password=#{password}
+  </insert>
+  <insert id="insert" parameterType="com.ccc.oa.model.Member">
+    insert into member (id, department_id, role_id, username, password,
+      name, gender, phoneNumber,
+      email, date, description)
+    values (#{id,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccc.oa.model.Member">
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="phoneNumber != null">
+        phoneNumber,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="profilePicture != null">
+        profilePicture,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="profilePicture != null">
+        #{profilePicture, jdbcType=VARCHAR}
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.ccc.oa.model.Member">
+    update member
+    <set>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="profilePicture != null">
+        profilePicture = #{profilePicture, jdbcType=VARCHAR}
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateById" parameterType="com.ccc.oa.model.Member">
+    update member
+    set
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      profilePicture = #{profilePicture, jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

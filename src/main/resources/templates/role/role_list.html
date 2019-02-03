@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>角色列表</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.base.css" th:href="@{/css/plugins/vendor.bundle.base.css}">
+    <link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.addons.css" th:href="@{/css/plugins/vendor.bundle.addons.css}">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../static/css/layout.css" th:href="@{/css/layout.css}">
+  </head>
+
+  <body>
+    <div id="app" class="container-scroller" v-cloak>
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+          <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+            <li class="nav-item">
+              <a href="#" class="nav-link">Schedule
+                <span class="badge badge-primary ml-1">New</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="mdi mdi-elevation-rise"></i>Reports</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-file-outline"></i>
+                <span class="count"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+                <a class="dropdown-item py-3">
+                  <p class="mb-0 font-weight-medium float-left"> </p>
+                  <span class="badge badge-pill badge-primary float-right"> </span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                  </div>
+                  <div class="preview-item-content flex-grow py-2">
+                    <p class="preview-subject ellipsis font-weight-medium text-dark"> </p>
+                    <p class="font-weight-light small-text"> </p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown ml-4">
+              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-bell-outline"></i>
+                <span class="count bg-success"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+                <a class="dropdown-item py-3 border-bottom">
+                  <p class="mb-0 font-weight-medium float-left"> </p>
+                  <span class="badge badge-pill badge-primary float-right"> </span>
+                </a>
+                <a class="dropdown-item preview-item py-3">
+                  <div class="preview-thumbnail">
+
+                  </div>
+                  <div class="preview-item-content">
+                    <h6 class="preview-subject font-weight-normal text-dark mb-1"></h6>
+                    <p class="font-weight-light small-text mb-0"></p>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li class="nav-item dropdown d-none d-xl-inline-block">
+              <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">登录</a>
+                <span>&nbsp/&nbsp</span>
+                <a th:href="@{/register}">注册</a>
+              </div>
+              <a class="nav-link dropdown-toggle" id="UserDropdown" sec:authorize="isAuthenticated()" href="#" data-toggle="dropdown" aria-expanded="false">
+                <span class="profile-text">欢迎, {{ username }}</span>
+                <span class="profile-image">
+                  <img class="img-xs rounded-circle" src="" :src="profilePicture" alt="Profile image">
+                </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                <a class="dropdown-item p-0">
+                  <div class="d-flex border-bottom">
+                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                      <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
+                    </div>
+                    <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
+                      <i class="mdi mdi-account-outline mr-0 text-gray"></i>
+                    </div>
+                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
+                      <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
+                    </div>
+                  </div>
+                </a>
+                <a class="dropdown-item mt-2" href="/personal/account">
+                  管理账号
+                </a>
+                <a class="dropdown-item" href="/personal/change_password">
+                  修改密码
+                </a>
+                <form action="#" th:action="@{/logout}" method="post">
+                  <button type="submit" class="dropdown-item">登出</button>
+                </form>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="icon-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <div class="nav-link" sec:authorize="isAnonymous()">
+                <div class="user-wrapper">
+                  <a th:href="@{/login}">登录</a>
+                  <span>&nbsp/&nbsp</span>
+                  <a th:href="@{/register}">注册</a>
+                </div>
+              </div>
+              <div class="nav-link" sec:authorize="isAuthenticated()">
+                <div class="user-wrapper">
+                  <div class="profile-image">
+                    <img src="" :src="profilePicture" alt="profile image">
+                  </div>
+                  <div class="text-wrapper">
+                    <p class="profile-name">
+                      <span>{{ username }}</span>
+                    </p>
+                    <div>
+                      <small class="designation text-muted"><span>{{ role }}</span></small>
+                      <span class="status-indicator online"></span>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-success btn-block">新的项目
+                  <i class="mdi mdi-plus"></i>
+                </button>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/home">
+                <i class="menu-icon mdi mdi-television"></i>
+                <span class="menu-title">主页</span>
+              </a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+              <a class="nav-link" href="/notice">
+                <i class="menu-icon mdi mdi-clipboard-alert"></i>
+                <span class="menu-title">通知</span>
+              </a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+              <a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-account"></i>
+                <span class="menu-title">个人中心</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="account">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/account">账号信息</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/dept_details">所属部门</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/role_details">拥有角色</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/upload">修改头像</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/change_password">修改密码</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/personal/chat">聊天</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+              <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false" aria-controls="apps-dropdown">
+                <i class="menu-icon mdi mdi-dna"></i>
+                <span class="menu-title">应用程序</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="apps-dropdown">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/app/email">电子邮件</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/app/calendar">日历事件</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_DEPTS')">
+              <a class="nav-link" data-toggle="collapse" href="#dept" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-briefcase"></i>
+                <span class="menu-title">部门管理</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="dept">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dept/dept_list">部门列表</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dept/dept_add">新增部门</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/dept/dept_update">修改部门</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USERS')">
+              <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-account-multiple"></i>
+                <span class="menu-title">员工管理</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="user">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/user/user_list">员工列表</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/user/user_add">新增员工</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/user/user_update">修改员工</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ROLES')">
+              <a class="nav-link" data-toggle="collapse" href="#role" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-account-key"></i>
+                <span class="menu-title">角色管理</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="role">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/role/role_list">角色列表</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/role/role_add">新增角色</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/role/role_update">修改角色</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">角色列表</h4>
+                    <div class="row">
+                      <div class="col-12">
+                        <table id="order-listing" class="table">
+                          <thead>
+                            <tr role="row">
+                              <th class="text-center">角色编号 #</th>
+                              <th class="text-center">角色名称</th>
+                              <th class="text-center">描述</th>
+                              <th class="text-center">状态</th>
+                              <th class="text-center">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr role="row" th:each="role : ${objects}">
+                              <td class="text-center"><span th:text="${role.id}"></span></td>
+                              <td class="text-center"><span th:text="${role.name}"></span></td>
+                              <td class="text-center"><span th:text="${role.description}"></span></td>
+                              <td class="text-center">
+                                <label class="badge badge-success">开启(待开发)</label>
+                              </td>
+                              <td class="text-center">
+                                <a th:href="@{'/role/role_update/' + ${role.id}}"><button class="btn btn-outline-warning">修改</button></a>
+                                <button id="delete" name="role" th:value="${role.id}" type="button" class="btn btn-outline-danger">删除</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+                <a href="#" target="_blank">ccc</a>. All rights reserved.</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <!-- plugins:js -->
+    <script src="../../static/js/plugins/vendor.bundle.base.js" th:src="@{/js/plugins/vendor.bundle.base.js}"></script>
+    <script src="../../static/js/plugins/vendor.bundle.addons.js" th:src="@{/js/plugins/vendor.bundle.addons.js}"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="../../static/js/inject/off-canvas.js" th:src="@{/js/inject/off-canvas.js}"></script>
+    <script src="../../static/js/inject/misc.js" th:src="@{/js/inject/misc.js}"></script>
+    <script src="../../static/js/inject/detail.js" th:src="@{/js/inject/detail.js}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="../../static/js/custom/table/data-table.js" th:src="@{/js/custom/table/data-table.js}"></script>
+    <script src="../../static/js/custom/alert.js" th:src="@{/js/custom/alert.js}"></script>
+    <!-- End custom js for this page-->
+  </body>
+
+</html>

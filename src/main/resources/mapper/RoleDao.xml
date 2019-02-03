@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccc.oa.dao.RoleDao">
+  <resultMap id="BaseRoleMap" type="com.ccc.oa.model.Role">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <collection property="members" ofType="User" column="id" fetchType="lazy" select="selectUsers"/>
+    <collection property="permissions" ofType="Permission" fetchType="lazy" column="id" select="selectPermissions"/>
+  </resultMap>
+  <sql id="Base_Role_List">
+    id, name, description
+  </sql>
+  <select id="selectAllRole" resultMap="BaseRoleMap">
+    select
+    <include refid="Base_Role_List" />
+    from role
+  </select>
+  <select id="selectById" resultMap="BaseRoleMap">
+    select
+    <include refid="Base_Role_List" />
+    from role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <!--resultMap="com.ccc.oa.dao.UserDao.BaseUserMap"-->
+  <select id="selectUsers" resultType="com.ccc.oa.model.Member">
+    select
+    id, department_id, role_id, username, password, name, gender, phoneNumber,
+    email, profilePicture, date, description
+    from member
+    where role_id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectPermissions" resultType="com.ccc.oa.model.Permission">
+    select
+    p.id, p.name, p.description, p.url, p.method
+    from permission p, role_has_permission rp, role r
+    where p.id = rp.Permission_id
+    and rp.Role_id = r.id
+    and r.id = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ccc.oa.model.Role">
+    insert into role (id, name, description)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ccc.oa.model.Role">
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.ccc.oa.model.Role">
+    update role
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateById" parameterType="com.ccc.oa.model.Role">
+    update role
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
