@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
             member.setRoleId(DEFAULT_ROLE_ID);
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             member.setProfilePicture(DEFAULT_PROFILE_PICTURE);
-            /*member.setDate(new java.sql.Date(new Date().getTime()));*/
+            member.setDate(new java.sql.Date(new Date().getTime()));
             return userDao.insertSelective(member);
         }
         return 0;

@@ -13,7 +13,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,8 +35,11 @@ public class UserController {
 
     @GetMapping(value = "/user_delete/{id}")
     public String delete(@PathVariable Long id) {
-        userService.deleteById(id);
-        return "redirect:/user/user_list";
+        int result = userService.deleteById(id);
+        if (result == 1) {
+            return "redirect:/user/user_list";
+        }
+        throw new CustomException("部门删除失败");
     }
 
     @GetMapping(value = "/user_add")
@@ -86,11 +88,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user_updated")
-    public String updated(@Validated Member member, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            List<ObjectError> errorList = result.getAllErrors();
-            throw new CustomException(errorList.toString());
-        }
+    public String updated(Member member, Model model) {
         int success = userService.updateByIdSelective(member);
         if (success == 1) {
             return "redirect:/user/user_list";

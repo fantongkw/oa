@@ -38,6 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find member " + username);
         }
         Role role = userDao.selectRole(member.getRoleId());
+        System.out.println(role);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         List<Permission> permissions = roleDao.selectPermissions(role.getId());
         for (Permission permission : permissions){

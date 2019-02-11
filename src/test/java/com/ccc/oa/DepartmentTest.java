@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Date;
+
 /**
  * @Created with IntelliJ IDEA.
  * @Author: ccc
@@ -26,7 +28,17 @@ public class DepartmentTest {
     @Test
     public void testSelectById(){
         Department department = departmentDao.selectById(1L);
-        System.out.println(department);
+        /*System.out.println(department);*/
+        department.getMembers().forEach(System.out::println);
+    }
 
+    @Test
+    public void testInsert(){
+        Department department = new Department();
+        department.setName("aaa");
+        department.setDescription("aaa");
+        department.setDate(new Date(new java.util.Date().getTime()));
+        int result = departmentDao.insertSelective(department);
+        System.out.println(result);
     }
 }

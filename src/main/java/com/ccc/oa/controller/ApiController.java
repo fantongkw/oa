@@ -1,10 +1,12 @@
 package com.ccc.oa.controller;
 
 import com.ccc.oa.model.Member;
+import com.ccc.oa.security.CurrentUser;
 import com.ccc.oa.service.UserService;
 import com.ccc.oa.utils.ResultMsg;
 import com.ccc.oa.utils.WeatherUtil;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +24,9 @@ public class ApiController {
     }
 
     @GetMapping("/user")
-    public ResultMsg getUserDetail(Principal principal){
-        if (principal != null) {
-            Member member = userService.loadUserByUsername(principal.getName());
+    public ResultMsg getUserDetail(@CurrentUser User user){
+        if (user != null) {
+            Member member = userService.loadUserByUsername(user.getUsername());
             return new ResultMsg(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), member);
         }
         return new ResultMsg(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());

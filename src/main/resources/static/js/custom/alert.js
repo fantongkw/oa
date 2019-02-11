@@ -1,6 +1,6 @@
 (function($) {
   $(function () {
-    $('#delete').on('click', function () {
+    $('.btn-outline-danger').on('click', function () {
       let eleType = this.name;
       let eleId = this.value;
       swal({
@@ -30,7 +30,6 @@
           axios
               .get(url)
               .then(response => {
-                console.log(response);
                 if (response.status === 200) {
                   swal({
                     title: '删除成功',

@@ -135,7 +135,7 @@
         #{email,jdbcType=VARCHAR},
       </if>
       <if test="profilePicture != null">
-        #{profilePicture, jdbcType=VARCHAR}
+        #{profilePicture, jdbcType=VARCHAR},
       </if>
       <if test="date != null">
         #{date,jdbcType=DATE},
@@ -173,7 +173,7 @@
         email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="profilePicture != null">
-        profilePicture = #{profilePicture, jdbcType=VARCHAR}
+        profilePicture = #{profilePicture, jdbcType=VARCHAR},
       </if>
       <if test="date != null">
         date = #{date,jdbcType=DATE},

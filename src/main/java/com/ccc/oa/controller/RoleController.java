@@ -34,8 +34,8 @@ public class RoleController {
 
     @GetMapping(value = "/role_delete/{id}")
     public String delete(@PathVariable Long id){
-        int success =  roleService.deleteById(id);
-        if (success == 1) {
+        int result =  roleService.deleteById(id);
+        if (result == 1) {
             return "/role/role_list";
         }
         throw new CustomException("角色删除失败");

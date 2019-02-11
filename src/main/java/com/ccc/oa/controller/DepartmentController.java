@@ -11,8 +11,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -31,11 +30,11 @@ public class DepartmentController {
         return "/dept/dept_list";
     }
 
-    @DeleteMapping(value = "/dept_delete/{id}")
+    @GetMapping(value = "/dept_delete/{id}")
     public String delete(@PathVariable Long id){
-        int success = departmentService.deleteById(id);
-        if (success == 1) {
-            return "/dept/dept_list";
+        int result = departmentService.deleteById(id);
+        if (result == 1) {
+            return "redirect:/dept/dept_list";
         }
         throw new CustomException("部门删除失败");
     }
@@ -45,13 +44,12 @@ public class DepartmentController {
         return "/dept/dept_add";
     }
 
-    @PostMapping(value = "/role_added")
+    @PostMapping(value = "/dept_added")
     public String added(@Validated Department department, BindingResult result, Model model) {
         if (result.hasErrors()) {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        /*department.setDate(new java.sql.Date(new Date().getTime()));*/
         int success = departmentService.insertSelective(department);
         if (success == 1) {
             return "redirect:/dept/dept_list";

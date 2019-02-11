@@ -76,7 +76,6 @@ public class Role implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", permissions='" + permissions + '\'' +
                 '}';
     }
 }

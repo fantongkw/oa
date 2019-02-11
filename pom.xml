@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>1.8</java.version>
-        <mybatis-spring-boot-starter.version>1.3.2</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
         <mysql.version>8.0.12</mysql.version>
         <pagehelper.version>1.2.5</pagehelper.version>
         <thymeleaf-extras-springsecurity5.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity5.version>
@@ -32,7 +32,7 @@
         <testcontainers.version>1.10.5</testcontainers.version>
         <!--<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>-->
-        <mybatis-generator-maven-plugin.version>1.3.6</mybatis-generator-maven-plugin.version>
+        <mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
     </properties>
 
     <dependencies>

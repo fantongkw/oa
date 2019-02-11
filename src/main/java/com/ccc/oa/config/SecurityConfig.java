@@ -37,13 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    /*.antMatchers("/registered").permitAll()
-                    .antMatchers("/personal/**").hasAnyRole("ROLE_USER")
-                    .antMatchers("/app/**").hasAnyRole("ROLE_USER")
-                    .antMatchers("/dept/**").hasAnyRole("ROLE_DEPTS")
-                    .antMatchers("/user/**").hasAnyRole("ROLE_USERS")
-                    .antMatchers("/role/**").hasAnyRole("ROLE_ROLES")
-                    .antMatchers("/notice").hasAnyRole("ROLE_USER")*/
+                    .antMatchers("/registered").permitAll()
+                    .antMatchers("/personal/**").hasRole("USER")
+                    .antMatchers("/app/**").hasRole("USER")
+                    .antMatchers("/dept/**").hasRole("DEPTS")
+                    .antMatchers("/user/**").hasRole("USERS")
+                    .antMatchers("/role/**").hasRole("ROLES")
+                    .antMatchers("/notice").hasRole("USER")
                     .antMatchers("/**").permitAll()
                     .and()
                 .sessionManagement()

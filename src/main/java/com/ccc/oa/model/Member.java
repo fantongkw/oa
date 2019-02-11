@@ -28,7 +28,7 @@ public class Member implements Serializable {
     private String name;
     private String gender;
     private String phoneNumber;
-    @Email(regexp = "/^([A-Za-z0-9_\\-\\.])+\\@([A-Za-z0-9_\\-\\.])+\\.([A-Za-z]{2,4})$/", message = "邮箱格式不正确")
+    @Email(regexp = "/^[a-z0-9]+@([a-z0-9]+\\.)+[a-z]{2,4}$/", message = "邮箱格式不正确")
     private String email;
     private String profilePicture;
     @JsonFormat(pattern="yyyy-MM-dd")

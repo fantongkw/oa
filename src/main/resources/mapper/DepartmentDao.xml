@@ -33,8 +33,8 @@
   </select>
   <select id="selectUsers" resultType="com.ccc.oa.model.Member">
     select
-    id, department_id, name, gender, phoneNumber,
-    email, date, description
+    id, department_id, role_id, username, password, name, gender, phoneNumber,
+    email, profilePicture, date, description
     from member
     where department_id = #{id, jdbcType=BIGINT}
   </select>

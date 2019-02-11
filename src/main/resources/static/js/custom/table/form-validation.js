@@ -2,8 +2,12 @@
   'use strict';
   $.validator.addMethod("isPhone", function(value, element) {
     let length = value.length;
-    let mobile = /^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$/;
+    let mobile = /^1[3,5,6,7,8,9]\d{9}$/;
     return this.optional(element) || (length === 11 && mobile.test(value));
+  });
+  $.validator.addMethod("isEmail", function(value, element) {
+    let email = /^[a-z0-9]+@([a-z0-9]+\.)+[a-z]{2,4}$/i;
+    return this.optional(element) || (email.test(value));
   });
   $(function () {
     $('#login').validate({
@@ -158,7 +162,6 @@
       rules: {
         id: {
           required: true,
-          minlength: 1
         },
         name: {
           required: true,
@@ -171,8 +174,7 @@
       },
       messages: {
         id: {
-          required: "请输入部门编号",
-          minlength: "部门编号必须至少包含1个字符"
+          required: "请选择部门编号",
         },
         name: {
           required: "请输入部门名称",
@@ -222,7 +224,6 @@
       rules: {
         id: {
           required: true,
-          minlength: 1
         },
         name: {
           required: true,
@@ -235,8 +236,7 @@
       },
       messages: {
         id: {
-          required: "请输入角色编号",
-          minlength: "角色编号必须至少包含1个字符"
+          required: "请选择角色编号",
         },
         name: {
           required: "请输入角色名称",
@@ -258,8 +258,6 @@
       rules: {
         department: {
           required: true,
-          minlength: 4,
-          maxlength: 20
         },
         name: {
           required: true,
@@ -282,9 +280,7 @@
       },
       messages: {
         department: {
-          required: "请输入部门名称",
-          minlength: "部门名称必须至少包含4个字符",
-          maxlength: "部门名称必须至少包含4个字符"
+          required: "请选择部门",
         },
         name: {
           required: "请输入员工名称",
@@ -316,8 +312,6 @@
       rules: {
         department: {
           required: true,
-          minlength: 4,
-          maxlength: 20
         },
         name: {
           required: true,
@@ -331,8 +325,7 @@
           isPhone: true
         },
         email: {
-          required: true,
-          email: true
+          isEmail: true
         },
         description: {
           maxlength: 100
@@ -340,9 +333,7 @@
       },
       messages: {
         department: {
-          required: "请输入部门名称",
-          minlength: "部门名称必须至少包含4个字符",
-          maxlength: "部门名称必须至少包含4个字符"
+          required: "请输入部门名称"
         },
         name: {
           required: "请输入员工名称",
@@ -356,8 +347,7 @@
           isPhone: "请填写正确的手机号码"
         },
         email: {
-          required: "请输入员工电子邮箱",
-          email: "请输入有效的电子邮件地址"
+          isEmail: "请输入有效的电子邮件地址"
         },
         description: {
           maxlength: "员工描述必须最多包含100个字符"
