@@ -301,14 +301,14 @@
                       </div>
                       <div class="form-group">
                         <label for="department">所属部门</label>
-                        <select class="form-control" id="department" name="department">
+                        <select class="form-control" id="department" name="departmentId">
                           <option value="">请选择部门</option>
-                          <option th:each="department : ${objects}" th:value="${department.id}" th:text="${department.name}" th:selected="${objectId.department ne null ? objectId.department.name : null}">department</option>
+                          <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}" th:selected="${objectId.department ne null ? department.name eq objectId.department.name : null}">department</option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="name">姓名</label>
-                        <input type="text" class="form-control" id="name" name="name" minlength="4" maxlength="20" th:value="${objectId.name ne null ? objectId.name : null}" placeholder="请输入姓名">
+                        <input type="text" class="form-control" id="name" name="name" minlength="4" maxlength="10" th:value="${objectId.name ne null ? objectId.name : null}" placeholder="请输入姓名">
                       </div>
                       <div class="form-group">
                         <label for="gender">性别</label>

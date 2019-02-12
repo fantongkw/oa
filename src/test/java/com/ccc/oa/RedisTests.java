@@ -13,7 +13,7 @@ import java.util.Set;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Component
-public class RedisTest {
+public class RedisTests {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

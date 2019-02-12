@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Service(value = "userService")
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
             member.setRoleId(DEFAULT_ROLE_ID);
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             member.setProfilePicture(DEFAULT_PROFILE_PICTURE);
-            member.setDate(new java.sql.Date(new Date().getTime()));
+            member.setDate(new Date(new java.util.Date().getTime()));
             return userDao.insertSelective(member);
         }
         return 0;
@@ -90,9 +90,15 @@ public class UserServiceImpl implements UserService {
     public int updateByIdSelective(Member member) {
         Member duplicate = userDao.loadUserByUsername(member.getUsername());
         if (duplicate == null) {
-            member.setPassword(passwordEncoder.encode(member.getPassword()));
             return userDao.updateByIdSelective(member);
         }
         return 0;
+    }
+
+    @Transactional
+    @Override
+    public int changePassword(Member member, String password) {
+        member.setPassword(passwordEncoder.encode(password));
+        return userDao.updateByIdSelective(member);
     }
 }

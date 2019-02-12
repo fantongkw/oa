@@ -135,7 +135,7 @@
         name: {
           required: true,
           minlength: 4,
-          maxlength: 20
+          maxlength: 12
         },
         description: {
           maxlength: 100
@@ -145,7 +145,7 @@
         name: {
           required: "请输入部门名称",
           minlength: "部门名称必须至少包含4个字符",
-          maxlength: "部门名称必须最多包含20个字符"
+          maxlength: "部门名称必须最多包含12个字符"
         },
         description: {
           maxlength: "部门描述必须最多包含100个字符"
@@ -166,7 +166,7 @@
         name: {
           required: true,
           minlength: 4,
-          maxlength: 20
+          maxlength: 12
         },
         description: {
           maxlength: 100
@@ -179,7 +179,7 @@
         name: {
           required: "请输入部门名称",
           minlength: "部门名称必须至少包含4个字符",
-          maxlength: "部门名称必须最多包含20个字符"
+          maxlength: "部门名称必须最多包含12个字符"
         },
         description: {
           maxlength: "部门描述必须最多包含100个字符"
@@ -256,13 +256,23 @@
   $(function () {
     $('#user-add-validation').validate({
       rules: {
-        department: {
+        username: {
+          required: true,
+          minlength: 4,
+          maxlength: 20
+        },
+        password: {
+          required: true,
+          minlength: 8,
+          maxlength: 20
+        },
+        departmentId: {
           required: true,
         },
         name: {
           required: true,
           minlength: 4,
-          maxlength: 20
+          maxlength: 10
         },
         gender: {
           required: true
@@ -279,13 +289,23 @@
         }
       },
       messages: {
-        department: {
+        username: {
+          required: "请输入账户名称",
+          minlength: "账户名称必须至少包含4个字符",
+          maxlength: "账户名称必须最多包含20个字符"
+        },
+        password: {
+          required: "请输入账户密码",
+          minlength: "账户密码必须至少包含8个字符",
+          maxlength: "账户密码必须最多包含20个字符"
+        },
+        departmentId: {
           required: "请选择部门",
         },
         name: {
           required: "请输入员工名称",
           minlength: "员工名称必须至少包含4个字符",
-          maxlength: "员工名称必须最多包含20个字符"
+          maxlength: "员工名称必须最多包含10个字符"
         },
         gender: {
           required: "请输入员工性别",
@@ -310,13 +330,13 @@
   $(function () {
     $('#user-update-validation').validate({
       rules: {
-        department: {
+        departmentId: {
           required: true,
         },
         name: {
           required: true,
           minlength: 4,
-          maxlength: 20
+          maxlength: 10
         },
         gender: {
           required: true
@@ -332,13 +352,13 @@
         }
       },
       messages: {
-        department: {
+        departmentId: {
           required: "请输入部门名称"
         },
         name: {
           required: "请输入员工名称",
           minlength: "员工名称必须至少包含4个字符",
-          maxlength: "员工名称必须最多包含20个字符"
+          maxlength: "员工名称必须最多包含10个字符"
         },
         gender: {
           required: "请输入员工性别",

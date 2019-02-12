@@ -20,7 +20,7 @@ import java.sql.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class DepartmentTest {
+public class DepartmentTests {
 
     @Autowired
     private DepartmentDao departmentDao;

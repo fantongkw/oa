@@ -11,7 +11,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -26,14 +25,21 @@ public class DepartmentController {
 
     @GetMapping(value = "/dept_list")
     public String list(Model model){
-        model.addAttribute("objects", departmentService.selectAllDept());
+        Department department = new Department();
+        List<Department> objects = departmentService.selectAllDept();
+        for (Department dept : objects) {
+            if (dept.getParent() == null) {
+                dept.setParent(department);
+            }
+        }
+        model.addAttribute("objects", objects);
         return "/dept/dept_list";
     }
 
     @GetMapping(value = "/dept_delete/{id}")
     public String delete(@PathVariable Long id){
-        int result = departmentService.deleteById(id);
-        if (result == 1) {
+        int queryResult = departmentService.deleteById(id);
+        if (queryResult == 1) {
             return "redirect:/dept/dept_list";
         }
         throw new CustomException("部门删除失败");
@@ -50,8 +56,8 @@ public class DepartmentController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int success = departmentService.insertSelective(department);
-        if (success == 1) {
+        int queryResult = departmentService.insertSelective(department);
+        if (queryResult == 1) {
             return "redirect:/dept/dept_list";
         }else {
             model.addAttribute("error", true);
@@ -86,8 +92,8 @@ public class DepartmentController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int success = departmentService.updateByIdSelective(department);
-        if (success == 1) {
+        int queryResult = departmentService.updateByIdSelective(department);
+        if (queryResult == 1) {
             return "redirect:/dept/dept_list";
         }else {
             model.addAttribute("error", true);

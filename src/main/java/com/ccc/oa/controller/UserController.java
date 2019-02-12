@@ -35,8 +35,8 @@ public class UserController {
 
     @GetMapping(value = "/user_delete/{id}")
     public String delete(@PathVariable Long id) {
-        int result = userService.deleteById(id);
-        if (result == 1) {
+        int queryResult = userService.deleteById(id);
+        if (queryResult == 1) {
             return "redirect:/user/user_list";
         }
         throw new CustomException("部门删除失败");
@@ -57,8 +57,9 @@ public class UserController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int success = userService.insertSelective(member);
-        if (success == 1) {
+        System.out.println(member);
+        int queryResult = userService.insertSelective(member);
+        if (queryResult == 1) {
             return "redirect:/user/user_list";
         } else {
             model.addAttribute("error", true);
@@ -73,6 +74,8 @@ public class UserController {
         model.addAttribute("objectId", objectId);
         List<Member> objects = userService.selectAllUser();
         model.addAttribute("objects", objects);
+        List<Department> departments = departmentService.selectAllDept();
+        model.addAttribute("departments", departments);
         return "/user/user_update";
     }
 
@@ -82,6 +85,8 @@ public class UserController {
             Member objectId = userService.selectById(id);
             model.addAttribute("objectId", objectId);
         }
+        List<Department> departments = departmentService.selectAllDept();
+        model.addAttribute("departments", departments);
         List<Member> objects = userService.selectAllUser();
         model.addAttribute("objects", objects);
         return "/user/user_update";
@@ -89,8 +94,8 @@ public class UserController {
 
     @PostMapping(value = "/user_updated")
     public String updated(Member member, Model model) {
-        int success = userService.updateByIdSelective(member);
-        if (success == 1) {
+        int queryResult = userService.updateByIdSelective(member);
+        if (queryResult == 1) {
             return "redirect:/user/user_list";
         }else {
             model.addAttribute("error", true);

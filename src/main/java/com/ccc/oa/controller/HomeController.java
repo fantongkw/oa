@@ -13,8 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
@@ -33,13 +31,11 @@ public class HomeController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public HomeController(UserService userService, AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+    public HomeController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
     }
 
 
@@ -91,8 +87,7 @@ public class HomeController {
         String password = member.getPassword();
         try{
             userService.insertSelective(member);
-            UserDetails user = userDetailsService.loadUserByUsername(member.getUsername());
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, password);
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member.getUsername(), password);
             token.setDetails(new WebAuthenticationDetails(request));
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);

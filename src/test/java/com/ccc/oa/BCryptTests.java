@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-public class BCryptTest {
+public class BCryptTests {
     @Test
     public void test(){
         String pass = "12345678";

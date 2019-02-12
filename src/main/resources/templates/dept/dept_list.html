@@ -288,22 +288,26 @@
                     <table id="order-listing" class="table">
                       <thead>
                         <tr>
-                          <th class="text-center">部门编号 #</th>
+                          <th class="text-center">编号</th>
                           <th class="text-center">名称</th>
                           <th class="text-center">日期</th>
                           <th class="text-center">描述</th>
+                          <th class="text-center">上级部门</th>
                           <th class="text-center">状态</th>
                           <th class="text-center">操作</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr th:each="dept : ${objects}">
-                          <td class="text-center"><span  th:text="${dept.id}"></span></td>
-                          <td class="text-center"><span  th:text="${dept.name}"></span></td>
-                          <td class="text-center"><span  th:text="${dept.date}"></span></td>
-                          <td class="text-center"><span  th:text="${dept.description}"></span></td>
+                          <td class="text-center"><span th:text="${dept.id}"></span></td>
+                          <td class="text-center"><span th:text="${dept.name}"></span></td>
+                          <td class="text-center"><span th:text="${dept.date}"></span></td>
                           <td class="text-center">
-                            <label class="badge badge-success">开启(待开发)</label>
+                            <button type="button" class="btn btn-outline-info" data-container="body" data-toggle="popover" data-placement="bottom" th:attr="data-content=${dept.description}">查看</button>
+                          </td>
+                          <td class="text-center"><span th:text="${dept.parent ne null ? dept.parent.name : null}"></span></td>
+                          <td class="text-center">
+                            <label class="badge badge-success">(test)</label>
                           </td>
                           <td class="text-center">
                             <a th:href="@{'/dept/dept_update/' + ${dept.id}}"><button class="btn btn-outline-warning">修改</button></a>
@@ -346,6 +350,11 @@
     <!-- Custom js for this page-->
     <script src="../../static/js/custom/table/data-table.js" th:src="@{/js/custom/table/data-table.js}"></script>
     <script src="../../static/js/custom/alert.js" th:src="@{/js/custom/alert.js}"></script>
+    <script>
+      $(function () {
+        $("[data-toggle='popover']").popover();
+      });
+    </script>
     <!-- End custom js for this page-->
   </body>
 

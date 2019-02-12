@@ -27,4 +27,6 @@ public interface UserService {
 
     int updateByIdSelective(Member member);
 
+    int changePassword(Member member, String password);
+
 }

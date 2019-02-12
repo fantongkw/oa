@@ -23,7 +23,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class RoleTest {
+public class RoleTests {
     @Autowired
     private UserDao userDao;
 
@@ -32,7 +32,7 @@ public class RoleTest {
 
     @Test
     public void testSelectById(){
-        Member member = userDao.selectById(1L);
+        Member member = userDao.selectById(5L);
         Role role = userDao.selectRole(member.getRoleId());
         List<Permission> permissions = roleService.selectPermissions(role.getId());
         permissions.forEach(System.out::println);

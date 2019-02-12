@@ -59,7 +59,7 @@ public class PersonalController {
     }
 
     @GetMapping("/change_password")
-    public String updatePassword(){
+    public String changePassword(){
         return "/personal/change_password";
     }
 
@@ -69,7 +69,7 @@ public class PersonalController {
          return "redirect:/personal/change_password";
         }
         Member member = userService.loadUserByUsername(user.getUsername());
-        int success = userService.updateByIdSelective(member);
+        int success = userService.changePassword(member, password);
         if (success == 1) {
             session.invalidate();
             return "redirect:/login";

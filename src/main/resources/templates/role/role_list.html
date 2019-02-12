@@ -290,7 +290,7 @@
                         <table id="order-listing" class="table">
                           <thead>
                             <tr role="row">
-                              <th class="text-center">角色编号 #</th>
+                              <th class="text-center">编号</th>
                               <th class="text-center">角色名称</th>
                               <th class="text-center">描述</th>
                               <th class="text-center">状态</th>
@@ -301,9 +301,11 @@
                             <tr role="row" th:each="role : ${objects}">
                               <td class="text-center"><span th:text="${role.id}"></span></td>
                               <td class="text-center"><span th:text="${role.name}"></span></td>
-                              <td class="text-center"><span th:text="${role.description}"></span></td>
+                              <td class="text-center ellipsis">
+                                <button type="button" class="btn btn-outline-info" data-container="body" data-toggle="popover" data-placement="bottom" th:attr="data-content=${role.description}">查看</button>
+                              </td>
                               <td class="text-center">
-                                <label class="badge badge-success">开启(待开发)</label>
+                                <label class="badge badge-success">(test)</label>
                               </td>
                               <td class="text-center">
                                 <a th:href="@{'/role/role_update/' + ${role.id}}"><button class="btn btn-outline-warning">修改</button></a>
@@ -347,6 +349,11 @@
     <!-- Custom js for this page-->
     <script src="../../static/js/custom/table/data-table.js" th:src="@{/js/custom/table/data-table.js}"></script>
     <script src="../../static/js/custom/alert.js" th:src="@{/js/custom/alert.js}"></script>
+    <script>
+      $(function () {
+        $("[data-toggle='popover']").popover();
+      });
+    </script>
     <!-- End custom js for this page-->
   </body>
 

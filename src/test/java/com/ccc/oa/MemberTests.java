@@ -1,8 +1,8 @@
 package com.ccc.oa;
 
-import com.ccc.oa.dao.RoleDao;
 import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
+import com.ccc.oa.model.Role;
 import com.ccc.oa.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.sql.Date;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest
 public class MemberTests {
 
     @Autowired
@@ -23,14 +23,18 @@ public class MemberTests {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private RoleDao roleDao;
 
     @Test
     public void testSelectById(){
-        Member list = userService.selectById(1L);
-        /*System.out.println(list.getDepartment().getName());*/
-        System.out.println(list.getRole().getName());
+        Member list = userService.selectById(5L);
+        System.out.println(list);
+    }
+
+    @Test
+    public void testSelectRole(){
+        Member list = userService.selectById(11L);
+        Role role = userService.selectRole(list.getRoleId());
+        System.out.println(role);
     }
 
     @Test

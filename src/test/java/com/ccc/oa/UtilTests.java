@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
-public class UtilTest {
+public class UtilTests {
     @Test
     public void test(){
         String password = "password";

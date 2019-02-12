@@ -288,7 +288,7 @@
                     <table id="order-listing" class="table">
                       <thead>
                         <tr>
-                          <th class="text-center">员工编号 #</th>
+                          <th class="text-center">编号</th>
                           <th class="text-center">所属部门</th>
                           <th class="text-center">姓名</th>
                           <th class="text-center">性别</th>
@@ -296,7 +296,6 @@
                           <th class="text-center">电子邮箱</th>
                           <th class="text-center">日期</th>
                           <th class="text-center">描述</th>
-                          <th class="text-center">状态</th>
                           <th class="text-center">操作</th>
                         </tr>
                       </thead>
@@ -307,11 +306,12 @@
                           <td class="text-center"><span  th:text="${user.name}"></span></td>
                           <td class="text-center"><span  th:text="${user.gender}"></span></td>
                           <td class="text-center"><span  th:text="${user.phoneNumber}"></span></td>
-                          <td class="text-center"><span  th:text="${user.email}"></span></td>
-                          <td class="text-center"><span  th:text="${user.date}"></span></td>
-                          <td class="text-center"><span  th:text="${user.description}"></span></td>
                           <td class="text-center">
-                            <label class="badge badge-success">开启(待开发)</label>
+                            <button type="button" class="btn btn-outline-info" data-container="body" data-toggle="popover" data-placement="bottom" th:attr="data-content=${user.email}">查看</button>
+                          </td>
+                          <td class="text-center"><span  th:text="${user.date}"></span></td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-outline-info" data-container="body" data-toggle="popover" data-placement="bottom" th:attr="data-content=${user.description}">查看</button>
                           </td>
                           <td class="text-center">
                             <a th:href="@{'/user/user_update/' + ${user.id}}"><button class="btn btn-outline-warning">修改</button></a>
@@ -354,6 +354,11 @@
     <!-- Custom js for this page-->
     <script src="../../static/js/custom/table/data-table.js" th:src="@{/js/custom/table/data-table.js}"></script>
     <script src="../../static/js/custom/alert.js" th:src="@{/js/custom/alert.js}"></script>
+    <script>
+      $(function () {
+        $("[data-toggle='popover']").popover();
+      });
+    </script>
     <!-- End custom js for this page-->
   </body>
 

@@ -3,7 +3,6 @@ package com.ccc.oa.controller;
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Role;
 import com.ccc.oa.service.RoleService;
-import com.ccc.oa.utils.ResultMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -34,8 +32,8 @@ public class RoleController {
 
     @GetMapping(value = "/role_delete/{id}")
     public String delete(@PathVariable Long id){
-        int result =  roleService.deleteById(id);
-        if (result == 1) {
+        int queryResult =  roleService.deleteById(id);
+        if (queryResult == 1) {
             return "/role/role_list";
         }
         throw new CustomException("角色删除失败");
@@ -52,8 +50,8 @@ public class RoleController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int success = roleService.insertSelective(role);
-        if (success == 1) {
+        int queryResult = roleService.insertSelective(role);
+        if (queryResult == 1) {
             return "redirect:/role/role_list";
         }else {
             model.addAttribute("error", true);
@@ -88,8 +86,8 @@ public class RoleController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int success = roleService.updateByIdSelective(role);
-        if (success == 1) {
+        int queryResult = roleService.updateByIdSelective(role);
+        if (queryResult == 1) {
             return "redirect:/role/role_list";
         }else {
             model.addAttribute("error", true);
