@@ -2,25 +2,23 @@ package com.ccc.oa.dao;
 
 import com.ccc.oa.model.Permission;
 import com.ccc.oa.model.Role;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository(value = "permissionDao")
 public interface PermissionDao {
-    int deleteByPrimaryKey(Long id);
+    int deleteById(@Param("id") Long id);
 
-    int insert(Permission record);
-
-    int insertSelective(Permission record);
+    int insert(Permission permission);
 
     List<Permission> selectAllPermission();
 
-    Permission selectById(Long id);
+    Permission selectById(@Param("id") Long id);
 
-    List<Role> selectRole(Long id);
+    List<Role> selectRoles(@Param("id") Long id);
 
-    int updateByPrimaryKeySelective(Permission record);
+    int updateById(Permission permission);
 
-    int updateByPrimaryKey(Permission record);
 }

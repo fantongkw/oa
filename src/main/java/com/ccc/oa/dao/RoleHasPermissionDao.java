@@ -7,8 +7,14 @@ import java.util.List;
 
 @Repository(value = "roleHasPermissionDao")
 public interface RoleHasPermissionDao {
-    int deleteByPrimaryKey(@Param("roleId") Long roleId, @Param("permissionId") Long permissionId);
+    int deleteById(@Param("roleId") Long roleId, @Param("permissionId") Long permissionId);
 
-    int insert(@Param("roleId") Long roleId, @Param("list") List<Long> permissionId);
+    int deleteByRoleId(@Param("roleId") Long roleId);
+
+    int deleteByPermissionId(@Param("permissionId") Long permissionId);
+
+    int insertPermissions(@Param("roleId") Long roleId, @Param("list") List<Long> permissionId);
+
+    int insertRoles(@Param("roleId") List<Long> roleId, @Param("list") Long permissionId);
 
 }

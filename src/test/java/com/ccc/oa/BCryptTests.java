@@ -12,6 +12,7 @@ public class BCryptTests {
         String pass = "12345678";
         BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
         String hashPass = encode.encode(pass);
-        System.out.println(hashPass);
+        boolean flag = encode.matches("12313123", hashPass);
+        System.out.println(flag);
     }
 }

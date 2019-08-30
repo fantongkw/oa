@@ -43,7 +43,7 @@ public class RoleTests {
         Role role = new Role();
         role.setId(6L);
         role.setName("test");
-        int i = roleService.insertSelective(role);
+        int i = roleService.insert(role);
         System.out.println(i);
     }
 

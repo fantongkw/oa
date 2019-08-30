@@ -7,6 +7,8 @@ import com.ccc.oa.model.Role;
 import com.ccc.oa.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service(value = "roleService")
@@ -14,30 +16,22 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleDao roleDao;
 
-    @Override
-    public int deleteById(Long id) {
-        Role role = roleDao.selectById(id);
-        if (role != null) {
-            return roleDao.deleteById(id);
-        }
-        return 0;
-    }
-
     @Autowired
     public RoleServiceImpl(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
 
+    @Transactional
     @Override
-    public int insert(Role role) {
-        return roleDao.insert(role);
+    public int deleteById(Long id) {
+        return roleDao.deleteById(id);
     }
 
+    @Transactional
     @Override
-    public int insertSelective(Role role) {
-        Role duplicate = roleDao.selectById(role.getId());
-        if (duplicate == null) {
-            return roleDao.insertSelective(role);
+    public int insert(Role role) {
+        if (!isExist(role)) {
+            return roleDao.insert(role);
         }
         return 0;
     }
@@ -62,13 +56,20 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.selectPermissions(roleId);
     }
 
-    @Override
-    public int updateByIdSelective(Role role) {
-        return roleDao.updateByIdSelective(role);
-    }
-
+    @Transactional
     @Override
     public int updateById(Role role) {
-        return roleDao.updateById(role);
+        if (isExist(role)) {
+            return roleDao.updateById(role);
+        }
+        return 0;
+    }
+
+    private boolean isExist(Role role) {
+        if (null != role) {
+            Role exist = roleDao.selectById(role.getId());
+            return null != exist;
+        }
+        return false;
     }
 }

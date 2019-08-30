@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MD5Util extends DigestUtils {
-    private static final String SALT = "";
+    private static final String SALT = "m";
     private static final char[] HEX_CHARS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     private static byte[] digest(byte[] bytes) {

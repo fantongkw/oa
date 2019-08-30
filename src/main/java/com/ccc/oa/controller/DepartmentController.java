@@ -26,23 +26,21 @@ public class DepartmentController {
     @GetMapping(value = "/dept_list")
     public String list(Model model){
         Department department = new Department();
-        List<Department> objects = departmentService.selectAllDept();
-        for (Department dept : objects) {
-            if (dept.getParent() == null) {
+        List<Department> objects = departmentService.selectAllDepartment();
+        objects.forEach(dept -> {
+            if (null == dept.getParent()) {
                 dept.setParent(department);
             }
-        }
+        });
         model.addAttribute("objects", objects);
         return "/dept/dept_list";
     }
 
-    @GetMapping(value = "/dept_delete/{id}")
-    public String delete(@PathVariable Long id){
+    @PostMapping(value = "/dept_delete/{id}")
+    @ResponseBody
+    public boolean delete(@PathVariable Long id){
         int queryResult = departmentService.deleteById(id);
-        if (queryResult == 1) {
-            return "redirect:/dept/dept_list";
-        }
-        throw new CustomException("部门删除失败");
+        return queryResult == 1;
     }
 
     @GetMapping(value = "/dept_add")
@@ -56,12 +54,12 @@ public class DepartmentController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int queryResult = departmentService.insertSelective(department);
+        int queryResult = departmentService.insert(department);
         if (queryResult == 1) {
             return "redirect:/dept/dept_list";
         }else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "部门添加失败");
             return "/dept/dept_add";
         }
     }
@@ -70,7 +68,7 @@ public class DepartmentController {
     public String update(Model model){
         Department objectId = new Department();
         model.addAttribute("objectId", objectId);
-        List<Department> objects = departmentService.selectAllDept();
+        List<Department> objects = departmentService.selectAllDepartment();
         model.addAttribute("objects", objects);
         return "/dept/dept_update";
     }
@@ -81,7 +79,7 @@ public class DepartmentController {
             Department objectId = departmentService.selectById(id);
             model.addAttribute("objectId", objectId);
         }
-        List<Department> objects = departmentService.selectAllDept();
+        List<Department> objects = departmentService.selectAllDepartment();
         model.addAttribute("objects", objects);
         return "/dept/dept_update";
     }
@@ -92,12 +90,12 @@ public class DepartmentController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int queryResult = departmentService.updateByIdSelective(department);
+        int queryResult = departmentService.updateById(department);
         if (queryResult == 1) {
             return "redirect:/dept/dept_list";
         }else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "部门更新失败");
             return "/dept/dept_update";
         }
     }

@@ -3,29 +3,34 @@ package com.ccc.oa.service.impl;
 
 import com.ccc.oa.dao.PermissionDao;
 import com.ccc.oa.model.Permission;
+import com.ccc.oa.model.Role;
 import com.ccc.oa.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service(value = "permissionService")
 public class PermissionServiceImpl implements PermissionService {
 
+    private final PermissionDao permissionDao;
+
     @Autowired
-    private PermissionDao permissionDao;
-
-    @Override
-    public int deleteByPrimaryKey(Long id) {
-        return permissionDao.deleteByPrimaryKey(id);
+    public PermissionServiceImpl(PermissionDao permissionDao) {
+        this.permissionDao = permissionDao;
     }
 
+    @Transactional
     @Override
-    public int insert(Permission record) {
-        return permissionDao.insert(record);
+    public int deleteById(Long id) {
+        return permissionDao.deleteById(id);
     }
 
+    @Transactional
     @Override
-    public int insertSelective(Permission record) {
-        return permissionDao.insertSelective(record);
+    public int insert(Permission permission) {
+        return permissionDao.insert(permission);
     }
 
     @Override
@@ -34,12 +39,18 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Permission record) {
-        return permissionDao.updateByPrimaryKeySelective(record);
+    public List<Permission> selectAllPermission() {
+        return permissionDao.selectAllPermission();
     }
 
     @Override
-    public int updateByPrimaryKey(Permission record) {
-        return permissionDao.updateByPrimaryKey(record);
+    public List<Role> selectRoles(Long id) {
+        return permissionDao.selectRoles(id);
+    }
+
+    @Transactional
+    @Override
+    public int updateById(Permission permission) {
+        return permissionDao.updateById(permission);
     }
 }

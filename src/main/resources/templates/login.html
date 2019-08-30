@@ -21,7 +21,7 @@
           <div class="row w-100">
             <div class="col-lg-4 mx-auto">
               <div class="auto-form-wrapper">
-                <form id="login" th:action="@{/login}" method="post">
+                <form id="login" class="forms-sample" th:action="@{/login}" method="post">
                   <div th:if="${loginError}" class="alert alert-fill-danger" role="alert">
                     <i class="mdi mdi-alert-circle"></i>
                     用户名或密码错误
@@ -44,16 +44,29 @@
                   <div class="form-group">
                     <label class="label" for="password">密码</label>
                     <div class="input-group">
-                      <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="请输入密码">
+                      <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="请输入密码" autocomplete>
                       <div class="input-group-append">
                         <span class="input-group-text">
-                          <i class="mdi mdi-check-circle-outline"></i>
+                          <i class="mdi mdi-check-circle-outline" aria-label="success"></i>
                         </span>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-primary submit-btn btn-block">登陆</button>
+                    <label class="label">完成验证：</label>
+                    <div id="captcha" name="captcha" >
+                      <div id="wait" class="bar-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                    <br>
+                    <p id="notice" class="text-danger" style="display: none;">请先完成验证</p>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary submit-btn btn-block" >登陆</button>
                   </div>
                   <div class="form-group d-flex justify-content-between">
                     <div class="form-check form-check-flat mt-0">
@@ -64,28 +77,20 @@
                     </div>
                     <a href="/reset_password" class="text-small forgot-password text-black">忘记密码</a>
                   </div>
-                  <div class="form-group">
-                    <button class="btn btn-block g-login">
-                      <img class="mr-3" src="#" alt="">使用其他方式登录</button>
-                  </div>
-                  <div class="text-block text-center my-3">
-                    <span class="text-small font-weight-semibold">没有帐号？</span>
-                    <a href="/register" class="text-black text-small">建立新帐号</a>
-                  </div>
                 </form>
+                <div class="form-qrcode" style="display: none;">
+                  <div class="qrcode">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button id="other" class="btn btn-block g-login">使用其他方式登录</button>
+                </div>
+                <div class="text-block text-center my-3">
+                  <span class="text-small font-weight-semibold">没有帐号？</span>
+                  <a href="/register" class="text-black text-small">建立新帐号</a>
+                </div>
               </div>
-              <ul class="auth-footer">
-                <li>
-                  <a href="#">Conditions</a>
-                </li>
-                <li>
-                  <a href="#">Help</a>
-                </li>
-                <li>
-                  <a href="#">Terms</a>
-                </li>
-              </ul>
-              <p class="footer-text text-center">copyright © 2018 ccc. All rights reserved.</p>
+              <p class="text-center">copyright © 2018 ccc. All rights reserved.</p>
             </div>
           </div>
         </div>
@@ -96,10 +101,18 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="../static/js/plugins/vendor.bundle.base.js" th:src="@{/js/plugins/vendor.bundle.base.js}"></script>
-    <script src="../static/js/plugins/vendor.bundle.addons.js" th:src="@{/js/plugins/vendor.bundle.addons.js}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="../static/js/inject/jquery.validate.min.js" th:src="@{/js/inject/jquery.validate.min.js}"></script>
+    <script src="../static/js/inject/jquery.qrcode.min.js" th:src="@{/js/inject/jquery.qrcode.min.js}"></script>
+    <script src="../static/js/inject/geetest.js" th:src="@{/js/inject/geetest.js}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
     <!-- endinject -->
     <!-- Custom js for this page-->
+    <script src="../static/js/custom/csrf.js"  th:src="@{/js/custom/csrf.js}"></script>
     <script src="../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
+    <script src="../static/js/custom/qrcode.js" th:src="@{/js/custom/qrcode.js}"></script>
     <!-- End custom js for this page-->
   </body>
 </html>

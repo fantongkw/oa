@@ -2,6 +2,7 @@ package com.ccc.oa.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
 
+@JsonIgnoreProperties(value = { "handler" })
 public class Member implements Serializable {
     private static final long serialVersionUID = 6834568878933467652L;
     private Long id;
@@ -27,10 +29,10 @@ public class Member implements Serializable {
     private String password;
     private String name;
     private String gender;
-    private String phoneNumber;
-    @Email(regexp = "^[a-z0-9]+@([a-z0-9]+\\.)+[a-z]{2,6}$", message = "邮箱格式不正确")
+    private String phone;
+    //@Email(regexp = "^[a-z0-9]+@([a-z0-9]+\\.)+[a-z]{2,6}$", message = "邮箱格式不正确")
     private String email;
-    private String profilePicture;
+    private String avatar;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
     @Size(max = 100, message = "描述长度最大100")
@@ -48,9 +50,9 @@ public class Member implements Serializable {
         this.password = member.password;
         this.name = member.name;
         this.gender = member.gender;
-        this.phoneNumber = member.phoneNumber;
+        this.phone = member.phone;
         this.email = member.email;
-        this.profilePicture = member.profilePicture;
+        this.avatar = member.avatar;
         this.date = member.date;
         this.description = member.description;
     }
@@ -127,12 +129,12 @@ public class Member implements Serializable {
         this.gender = gender == null ? null : gender.trim();
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
     public String getEmail() {
@@ -143,12 +145,12 @@ public class Member implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Date getDate() {
@@ -177,9 +179,9 @@ public class Member implements Serializable {
                 ", role='" + role + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", profilePicture='" + profilePicture + '\'' +
+                ", avatar='" + avatar + '\'' +
                 ", date=" + date +
                 ", description='" + description + '\'' +
                 '}';

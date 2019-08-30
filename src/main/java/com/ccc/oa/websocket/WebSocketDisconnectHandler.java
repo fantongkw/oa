@@ -1,14 +1,31 @@
 package com.ccc.oa.websocket;
 
-import org.springframework.context.ApplicationEvent;
+import com.ccc.oa.service.ChatUserService;
 import org.springframework.context.ApplicationListener;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
-public class WebSocketDisconnectHandler<S> implements ApplicationListener {
-    private SimpMessageSendingOperations messagingTemplate;
+import java.security.Principal;
+
+public class WebSocketDisconnectHandler implements ApplicationListener<SessionDisconnectEvent> {
+    private ChatUserService chatUserService;
+    private SimpMessagingTemplate template;
+
+    public WebSocketDisconnectHandler(ChatUserService chatUserService, SimpMessagingTemplate template) {
+        this.chatUserService = chatUserService;
+        this.template = template;
+    }
 
     @Override
-    public void onApplicationEvent(ApplicationEvent applicationEvent) {
-
+    public void onApplicationEvent(SessionDisconnectEvent event) {
+        MessageHeaders headers = event.getMessage().getHeaders();
+        Principal user = SimpMessageHeaderAccessor.getUser(headers);
+        if (user == null) {
+            return;
+        }
+        template.convertAndSend("/topic/status/disconnect", user.getName());
+        chatUserService.delete(user.getName());
     }
 }

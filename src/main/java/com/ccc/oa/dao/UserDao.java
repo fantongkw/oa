@@ -14,8 +14,6 @@ public interface UserDao {
 
     int insert(Member member);
 
-    int insertSelective(Member member);
-
     List<Member> selectAllUser();
 
     Member selectById(@Param("id") Long id);
@@ -24,11 +22,10 @@ public interface UserDao {
 
     Member selectByEmail(String email);
 
-    Department selectDept(@Param("departmentId") Long departmentId);
+    Department selectDepartment(@Param("departmentId") Long departmentId);
 
     Role selectRole(@Param("roleId") Long roleId);
 
-    int updateByIdSelective(Member member);
-
     int updateById(Member member);
+
 }

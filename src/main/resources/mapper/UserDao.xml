@@ -9,18 +9,18 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender" jdbcType="VARCHAR" property="gender" />
-    <result column="phoneNumber" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="profilePicture" jdbcType="VARCHAR" property="profilePicture" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="date" jdbcType="DATE" property="date"/>
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <association property="department" javaType="Department" fetchType="lazy" column="department_id" select="selectDept"/>
-    <association property="role" javaType="Role"  fetchType="lazy" column="id" select="selectRole"/>
+    <association property="department" javaType="Department" fetchType="lazy" column="department_id" select="selectDepartment"/>
+    <association property="role" javaType="Role"  fetchType="lazy" column="role_id" select="selectRole"/>
   </resultMap>
 
   <sql id="Base_User_List">
-    id, department_id, role_id, username, password, name, gender, phoneNumber,
-    email, profilePicture, date, description
+    id, department_id, role_id, username, password, name, gender, phone,
+    email, avatar, date, description
   </sql>
   <select id="selectAllUser" resultMap="BaseUserMap">
     select
@@ -45,7 +45,7 @@
     from member
     where email = #{email, jdbcType=VARCHAR}
   </select>
-  <select id="selectDept" resultType="com.ccc.oa.model.Department">
+  <select id="selectDepartment" resultType="com.ccc.oa.model.Department">
     select
     id, name, date, description, parent_id
     from department
@@ -61,18 +61,7 @@
     delete from member
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="reg" useGeneratedKeys="true" keyProperty="id">
-    insert into member set username=#{username},password=#{password}
-  </insert>
   <insert id="insert" parameterType="com.ccc.oa.model.Member">
-    insert into member (id, department_id, role_id, username, password,
-      name, gender, phoneNumber,
-      email, date, description)
-    values (#{id,jdbcType=BIGINT}, #{departmentId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
-      #{email,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{description,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ccc.oa.model.Member">
     insert into member
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="departmentId != null">
@@ -93,14 +82,14 @@
       <if test="gender != null">
         gender,
       </if>
-      <if test="phoneNumber != null">
-        phoneNumber,
+      <if test="phone != null">
+        phone,
       </if>
       <if test="email != null">
         email,
       </if>
-      <if test="profilePicture != null">
-        profilePicture,
+      <if test="avatar != null">
+        avatar,
       </if>
       <if test="date != null">
         date,
@@ -128,14 +117,14 @@
       <if test="gender != null">
         #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="profilePicture != null">
-        #{profilePicture, jdbcType=VARCHAR},
+      <if test="avatar != null">
+        #{avatar, jdbcType=VARCHAR},
       </if>
       <if test="date != null">
         #{date,jdbcType=DATE},
@@ -145,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByIdSelective" parameterType="com.ccc.oa.model.Member">
+  <update id="updateById" parameterType="com.ccc.oa.model.Member">
     update member
     <set>
       <if test="departmentId != null">
@@ -166,14 +155,14 @@
       <if test="gender != null">
         gender = #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNumber != null">
-        phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="profilePicture != null">
-        profilePicture = #{profilePicture, jdbcType=VARCHAR},
+      <if test="avatar != null">
+        avatar = #{avatar, jdbcType=VARCHAR},
       </if>
       <if test="date != null">
         date = #{date,jdbcType=DATE},
@@ -182,22 +171,6 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateById" parameterType="com.ccc.oa.model.Member">
-    update member
-    set
-      department_id = #{departmentId,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=VARCHAR},
-      phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      profilePicture = #{profilePicture, jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
-      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

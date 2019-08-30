@@ -10,17 +10,13 @@ public interface DepartmentService {
 
     int insert(Department department);
 
-    int insertSelective(Department department);
+    List<Department> selectAllDepartment();
 
-    List<Department> selectAllDept();
-
-    List<Department> selectByCid(Long id);
+    List<Department> selectByChildrenId(Long id);
 
     Department selectById(Long id);
 
     Member selectUsers(Long id);
-
-    int updateByIdSelective(Department department);
 
     int updateById(Department department);
 }

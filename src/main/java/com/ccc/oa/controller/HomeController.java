@@ -3,7 +3,10 @@ package com.ccc.oa.controller;
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.security.CurrentUser;
+import com.ccc.oa.service.DepartmentService;
+import com.ccc.oa.service.RoleService;
 import com.ccc.oa.service.UserService;
+import com.ccc.oa.websocket.SessionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -23,7 +27,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class HomeController {
@@ -37,7 +44,6 @@ public class HomeController {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
     }
-
 
     @GetMapping(value = {"/", "/home"})
     public String index(){
@@ -69,7 +75,6 @@ public class HomeController {
         return "/notice";
     }
 
-
     @GetMapping(value = "/register")
     public String register(@CurrentUser User user) {
         if (user != null) {
@@ -85,25 +90,34 @@ public class HomeController {
             throw new CustomException(errorList.toString());
         }
         String password = member.getPassword();
+        int success = userService.insert(member);
         try{
-            userService.insertSelective(member);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member.getUsername(), password);
             token.setDetails(new WebAuthenticationDetails(request));
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        } catch( AuthenticationException e ){
-            LOG.error(e.toString());
+        } catch(AuthenticationException e){
+            LOG.error("Authentication exception!",e);
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
             return "/register";
         }
-        return "redirect:/home";
+        if (success == 1) {
+            return "redirect:/home";
+        } else {
+            model.addAttribute("error", true);
+            model.addAttribute("errorMsg", "用户已经存在");
+            return "/register";
+        }
     }
 
     @GetMapping(value = "/reset_password")
     public String resetPassword() {
         return "/reset_password";
     }
+
+    @GetMapping(value = "test")
+    public String test() { return "/test"; }
 
 }

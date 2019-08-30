@@ -1,159 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>日历事件</title>
 		<!-- plugins:css -->
-		<link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css">
-		<link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.base.css">
-		<link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.addons.css">
-		<!-- fullcalendar:css -->
-		<link rel="stylesheet" href="../../static/fullcalendar/fullcalendar.css">
-		<link rel="stylesheet" href="../../static/fullcalendar/fullcalendar.print.min.css" media='print'>
-		<link rel="stylesheet" href="../../static/css/bootstrap-datetimepicker.css">
-		<link rel="stylesheet" href="../../static/css/spectrum.css">
+		<link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+		<!-- Plugin css for this page -->
+		<link rel="stylesheet" href="../../static/css/fullcalendar.css" th:href="@{/css/fullcalendar.css}">
+		<link rel="stylesheet" href="../../static/css/bootstrap-datetimepicker.css" th:href="@{/css/bootstrap-datetimepicker.css}">
+		<link rel="stylesheet" href="../../static/css/spectrum.css" th:href="@{/css/spectrum.css}">
 		<!-- inject:css -->
-		<link rel="stylesheet" href="../../static/css/style.css">
+		<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
 		<!-- Layout styles -->
-		<link rel="stylesheet" href="../../static/css/layout.css">
-
-	</head>
+		<link rel="stylesheet" href="../../static/css/layout.css" th:href="@{/css/layout.css}">
+  </head>
 
 	<body>
-		<div class="container-scroller">
+		<div id="app" class="container-scroller" v-cloak>
 			<!-- partial:partials/_navbar.html -->
 			<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 				<div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-					<a class="navbar-brand brand-logo" href="../home.html">
-						<img src="../../static/images/logo.svg" alt="logo">
-					</a>
-					<a class="navbar-brand brand-logo-mini" href="../home.html">
-						<img src="../../static/images/logo-mini.svg" alt="logo">
-					</a>
 				</div>
 				<div class="navbar-menu-wrapper d-flex align-items-center">
-					<ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-						<li class="nav-item">
-							<a href="#" class="nav-link">Schedule
-								<span class="badge badge-primary ml-1">New</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="mdi mdi-elevation-rise"></i>Reports</a>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
-						</li>
-					</ul>
-					<ul class="navbar-nav navbar-nav-right">
+					<form class="ml-auto search-form d-none d-md-block" action="#">
+						<div class="form-group">
+							<input type="search" class="form-control" placeholder="搜索">
+						</div>
+					</form>
+					<ul class="navbar-nav ml-auto">
 						<li class="nav-item dropdown">
 							<a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-								<i class="mdi mdi-file-outline"></i>
-								<span class="count">7</span>
+								<i class="mdi mdi-bell-outline"></i>
+								<!--<span class="count">0</span>-->
 							</a>
 							<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
 								<a class="dropdown-item py-3">
-									<p class="mb-0 font-weight-medium float-left">You have 7 unread mails </p>
-									<span class="badge badge-pill badge-primary float-right">View all</span>
+									<p class="mb-0 font-weight-medium float-left">您有0封未读邮件</p>
+									<span class="badge badge-pill badge-primary float-right">查看</span>
 								</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item preview-item">
 									<div class="preview-thumbnail">
-										<img src="../../static/images/faces/face10.jpg" alt="image" class="img-sm profile-pic"> </div>
-									<div class="preview-item-content flex-grow py-2">
-										<p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
-										<p class="font-weight-light small-text"> The meeting is cancelled </p>
 									</div>
-								</a>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="../../static/images/faces/face12.jpg" alt="image" class="img-sm profile-pic"> </div>
 									<div class="preview-item-content flex-grow py-2">
-										<p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
-										<p class="font-weight-light small-text"> The meeting is cancelled </p>
-									</div>
-								</a>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="../../static/images/faces/face1.jpg" alt="image" class="img-sm profile-pic"> </div>
-									<div class="preview-item-content flex-grow py-2">
-										<p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
-										<p class="font-weight-light small-text"> The meeting is cancelled </p>
+										<p class="preview-subject ellipsis font-weight-medium text-dark"> </p>
+										<p class="font-weight-light small-text"> </p>
 									</div>
 								</a>
 							</div>
 						</li>
-						<li class="nav-item dropdown ml-4">
-							<a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-								<i class="mdi mdi-bell-outline"></i>
-								<span class="count bg-success">4</span>
+						<li class="nav-item dropdown">
+							<a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+								<i class="mdi mdi-email-outline"></i>
+								<!--<span class="count bg-success">0</span>-->
 							</a>
 							<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
 								<a class="dropdown-item py-3 border-bottom">
-									<p class="mb-0 font-weight-medium float-left">You have 4 new notifications </p>
-									<span class="badge badge-pill badge-primary float-right">View all</span>
+									<p class="mb-0 font-weight-medium float-left"> 您有0个新通知 </p>
+									<span class="badge badge-pill badge-primary float-right">查看</span>
 								</a>
 								<a class="dropdown-item preview-item py-3">
-									<div class="preview-thumbnail">
-										<i class="mdi mdi-alert m-auto text-primary"></i>
-									</div>
 									<div class="preview-item-content">
-										<h6 class="preview-subject font-weight-normal text-dark mb-1">Application Error</h6>
-										<p class="font-weight-light small-text mb-0"> Just now </p>
-									</div>
-								</a>
-								<a class="dropdown-item preview-item py-3">
-									<div class="preview-thumbnail">
-										<i class="mdi mdi-settings m-auto text-primary"></i>
-									</div>
-									<div class="preview-item-content">
-										<h6 class="preview-subject font-weight-normal text-dark mb-1">Settings</h6>
-										<p class="font-weight-light small-text mb-0"> Private message </p>
-									</div>
-								</a>
-								<a class="dropdown-item preview-item py-3">
-									<div class="preview-thumbnail">
-										<i class="mdi mdi-airballoon m-auto text-primary"></i>
-									</div>
-									<div class="preview-item-content">
-										<h6 class="preview-subject font-weight-normal text-dark mb-1">New member registration</h6>
-										<p class="font-weight-light small-text mb-0"> 2 days ago </p>
+										<h6 class="preview-subject font-weight-normal text-dark mb-1"></h6>
+										<p class="font-weight-light small-text mb-0">  </p>
 									</div>
 								</a>
 							</div>
 						</li>
-						<li class="nav-item dropdown d-none d-xl-inline-block">
+						<li class="nav-item dropdown" sec:authorize="isAnonymous()">
+							<div>
+								<a th:href="@{/login}">登录</a>
+								<span>&nbsp/&nbsp</span>
+								<a th:href="@{/register}">注册</a>
+							</div>
+						</li>
+						<li v-if="display" class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
 							<a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-								<span class="profile-text">Hello, Richard V.Welsh !</span>
-								<img class="img-xs rounded-circle" src="../../static/images/faces/face1.jpg" alt="Profile image">
+								<img class="img-xs rounded-circle" src="" :src="avatar" alt="Profile image">
 							</a>
 							<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-								<a class="dropdown-item p-0">
-									<div class="d-flex border-bottom">
-										<div class="py-3 px-4 d-flex align-items-center justify-content-center">
-											<i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
-										</div>
-										<div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
-											<i class="mdi mdi-account-outline mr-0 text-gray"></i>
-										</div>
-										<div class="py-3 px-4 d-flex align-items-center justify-content-center">
-											<i class="mdi mdi-alarm-check mr-0 text-gray"></i>
-										</div>
-									</div>
+								<div class="dropdown-header text-center">
+									<img class="img-md rounded-circle" src="" :src="avatar" alt="Profile image">
+									<p class="mb-1 mt-3 font-weight-semibold">{{ username }} </p>
+									<p class="font-weight-light text-muted mb-0">{{ role }}</p>
+								</div>
+								<a class="dropdown-item" href="/personal/account">
+									我的账户信息
 								</a>
-								<a class="dropdown-item mt-2" href="../personal/account.html">
-									管理账号
-								</a>
-								<a class="dropdown-item" href="../personal/account.html">
+								<a class="dropdown-item" href="/personal/change_password">
 									修改密码
 								</a>
-								<a class="dropdown-item" href="../personal/account.html">
-									登出
+								<a class="dropdown-item" href="#">
+									问题解答
 								</a>
+								<form action="#" th:action="@{/logout}" method="post">
+									<button type="submit" class="dropdown-item">登出</button>
+								</form>
 							</div>
 						</li>
 					</ul>
@@ -168,132 +113,132 @@
 				<nav class="sidebar sidebar-offcanvas" id="sidebar">
 					<ul class="nav">
 						<li class="nav-item nav-profile">
-							<div class="nav-link">
-								<div class="member-wrapper">
-									<div class="profile-image">
-										<img src="../../static/images/faces/face1.jpg" alt="profile image">
-									</div>
-									<div class="text-wrapper">
-										<p class="profile-name">name</p>
-										<div>
-											<small class="designation text-muted">role</small>
-											<span class="status-indicator online"></span>
-										</div>
-									</div>
+							<div class="nav-link" sec:authorize="isAnonymous()">
+								<div class="user-wrapper">
+									<a class="text-white" th:href="@{/login}">登录</a>
+									<span>&nbsp/&nbsp</span>
+									<a class="text-white" th:href="@{/register}">注册</a>
 								</div>
-								<button class="btn btn-success btn-block">新的项目
-									<i class="mdi mdi-plus"></i>
-								</button>
 							</div>
+							<a v-if="display" href="/personal/account" class="nav-link">
+								<div class="profile-image">
+									<img class="img-xs rounded-circle" src="" :src="avatar" alt="profile image">
+									<div class="dot-indicator bg-success"></div>
+								</div>
+								<div class="text-wrapper">
+									<p class="profile-name">{{ username }}</p>
+									<p class="designation">{{ role }}</p>
+								</div>
+							</a>
 						</li>
+						<li class="nav-item nav-category">主菜单</li>
 						<li class="nav-item">
-							<a class="nav-link" href="../index_1.html">
-								<i class="menu-icon mdi mdi-television"></i>
+							<a class="nav-link" href="/home">
 								<span class="menu-title">主页</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="../notice.html">
-								<i class="menu-icon mdi mdi-clipboard-alert"></i>
+						<li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+							<a class="nav-link" href="/notice">
 								<span class="menu-title">通知</span>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
 							<a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic">
-								<i class="menu-icon mdi mdi-account"></i>
 								<span class="menu-title">个人中心</span>
 								<i class="menu-arrow"></i>
 							</a>
 							<div class="collapse" id="account">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="../personal/account.html">账号信息</a>
+										<a class="nav-link" href="/personal/account">账号信息</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="../personal/account.html">修改头像</a>
+										<a class="nav-link" href="/personal/dept_details">所属部门</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="../personal/account.html">设置邮箱</a>
+										<a class="nav-link" href="/personal/role_details">拥有角色</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="../personal/account.html">聊天</a>
+										<a class="nav-link" href="/personal/upload">修改头像</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/personal/change_password">修改密码</a>
 									</li>
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
 							<a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false" aria-controls="apps-dropdown">
-								<i class="menu-icon mdi mdi-dna"></i>
 								<span class="menu-title">应用程序</span>
 								<i class="menu-arrow"></i>
 							</a>
 							<div class="collapse" id="apps-dropdown">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="email.html">电子邮件</a>
+										<a class="nav-link" href="/app/chat">聊天</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="calendar.html">日历事件</a>
+										<a class="nav-link" href="/app/email">电子邮件</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/app/calendar">日历事件</a>
 									</li>
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasRole('ROLE_DEPTS')">
 							<a class="nav-link" data-toggle="collapse" href="#dept" aria-expanded="false" aria-controls="ui-basic">
-								<i class="menu-icon mdi mdi-briefcase"></i>
 								<span class="menu-title">部门管理</span>
 								<i class="menu-arrow"></i>
 							</a>
 							<div class="collapse" id="dept">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="/dept/list">部门列表</a>
+										<a class="nav-link" href="/dept/dept_list">部门列表</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/dept/list">新增部门</a>
+										<a class="nav-link" href="/dept/dept_add">新增部门</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/dept/list">修改部门</a>
+										<a class="nav-link" href="/dept/dept_update">修改部门</a>
 									</li>
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="collapse" href="#member" aria-expanded="false" aria-controls="ui-basic">
-								<i class="menu-icon mdi mdi-account-multiple"></i>
+						<li class="nav-item" sec:authorize="hasRole('ROLE_USERS')">
+							<a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="ui-basic">
 								<span class="menu-title">员工管理</span>
 								<i class="menu-arrow"></i>
 							</a>
-							<div class="collapse" id="member">
+							<div class="collapse" id="user">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="/member/list">员工列表</a>
+										<a class="nav-link" href="/user/user_list">员工列表</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/member/list">新增员工</a>
+										<a class="nav-link" href="/user/user_add">新增员工</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/member/list">修改员工</a>
+										<a class="nav-link" href="/user/user_update">修改员工</a>
 									</li>
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" sec:authorize="hasRole('ROLE_ROLES')">
 							<a class="nav-link" data-toggle="collapse" href="#role" aria-expanded="false" aria-controls="ui-basic">
-								<i class="menu-icon mdi mdi-account-key"></i>
-								<span class="menu-title">岗位管理</span>
+								<span class="menu-title">角色管理</span>
 								<i class="menu-arrow"></i>
 							</a>
 							<div class="collapse" id="role">
 								<ul class="nav flex-column sub-menu">
 									<li class="nav-item">
-										<a class="nav-link" href="/role/list">岗位列表</a>
+										<a class="nav-link" href="/role/role_list">角色列表</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/role/list">新增岗位</a>
+										<a class="nav-link" href="/role/role_add">新增角色</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="/role/list">修改岗位</a>
+										<a class="nav-link" href="/role/role_update">修改角色</a>
 									</li>
 								</ul>
 							</div>
@@ -341,8 +286,8 @@
 																				<div class="col-lg-8 grid-margin">
 																					<div class="card-body">
 																						<h4 class="card-title">日期时间选择</h4>
-																						<div id="datepicker-popup" class='input-group date datepicker'>
-																							<input type='text' class="form-control" id='datetimepicker' placeholder="年-月-日 时:分" data-date-format="yyyy-mm-dd hh:ii"/>
+																						<div class='input-group date datepicker'>
+																							<input type='text' class="form-control" id='datetimepicker' placeholder="请选择日期时间" data-date-format="yyyy-mm-dd hh:ii"/>
 																							<button id="remove-calendar" class="input-group-addon input-group-append border-left">
 																								<span class="mdi mdi-close-circle-outline"></span>
 																							</button>
@@ -356,9 +301,7 @@
 																					<div class="card-body">
 																						<h4 class="card-title">颜色选择</h4>
 																						<div class="asColorPicker-wrap">
-																							<label for="colorpicker">
-																								<input type="text" id='colorpicker' >
-																							</label>
+																							<input type="text" id='colorpicker' >
 																						</div>
 																					</div>
 																				</div>
@@ -395,20 +338,20 @@
 														<div class="wrapper-body">
 															<div class="btn-group mb-3">
 																<ul class="fc-color-picker" id="color-chooser">
-																	<li><a class="event-primary" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-secondary" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-success" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-info" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-warning" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-danger" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-violet" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-rose" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-lime" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-coral" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-purple" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-cyan" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-chartreuse" href="#"><i class="mdi mdi-circle"></i></a></li>
-																	<li><a class="event-dark" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-primary" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-secondary" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-success" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-info" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-warning" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-danger" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-violet" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-rose" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-lime" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-coral" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-purple" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-cyan" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-chartreuse" href="#"><i class="mdi mdi-circle"></i></a></li>
+																	<li><a class="text-dark" href="#"><i class="mdi mdi-circle"></i></a></li>
 																</ul>
 															</div>
 															<!-- /btn-group -->
@@ -439,9 +382,6 @@
 						<div class="container-fluid clearfix">
 						<span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
 						<a href="http://www.ccc.com/" target="_blank">ccc</a>. All rights reserved.</span>
-							<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted &amp; made with
-						<i class="mdi mdi-heart text-danger"></i>
-						</span>
 						</div>
 					</footer>
 					<!-- partial -->
@@ -452,22 +392,24 @@
 		</div>
 		<!-- container-scroller -->
 		<!-- plugins:js -->
-		<script src="../../static/js/plugins/vendor.bundle.base.js"></script>
-		<script src="../../static/js/plugins/vendor.bundle.addons.js"></script>
+		<script src="../../static/js/plugins/vendor.bundle.base.js" th:src="@{/js/plugins/vendor.bundle.base.js}"></script>
 		<!-- endinject -->
+		<!-- Plugin js for this page -->
+    <script src="../../static/js/fullcalendar/lib/moment.min.js" th:src="@{/js/fullcalendar/lib/moment.min.js}"></script>
+		<script src="../../static/js/fullcalendar/fullcalendar.min.js" th:src="@{/js/fullcalendar/fullcalendar.min.js}"></script>
+		<script src="../../static/js/fullcalendar/locale-all.js" th:src="@{/js/fullcalendar/locale-all.js}"></script>
+		<script src="../../static/js/fullcalendar/lib/jquery-ui.min.js" th:src="@{/js/fullcalendar/lib/jquery-ui.min.js}"></script>
+		<script src="../../static/js/fullcalendar/component/bootstrap-datetimepicker.js" th:src="@{/js/fullcalendar/component/bootstrap-datetimepicker.js}"></script>
+		<script src="../../static/js/fullcalendar/component/bootstrap-datetimepicker.zh-CN.js" th:src="@{/js/fullcalendar/component/bootstrap-datetimepicker.zh-CN.js}"></script>
+		<script src="../../static/js/fullcalendar/component/spectrum.js" th:src="@{/js/fullcalendar/component/spectrum.js}"></script>
+		<!-- End plugin js for this page -->
 		<!-- inject:js -->
-		<script src="../../static/js/inject/off-canvas.js"></script>
-		<script src="../../static/js/inject/misc.js"></script>
+		<script src="../../static/js/inject/off-canvas.js" th:src="@{/js/inject/off-canvas.js}"></script>
+		<script src="../../static/js/inject/misc.js" th:src="@{/js/inject/misc.js}"></script>
+		<script src="../../static/js/inject/userData.js" th:src="@{/js/inject/userData.js}"></script>
 		<!-- endinject -->
 		<!-- Custom js for this page-->
-		<script src="../../static/js/inject/detail.js"></script>
-		<script src="../../static/fullcalendar/component/calendar.js" charset="UTF-8"></script>
-		<script src="../../static/fullcalendar/fullcalendar.min.js" charset="UTF-8"></script>
-		<script src="../../static/fullcalendar/locale-all.js"></script>
-		<script src="../../static/fullcalendar/lib/jquery-ui.min.js"></script>
-		<script src="../../static/fullcalendar/component/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-		<script src="../../static/fullcalendar/component/bootstrap-datetimepicker.zh-CN.js"></script>
-		<script src="../../static/fullcalendar/component/spectrum.js"></script>
+		<script src="../../static/js/custom/calendar.js" th:src="@{/js/custom/calendar.js}"></script>
 		<!-- End custom js for this page-->
 
 	</body>

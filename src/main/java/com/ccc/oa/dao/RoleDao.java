@@ -14,8 +14,6 @@ public interface RoleDao {
 
     int insert(Role role);
 
-    int insertSelective(Role role);
-
     List<Role> selectAllRole();
 
     Role selectById(@Param("id") Long id);
@@ -24,7 +22,6 @@ public interface RoleDao {
 
     List<Permission> selectPermissions(@Param("roleId") Long roleId);
 
-    int updateByIdSelective(Role role);
-
     int updateById(Role role);
+
 }

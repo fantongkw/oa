@@ -23,7 +23,7 @@
     from permission
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectRole" resultType="com.ccc.oa.model.Role">
+  <select id="selectRoles" resultType="com.ccc.oa.model.Role">
     select
     r.id, r.name, r.description
     from permission p, role_has_permission rp, role r
@@ -31,17 +31,11 @@
     and rp.Permission_id = p.id
     and p.id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteById" parameterType="java.lang.Long">
     delete from permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.ccc.oa.model.Permission">
-    insert into permission (id, name, description, 
-      url, method)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ccc.oa.model.Permission">
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -78,7 +72,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ccc.oa.model.Permission">
+  <update id="updateById" parameterType="com.ccc.oa.model.Permission">
     update permission
     <set>
       <if test="name != null">
@@ -94,14 +88,6 @@
         method = #{method,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ccc.oa.model.Permission">
-    update permission
-    set name = #{name,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      method = #{method,jdbcType=VARCHAR},
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

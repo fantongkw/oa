@@ -11,8 +11,6 @@ public interface UserService {
 
     int insert(Member member);
 
-    int insertSelective(Member member);
-
     List<Member> selectAllUser();
 
     Member selectById(Long id);
@@ -23,10 +21,9 @@ public interface UserService {
 
     Role selectRole(Long roleId);
 
-    Department selectDept(Long departmentId);
+    Department selectDepartment(Long departmentId);
 
-    int updateByIdSelective(Member member);
+    int updateById(Member member);
 
     int changePassword(Member member, String password);
-
 }

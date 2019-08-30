@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.lang.NonNull;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 
 @Configuration
@@ -37,7 +38,7 @@ public class SessionConfig implements BeanClassLoaderAware {
      * .ClassLoader)
      */
     @Override
-    public void setBeanClassLoader(ClassLoader classLoader) {
+    public void setBeanClassLoader(@NonNull ClassLoader classLoader) {
         this.loader = classLoader;
     }
 

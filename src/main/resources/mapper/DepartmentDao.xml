@@ -8,7 +8,7 @@
     <result column="description" jdbcType="VARCHAR" property="description"/>
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <association property="parent" javaType="Department" column="parent_id" fetchType="lazy" select="selectById"/>
-    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectByCid"/>
+    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectByChildrenId"/>
     <collection property="members" ofType="User" column="id" fetchType="lazy" select="selectUsers"/>
   </resultMap>
   <sql id="Base_Dept_List">
@@ -20,12 +20,12 @@
     from department
     where id = #{id, jdbcType=BIGINT}
   </select>
-  <select id="selectAllDept" resultMap="BaseDeptMap">
+  <select id="selectAllDepartment" resultMap="BaseDeptMap">
     select
     <include refid="Base_Dept_List" />
     from department
   </select>
-  <select id="selectByCid" resultMap="BaseDeptMap">
+  <select id="selectByChildrenId" resultMap="BaseDeptMap">
     select
     <include refid="Base_Dept_List" />
     from department
@@ -43,11 +43,6 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.ccc.oa.model.Department">
-    insert into department (parent_id, name, date,department)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},#{date,jdbcType=DATE},
-      #{description,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ccc.oa.model.Department">
     insert into department
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="parentId != null">
@@ -78,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByIdSelective" parameterType="com.ccc.oa.model.Department">
+  <update id="updateById" parameterType="com.ccc.oa.model.Department">
     update department
     <set>
       <if test="name != null">
@@ -91,13 +86,6 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateById" parameterType="com.ccc.oa.model.Department">
-    update department
-    set
-      name = #{name,jdbcType=VARCHAR}, date = #{date,jdbcType=DATE},
-      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

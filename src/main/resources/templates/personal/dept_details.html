@@ -8,8 +8,8 @@
     <title>所属部门</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
-    <link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.base.css" th:href="@{/css/plugins/vendor.bundle.base.css}">
-    <link rel="stylesheet" href="../../static/css/plugins/vendor.bundle.addons.css" th:href="@{/css/plugins/vendor.bundle.addons.css}">
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="../../static/css/jquery.tagsinput.min.css" th:href="@{/css/jquery.tagsinput.min.css}">
     <!-- inject:css -->
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
     <!-- Layout styles -->
@@ -23,31 +23,21 @@
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
-          <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-            <li class="nav-item">
-              <a href="#" class="nav-link">Schedule
-                <span class="badge badge-primary ml-1">New</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="mdi mdi-elevation-rise"></i>Reports</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav navbar-nav-right">
+          <form class="ml-auto search-form d-none d-md-block" action="#">
+            <div class="form-group">
+              <input type="search" class="form-control" placeholder="搜索">
+            </div>
+          </form>
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-file-outline"></i>
-                <span class="count"></span>
+                <i class="mdi mdi-bell-outline"></i>
+                <!--<span class="count">0</span>-->
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
                 <a class="dropdown-item py-3">
-                  <p class="mb-0 font-weight-medium float-left"> </p>
-                  <span class="badge badge-pill badge-primary float-right"> </span>
+                  <p class="mb-0 font-weight-medium float-left">您有0封未读邮件</p>
+                  <span class="badge badge-pill badge-primary float-right">查看</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
@@ -60,58 +50,49 @@
                 </a>
               </div>
             </li>
-            <li class="nav-item dropdown ml-4">
-              <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <i class="mdi mdi-bell-outline"></i>
-                <span class="count bg-success"></span>
+            <li class="nav-item dropdown">
+              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-email-outline"></i>
+                <!--<span class="count bg-success">0</span>-->
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
                 <a class="dropdown-item py-3 border-bottom">
-                  <p class="mb-0 font-weight-medium float-left"> </p>
-                  <span class="badge badge-pill badge-primary float-right"> </span>
+                  <p class="mb-0 font-weight-medium float-left"> 您有0个新通知 </p>
+                  <span class="badge badge-pill badge-primary float-right">查看</span>
                 </a>
                 <a class="dropdown-item preview-item py-3">
-                  <div class="preview-thumbnail">
-
-                  </div>
                   <div class="preview-item-content">
                     <h6 class="preview-subject font-weight-normal text-dark mb-1"></h6>
-                    <p class="font-weight-light small-text mb-0"></p>
+                    <p class="font-weight-light small-text mb-0">  </p>
                   </div>
                 </a>
               </div>
             </li>
-            <li class="nav-item dropdown d-none d-xl-inline-block">
-              <div sec:authorize="isAnonymous()">
+            <li class="nav-item dropdown" sec:authorize="isAnonymous()">
+              <div>
                 <a th:href="@{/login}">登录</a>
                 <span>&nbsp/&nbsp</span>
                 <a th:href="@{/register}">注册</a>
               </div>
-              <a class="nav-link dropdown-toggle" id="UserDropdown" sec:authorize="isAuthenticated()" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text">欢迎, {{ username }}</span>
-                <span class="profile-image">
-                  <img class="img-xs rounded-circle" src="" :src="profilePicture" alt="Profile image">
-                </span>
+            </li>
+            <li v-if="display" class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
+              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <img class="img-xs rounded-circle" src="" :src="avatar" alt="Profile image">
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                <a class="dropdown-item p-0">
-                  <div class="d-flex border-bottom">
-                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
-                      <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
-                    </div>
-                    <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
-                      <i class="mdi mdi-account-outline mr-0 text-gray"></i>
-                    </div>
-                    <div class="py-3 px-4 d-flex align-items-center justify-content-center">
-                      <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
-                    </div>
-                  </div>
-                </a>
-                <a class="dropdown-item mt-2" href="/personal/account">
-                  管理账号
+                <div class="dropdown-header text-center">
+                  <img class="img-md rounded-circle" src="" :src="avatar" alt="Profile image">
+                  <p class="mb-1 mt-3 font-weight-semibold">{{ username }} </p>
+                  <p class="font-weight-light text-muted mb-0">{{ role }}</p>
+                </div>
+                <a class="dropdown-item" href="/personal/account">
+                  我的账户信息
                 </a>
                 <a class="dropdown-item" href="/personal/change_password">
                   修改密码
+                </a>
+                <a class="dropdown-item" href="#">
+                  问题解答
                 </a>
                 <form action="#" th:action="@{/logout}" method="post">
                   <button type="submit" class="dropdown-item">登出</button>
@@ -132,46 +113,35 @@
             <li class="nav-item nav-profile">
               <div class="nav-link" sec:authorize="isAnonymous()">
                 <div class="user-wrapper">
-                  <a th:href="@{/login}">登录</a>
+                  <a class="text-white" th:href="@{/login}">登录</a>
                   <span>&nbsp/&nbsp</span>
-                  <a th:href="@{/register}">注册</a>
+                  <a class="text-white" th:href="@{/register}">注册</a>
                 </div>
               </div>
-              <div class="nav-link" sec:authorize="isAuthenticated()">
-                <div class="user-wrapper">
-                  <div class="profile-image">
-                    <img src="" :src="profilePicture" alt="profile image">
-                  </div>
-                  <div class="text-wrapper">
-                    <p class="profile-name">
-                      <span>{{ username }}</span>
-                    </p>
-                    <div>
-                      <small class="designation text-muted"><span>{{ role }}</span></small>
-                      <span class="status-indicator online"></span>
-                    </div>
-                  </div>
+              <a v-if="display" href="/personal/account" class="nav-link">
+                <div class="profile-image">
+                  <img class="img-xs rounded-circle" src="" :src="avatar" alt="profile image">
+                  <div class="dot-indicator bg-success"></div>
                 </div>
-                <button class="btn btn-success btn-block">新的项目
-                  <i class="mdi mdi-plus"></i>
-                </button>
-              </div>
+                <div class="text-wrapper">
+                  <p class="profile-name">{{ username }}</p>
+                  <p class="designation">{{ role }}</p>
+                </div>
+              </a>
             </li>
+            <li class="nav-item nav-category">主菜单</li>
             <li class="nav-item">
               <a class="nav-link" href="/home">
-                <i class="menu-icon mdi mdi-television"></i>
                 <span class="menu-title">主页</span>
               </a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
               <a class="nav-link" href="/notice">
-                <i class="menu-icon mdi mdi-clipboard-alert"></i>
                 <span class="menu-title">通知</span>
               </a>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
               <a class="nav-link" data-toggle="collapse" href="#account" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-account"></i>
                 <span class="menu-title">个人中心</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -192,20 +162,19 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/personal/change_password">修改密码</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/personal/chat">聊天</a>
-                  </li>
                 </ul>
               </div>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
               <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false" aria-controls="apps-dropdown">
-                <i class="menu-icon mdi mdi-dna"></i>
                 <span class="menu-title">应用程序</span>
                 <i class="menu-arrow"></i>
               </a>
               <div class="collapse" id="apps-dropdown">
                 <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/app/chat">聊天</a>
+                  </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/app/email">电子邮件</a>
                   </li>
@@ -217,7 +186,6 @@
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_DEPTS')">
               <a class="nav-link" data-toggle="collapse" href="#dept" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-briefcase"></i>
                 <span class="menu-title">部门管理</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -237,7 +205,6 @@
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USERS')">
               <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-account-multiple"></i>
                 <span class="menu-title">员工管理</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -257,7 +224,6 @@
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_ROLES')">
               <a class="nav-link" data-toggle="collapse" href="#role" aria-expanded="false" aria-controls="ui-basic">
-                <i class="menu-icon mdi mdi-account-key"></i>
                 <span class="menu-title">角色管理</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -284,21 +250,43 @@
               <div class="col-12 grid-margin">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title"> 所属部门 </h4>
-                    <form class="forms-sample" >
-                      <div class="form-group">
-                        <label for="name">部门名称</label>
-                        <input type="text" class="form-control" id="name" name="name" th:value="${department.name}" minlength="4" maxlength="20"  placeholder="请输入名称">
+                    <h4 class="card-title"> 部门详情 </h4>
+                    <div class="form-group row">
+                      <div class="col-lg-1">
+                        <span class="col-form-label">部门名称</span>
                       </div>
-                      <div class="form-group">
-                        <label for="description">部门描述</label>
-                        <textarea class="form-control" id="description" name="description" th:value="${department.description}" maxlength="100" rows="2" placeholder="请输入描述"></textarea>
+                      <div class="col-lg-11">
+                        <span class="card-description" th:text="${department.name}">default</span>
                       </div>
-                      <div class="form-group" sec:authorize="hasRole('ROLE_DEPTS')">
-                        <button type="submit" class="btn btn-success mr-2">修改</button>
-                        <button class="btn btn-light">取消</button>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-1">
+                        <span class="col-form-label">上级部门</span>
                       </div>
-                    </form>
+                      <div class="col-lg-11">
+                        <span class="card-description" th:text="${department.parent == null ? '无' : department.parent.name}">default</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-1">
+                        <span class="col-form-label">下级部门</span>
+                      </div>
+                      <div class="col-lg-11">
+                        <div class="tagsinput" style="width: 100%; min-height: 75%; height: 100%;">
+                          <span class="tag" th:each="children : ${department.children}">
+                            <span  th:text="${children.name}"></span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-1">
+                        <span>部门描述</span>
+                      </div>
+                      <div class="col-lg-11">
+                        <span class="card-description" th:text="${department.description}">default</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -310,9 +298,6 @@
             <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
               <a href="http://www.ccc.com/" target="_blank">ccc</a>. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-              <i class="mdi mdi-heart text-danger"></i>
-            </span>
             </div>
           </footer>
           <!-- partial -->
@@ -330,9 +315,10 @@
     <!-- inject:js -->
     <script src="../../static/js/inject/off-canvas.js" th:src="@{/js/inject/off-canvas.js}"></script>
     <script src="../../static/js/inject/misc.js" th:src="@{/js/inject/misc.js}"></script>
-    <script src="../../static/js/inject/detail.js" th:src="@{/js/inject/detail.js}"></script>
+    <script src="../../static/js/inject/userData.js" th:src="@{/js/inject/userData.js}"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
+    <script src="../../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
     <!-- End custom js for this page-->
   </body>
 

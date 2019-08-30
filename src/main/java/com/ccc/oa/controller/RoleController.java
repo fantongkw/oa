@@ -3,6 +3,9 @@ package com.ccc.oa.controller;
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Role;
 import com.ccc.oa.service.RoleService;
+import com.ccc.oa.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/role")
 public class RoleController {
-
+    private static final Logger LOG = LoggerFactory.getLogger(RoleController.class);
     private final RoleService roleService;
 
     @Autowired
@@ -30,13 +33,11 @@ public class RoleController {
         return "/role/role_list";
     }
 
-    @GetMapping(value = "/role_delete/{id}")
-    public String delete(@PathVariable Long id){
+    @PostMapping(value = "/role_delete/{id}")
+    @ResponseBody
+    public boolean delete(@PathVariable Long id){
         int queryResult =  roleService.deleteById(id);
-        if (queryResult == 1) {
-            return "/role/role_list";
-        }
-        throw new CustomException("角色删除失败");
+        return queryResult == 1;
     }
 
     @GetMapping(value = "/role_add")
@@ -50,12 +51,12 @@ public class RoleController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int queryResult = roleService.insertSelective(role);
+        int queryResult = roleService.insert(role);
         if (queryResult == 1) {
             return "redirect:/role/role_list";
         }else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "角色添加失败");
             return "/role/role_add";
         }
     }
@@ -71,7 +72,7 @@ public class RoleController {
 
     @GetMapping(value = "/role_update/{id}")
     public String updateById(@PathVariable Long id, Model model) {
-        if (id != null) {
+        if (null != id) {
             Role objectId = roleService.selectById(id);
             model.addAttribute("objectId", objectId);
         }
@@ -86,12 +87,12 @@ public class RoleController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        int queryResult = roleService.updateByIdSelective(role);
+        int queryResult = roleService.updateById(role);
         if (queryResult == 1) {
             return "redirect:/role/role_list";
         }else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "角色更新失败");
             return "/role/role_update";
         }
     }

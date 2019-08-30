@@ -5,7 +5,9 @@ import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,38 +22,30 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.departmentDao = departmentDao;
     }
 
+    @Transactional
     @Override
     public int deleteById(Long id) {
-        Department department = departmentDao.selectById(id);
-        if (department != null) {
-            return departmentDao.deleteById(id);
-        }
-        return 0;
+        return departmentDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public int insert(Department department) {
-        return departmentDao.insert(department);
-    }
-
-    @Override
-    public int insertSelective(Department department) {
-        Department duplicate = departmentDao.selectById(department.getId());
-        if (duplicate == null) {
+        if (!isExist(department)) {
             department.setDate(new java.sql.Date(new Date().getTime()));
-            return departmentDao.insertSelective(department);
+            return departmentDao.insert(department);
         }
         return 0;
     }
 
     @Override
-    public List<Department> selectAllDept() {
-        return departmentDao.selectAllDept();
+    public List<Department> selectAllDepartment() {
+        return departmentDao.selectAllDepartment();
     }
 
     @Override
-    public List<Department> selectByCid(Long id) {
-        return departmentDao.selectByCid(id);
+    public List<Department> selectByChildrenId(Long id) {
+        return departmentDao.selectByChildrenId(id);
     }
 
     @Override
@@ -64,13 +58,20 @@ public class DepartmentServiceImpl implements DepartmentService {
         return departmentDao.selectUsers(id);
     }
 
-    @Override
-    public int updateByIdSelective(Department department) {
-        return departmentDao.updateByIdSelective(department);
-    }
-
+    @Transactional
     @Override
     public int updateById(Department department) {
-        return departmentDao.updateById(department);
+        if (isExist(department)) {
+            return departmentDao.updateById(department);
+        }
+        return 0;
+    }
+
+    private boolean isExist(Department department) {
+        if (null != department) {
+            Department exist = departmentDao.selectById(department.getId());
+            return null != exist;
+        }
+        return false;
     }
 }

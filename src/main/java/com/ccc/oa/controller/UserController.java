@@ -5,6 +5,8 @@ import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.service.DepartmentService;
 import com.ccc.oa.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final DepartmentService departmentService;
 
@@ -33,19 +36,17 @@ public class UserController {
         return "/user/user_list";
     }
 
-    @GetMapping(value = "/user_delete/{id}")
-    public String delete(@PathVariable Long id) {
+    @PostMapping(value = "/user_delete/{id}")
+    @ResponseBody
+    public boolean delete(@PathVariable Long id) {
         int queryResult = userService.deleteById(id);
-        if (queryResult == 1) {
-            return "redirect:/user/user_list";
-        }
-        throw new CustomException("部门删除失败");
+        return queryResult == 1;
     }
 
     @GetMapping(value = "/user_add")
     public String add(Model model){
         List<Member> objects = userService.selectAllUser();
-        List<Department> departments = departmentService.selectAllDept();
+        List<Department> departments = departmentService.selectAllDepartment();
         model.addAttribute("objects", objects);
         model.addAttribute("departments", departments);
         return "/user/user_add";
@@ -57,13 +58,12 @@ public class UserController {
             List<ObjectError> errorList = result.getAllErrors();
             throw new CustomException(errorList.toString());
         }
-        System.out.println(member);
-        int queryResult = userService.insertSelective(member);
+        int queryResult = userService.insert(member);
         if (queryResult == 1) {
             return "redirect:/user/user_list";
         } else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "员工添加失败");
             return "/user/user_add";
         }
     }
@@ -74,18 +74,18 @@ public class UserController {
         model.addAttribute("objectId", objectId);
         List<Member> objects = userService.selectAllUser();
         model.addAttribute("objects", objects);
-        List<Department> departments = departmentService.selectAllDept();
+        List<Department> departments = departmentService.selectAllDepartment();
         model.addAttribute("departments", departments);
         return "/user/user_update";
     }
 
     @GetMapping(value = "/user_update/{id}")
     public String updateById(@PathVariable Long id, Model model) {
-        if (id != null) {
+        if (null != id) {
             Member objectId = userService.selectById(id);
             model.addAttribute("objectId", objectId);
         }
-        List<Department> departments = departmentService.selectAllDept();
+        List<Department> departments = departmentService.selectAllDepartment();
         model.addAttribute("departments", departments);
         List<Member> objects = userService.selectAllUser();
         model.addAttribute("objects", objects);
@@ -94,12 +94,12 @@ public class UserController {
 
     @PostMapping(value = "/user_updated")
     public String updated(Member member, Model model) {
-        int queryResult = userService.updateByIdSelective(member);
+        int queryResult = userService.updateById(member);
         if (queryResult == 1) {
             return "redirect:/user/user_list";
         }else {
             model.addAttribute("error", true);
-            model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
+            model.addAttribute("errorMsg", "员工更新失败");
             return "/user/user_update";
         }
     }

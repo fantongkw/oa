@@ -19,17 +19,24 @@ import java.sql.Date;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = OaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest
 public class DepartmentTests {
 
     @Autowired
     private DepartmentDao departmentDao;
 
     @Test
+    public void testSelectAll() {
+        int size = departmentDao.selectAllDepartment().size();
+        System.out.println(size);
+    }
+
+    @Test
     public void testSelectById(){
         Department department = departmentDao.selectById(1L);
         /*System.out.println(department);*/
-        department.getMembers().forEach(System.out::println);
+        System.out.println(department.getChildren().size());
+        department.getChildren().forEach(System.out::println);
     }
 
     @Test
@@ -38,7 +45,7 @@ public class DepartmentTests {
         department.setName("aaa");
         department.setDescription("aaa");
         department.setDate(new Date(new java.util.Date().getTime()));
-        int result = departmentDao.insertSelective(department);
+        int result = departmentDao.insert(department);
         System.out.println(result);
     }
 }

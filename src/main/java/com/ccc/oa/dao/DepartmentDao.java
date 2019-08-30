@@ -12,18 +12,14 @@ public interface DepartmentDao {
 
     int insert(Department department);
 
-    int insertSelective(Department department);
+    List<Department> selectAllDepartment();
 
-    List<Department> selectAllDept();
-
-    List<Department> selectByCid(@Param("id") Long id);
+    List<Department> selectByChildrenId(@Param("id") Long id);
 
     Department selectById(@Param("id") Long id);
 
     Member selectUsers(@Param("id") Long id);
 
-    int updateByIdSelective(Department department);
-
-    int updateById(Department record);
+    int updateById(Department department);
 
 }

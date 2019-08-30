@@ -28,7 +28,7 @@
                   <span th:text="${errorMsg}"></span>
                 </div>
               </div>
-              <form id="register" th:action="@{/registered}" method="post">
+              <form id="register" class="forms-sample" th:action="@{/registered}" method="post">
                 <div class="form-group">
                   <label class="label" for="username">用户名</label>
                   <div class="input-group">
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label class="label" for="password">密码</label>
                   <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="密码">
+                    <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="密码" autocomplete>
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -54,13 +54,26 @@
                 <div class="form-group">
                   <label class="label" for="confirm_password">确认密码</label>
                   <div class="input-group">
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="确认密码">
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="确认密码" autocomplete>
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
                       </span>
                     </div>
                   </div>
+                </div>
+                <div class="form-group">
+                  <label class="label">完成验证：</label>
+                  <div id="captcha" name="captcha">
+                    <div id="wait" class="bar-loader">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  </div>
+                  <br>
+                  <p id="notice" class="text-danger" style="display: none;">请先完成验证</p>
                 </div>
                 <div class="form-group d-flex justify-content-center">
                   <div class="form-check form-check-flat mt-0">
@@ -87,11 +100,15 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  <!-- inject:js -->
+  <!-- plugins:js -->
   <script src="../static/js/plugins/vendor.bundle.base.js" th:src="@{/js/plugins/vendor.bundle.base.js}"></script>
-  <script src="../static/js/plugins/vendor.bundle.addons.js" th:src="@{/js/plugins/vendor.bundle.addons.js}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../static/js/inject/jquery.validate.min.js" th:src="@{/js/inject/jquery.validate.min.js}"></script>
+  <script src="../static/js/inject/geetest.js" th:src="@{/js/custom/geetest.js}"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="../static/js/custom/csrf.js"  th:src="@{/js/custom/csrf.js}"></script>
   <script src="../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
   <!-- End custom js for this page-->
 </body>

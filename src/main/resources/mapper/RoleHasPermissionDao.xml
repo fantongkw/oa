@@ -5,16 +5,32 @@
     <id column="Role_id" jdbcType="BIGINT" property="roleId" />
     <id column="Permission_id" jdbcType="BIGINT" property="permissionId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map">
+  <delete id="deleteById" parameterType="map">
     delete from role_has_permission
     where Role_id = #{roleId,jdbcType=BIGINT}
       and Permission_id = #{permissionId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.ccc.oa.model.RoleHasPermission">
+  <delete id="deleteByRoleId" parameterType="java.lang.Long">
+    delete from role_has_permission
+    where Role_id = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByPermissionId" parameterType="java.lang.Long">
+    delete from role_has_permission
+    where Permission_id = #{permissionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertPermissions" parameterType="com.ccc.oa.model.RoleHasPermission">
     insert into role_has_permission (Role_id, Permission_id)
     values
     <foreach collection="list" item="permissionId" separator=",">
       (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
     </foreach>
   </insert>
+  <insert id="insertRoles" parameterType="com.ccc.oa.model.RoleHasPermission">
+    insert into role_has_permission (Role_id, Permission_id)
+    values
+    <foreach collection="list" item="roleId" separator=",">
+      (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
+    </foreach>
+  </insert>
+
 </mapper>

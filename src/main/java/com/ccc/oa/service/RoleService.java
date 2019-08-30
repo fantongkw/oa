@@ -11,8 +11,6 @@ public interface RoleService {
 
     int insert(Role role);
 
-    int insertSelective(Role role);
-
     List<Role> selectAllRole();
 
     Role selectById(Long id);
@@ -21,8 +19,5 @@ public interface RoleService {
 
     List<Permission> selectPermissions(Long roleId);
 
-    int updateByIdSelective(Role role);
-
     int updateById(Role role);
-
 }

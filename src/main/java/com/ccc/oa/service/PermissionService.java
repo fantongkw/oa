@@ -1,17 +1,21 @@
 package com.ccc.oa.service;
 
 import com.ccc.oa.model.Permission;
+import com.ccc.oa.model.Role;
+
+import java.util.List;
 
 public interface PermissionService {
-    int deleteByPrimaryKey(Long id);
+    int deleteById(Long id);
 
-    int insert(Permission record);
-
-    int insertSelective(Permission record);
+    int insert(Permission permission);
 
     Permission selectById(Long id);
 
-    int updateByPrimaryKeySelective(Permission record);
+    List<Permission> selectAllPermission();
 
-    int updateByPrimaryKey(Permission record);
+    List<Role> selectRoles(Long id);
+
+    int updateById(Permission permission);
+
 }

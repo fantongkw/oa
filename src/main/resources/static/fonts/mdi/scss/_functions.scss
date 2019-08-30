@@ -1,4 +1,4 @@
-@function char($character-code) {
+﻿@function char($character-code) {
     @if function-exists("selector-append") {
         @return unquote("\"\\#{$character-code}\"");
     }

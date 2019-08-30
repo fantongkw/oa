@@ -41,7 +41,7 @@ public class WeatherUtil {
         String key = "70ed382c4a6ada2b78b0415affc6b43a";
         URI uri = null;
         try {
-            uri = new URI("https://restapi.amap.com/v3/weather/weatherInfo?key="+ key +"city="+ city);
+            uri = new URI("https://restapi.amap.com/v3/weather/weatherInfo?key="+ key +"&city="+ city);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

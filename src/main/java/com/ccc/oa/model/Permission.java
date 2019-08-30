@@ -18,8 +18,7 @@ public class Permission implements Serializable {
     @JsonIgnore
     private List<Role> roles;
 
-    public Permission() {
-    }
+    public Permission() {}
 
     public Permission(Permission permission) {
         this.id = permission.id;
