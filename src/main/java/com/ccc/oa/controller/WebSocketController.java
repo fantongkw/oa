@@ -48,12 +48,11 @@ public class WebSocketController {
     }
 
 
-    @MessageMapping("/chat")
+    @MessageMapping("/transmit")
     public void handleMessage(ChatMessage chatMessage) {
         System.out.println("后台一对一推送！");
-        System.out.println(chatMessage);
         chatMessage.setMessage(HtmlUtils.htmlEscape(chatMessage.getMessage()));
         chatMessageService.add(chatMessage.getFrom(), chatMessage);
-        template.convertAndSendToUser(chatMessage.getTo(), "/user/queue/message", chatMessage);
+        template.convertAndSendToUser(chatMessage.getTo(), "/queue/message", chatMessage);
     }
 }

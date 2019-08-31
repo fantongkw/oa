@@ -4,8 +4,8 @@ let to = {
 };
 
 let from = {
-  username: $('.profile-name').text(),
-  avatar: $('.profile-image > img').attr('src')
+  username: null,
+  avatar: null
 };
 
 let prev = "";
@@ -48,8 +48,8 @@ function getUsers() {
     type: "get",
     dataType: "json",
     success: function (response) {
-      console.log(response);
       for (let i = 0; i < response.length; i++) {
+        if (response[i] === from.username) continue;
         userTemplate(response[i]);
       }
     },
@@ -82,7 +82,6 @@ function selectChatMessage() {
       .then(response => {
         let message = response.data;
         for (let i = 0; i < message.length; i++) {
-          console.log(message[i]);
           if (message[i].from === from.username) {
             messageOutTemplate(message[i]);
           } else {
@@ -142,23 +141,27 @@ function sendMessage() {
     message: $('#input').val(),
     created: new Date().getTime()
   };
-  console.log(chatMessage);
   messageOutTemplate(chatMessage);
-  stomp.send("/app/chat", {}, JSON.stringify(chatMessage));
+  stomp.send("/app/transmit", {}, JSON.stringify(chatMessage));
 }
-
-$(function () {
-  getUsers();
-  $(document).on('click', ".list-item", function() {
-    selectChatUser($(this));
-    selectChatMessage();
+(function($) {
+  'use strict';
+  $(function () {
+    from.username = $('.profile-name').text();
+    from.avatar = $('.profile-image > img').attr('src');
+    getUsers();
+    $(document).on('click', ".list-item", function() {
+      selectChatUser($(this));
+      selectChatMessage();
+    });
+    $('#chat').on('submit', e => { e.preventDefault();});
+    $('#send').on('click', function () {
+      let value = $('#input');
+      if (to.username !== null || value.val() !== '') {
+        sendMessage();
+        value.val("");
+      }
+    });
+    connect();
   });
-  $('#chat').on('submit', e => { e.preventDefault();});
-  $('#send').on('click', function () {
-    let value = $('#input').val();
-    if (to.username !== null || value !== '') {
-      sendMessage();
-    }
-  });
-  connect();
-});
+})(jQuery);

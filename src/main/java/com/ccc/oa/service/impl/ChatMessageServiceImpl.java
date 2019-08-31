@@ -62,9 +62,9 @@ public class ChatMessageServiceImpl implements ChatMessageService {
     @Override
     public List<ChatMessage> getFromUserToUser(String from, String to) {
         List<ChatMessage> res = new ArrayList<>();
-        Objects.requireNonNull(redisTemplate.opsForList().range(getMessageKey(from), 0, -1)).forEach((v) -> {
-            if (v.toString().equals(to)) {
-                res.add(v);
+        Objects.requireNonNull(redisTemplate.opsForList().range(getMessageKey(from), 0, -1)).forEach(e -> {
+            if (e.getTo().equals(to)) {
+                res.add(e);
             }
         });
         return res;

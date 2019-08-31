@@ -1,30 +1,24 @@
 package com.ccc.oa.websocket;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 
 public class SessionListener extends HttpSessionEventPublisher {
-
-    private static int onlineUsers = 0;
+    private static final Logger LOG = LoggerFactory.getLogger(SessionListener.class);
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        onlineUsers++;
-        System.out.println("新的session： " + session.getId());
+        LOG.info("新的session： " + session.getId());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        onlineUsers--;
-        System.out.println("销毁session： " + session.getId());
+        LOG.info("销毁session： " + session.getId());
     }
-
-    public static int getOnlineUsers() {
-        return onlineUsers;
-    }
-
 }
