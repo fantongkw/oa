@@ -21,25 +21,24 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    /*private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-            "classpath:/static/"};*/
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
+            "classpath:/static/"};
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/login").setViewName("/login");
-        registry.addViewController("/ws").setViewName("/ws");
         registry.addViewController("/chat").setViewName("/chat");
     }
 
-    /*@Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS)
                 .setCachePeriod(31556926)
                 .resourceChain(true)
                 .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
-    }*/
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

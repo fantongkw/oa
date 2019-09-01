@@ -3,10 +3,7 @@ package com.ccc.oa.controller;
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.security.CurrentUser;
-import com.ccc.oa.service.DepartmentService;
-import com.ccc.oa.service.RoleService;
 import com.ccc.oa.service.UserService;
-import com.ccc.oa.websocket.SessionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -27,10 +23,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Controller
 public class HomeController {
