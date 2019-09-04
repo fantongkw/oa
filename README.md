@@ -1,4 +1,4 @@
-#办公自动化系统
+# 办公自动化系统
 此项目是基于JAVA开发的办公自动化系统，该项目使用Spring Boot开发
 
 此项目包含：
@@ -10,10 +10,10 @@
  * 定制日程模块
  * 邮件系统模块（待开发，资金有限）
 
-##上手指南
+## 上手指南
 以下指南将帮助你在本地机器上安装和运行该项目
 
-###安装前提
+### 安装前提
  名称  | 版本  
  ---- | ----- 
  JDK  | 1.8 及以上
@@ -24,16 +24,16 @@
  
     注: windows系统需安装Docker，下载Redis镜像
 
-###快速部署
+### 快速部署
 1.  clone 项目到本地
 2.  在任意 Java IDE 中导入项目
 3.  数据库脚本在项目的 resources 目录下，在 MySQL 中执行数据库脚本
 4.  数据库配置在项目的 resources 目录下的application.yaml文件中
 5.  在任意 Java IDE 中启动项目
 
-##技术栈
+## 技术栈
 
-###后端技术栈
+### 后端技术栈
  * Spring Boot
  * Spring Security
  * Spring Session
@@ -42,12 +42,12 @@
  * Redis
  * Thymeleaf
 
-###前端技术栈
+### 前端技术栈
  * Vue
  * Jquery
  * Bootstrapdash
  
-##License
+## License
 Copyright 2019 fantongkw
 
 Licensed under the Apache License, Version 2.0 (the "License");
