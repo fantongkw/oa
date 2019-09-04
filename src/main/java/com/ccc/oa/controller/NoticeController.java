@@ -3,13 +3,11 @@ package com.ccc.oa.controller;
 import com.ccc.oa.model.Notice;
 import com.ccc.oa.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Comparator;
-import java.util.List;
+import org.springframework.web.util.HtmlUtils;
 
 @RestController
 @RequestMapping(value = "/notice")
@@ -22,23 +20,20 @@ public class NoticeController {
         this.noticeService = noticeService;
     }
 
-    @GetMapping(value = "/list")
-    public List<Notice> list() {
-        List<Notice> res = noticeService.getAll();
-        res.sort(Comparator.comparingLong(Notice::getCreated));
-        return res;
-    }
-
+    @PreAuthorize("hasRole('ROLE_NOTICE')")
     @PostMapping(value = "/add")
     public void add(Notice notice) {
+        notice.setTitle(HtmlUtils.htmlEscape(notice.getTitle()));
         noticeService.add(notice.getId(), notice);
     }
 
+    @PreAuthorize("hasRole('ROLE_NOTICE')")
     @PostMapping(value = "/delete")
     public void delete(String id) {
         noticeService.delete(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_NOTICE')")
     @PostMapping(value = "/update")
     public void update(String id, Notice notice) {
         noticeService.update(id, notice);

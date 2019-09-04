@@ -4,8 +4,9 @@ import com.ccc.oa.dao.DepartmentDao;
 import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.service.DepartmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service(value = "departmentService")
 public class DepartmentServiceImpl implements DepartmentService {
+    private static final Logger LOG = LoggerFactory.getLogger(DepartmentServiceImpl.class);
 
     private final DepartmentDao departmentDao;
 
@@ -25,6 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     @Override
     public int deleteById(Long id) {
+        LOG.info("Department "+ id +" Deleted Success");
         return departmentDao.deleteById(id);
     }
 
@@ -33,6 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public int insert(Department department) {
         if (!isExist(department)) {
             department.setDate(new java.sql.Date(new Date().getTime()));
+            LOG.info("Department "+ department.getId() +" Added Success");
             return departmentDao.insert(department);
         }
         return 0;
@@ -44,8 +48,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> selectByChildrenId(Long id) {
-        return departmentDao.selectByChildrenId(id);
+    public List<Department> selectChildren(Long id) {
+        return departmentDao.selectChildren(id);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Member selectUsers(Long id) {
+    public List<Member> selectUsers(Long id) {
         return departmentDao.selectUsers(id);
     }
 
@@ -62,6 +66,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public int updateById(Department department) {
         if (isExist(department)) {
+            LOG.info("Department "+ department.getId() +" Updated Success");
             return departmentDao.updateById(department);
         }
         return 0;

@@ -4,6 +4,7 @@ import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Department;
 import com.ccc.oa.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class DepartmentController {
         return "/dept/dept_list";
     }
 
+    @PreAuthorize("hasRole('ROLE_DEPTS')")
     @PostMapping(value = "/dept_delete/{id}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){
@@ -48,6 +50,8 @@ public class DepartmentController {
         return "/dept/dept_add";
     }
 
+
+    @PreAuthorize("hasRole('ROLE_DEPTS')")
     @PostMapping(value = "/dept_added")
     public String added(@Validated Department department, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -84,6 +88,7 @@ public class DepartmentController {
         return "/dept/dept_update";
     }
 
+    @PreAuthorize("hasRole('ROLE_DEPTS')")
     @PostMapping(value = "/dept_updated")
     public String updated(@Validated Department department, BindingResult result, Model model) {
         if (result.hasErrors()) {

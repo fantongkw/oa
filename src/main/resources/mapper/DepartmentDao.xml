@@ -8,8 +8,8 @@
     <result column="description" jdbcType="VARCHAR" property="description"/>
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <association property="parent" javaType="Department" column="parent_id" fetchType="lazy" select="selectById"/>
-    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectByChildrenId"/>
-    <collection property="members" ofType="User" column="id" fetchType="lazy" select="selectUsers"/>
+    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectChildrenId"/>
+    <collection property="members" ofType="Member" column="id" fetchType="lazy" select="selectUsers"/>
   </resultMap>
   <sql id="Base_Dept_List">
     id, name, date, description, parent_id
@@ -25,7 +25,7 @@
     <include refid="Base_Dept_List" />
     from department
   </select>
-  <select id="selectByChildrenId" resultMap="BaseDeptMap">
+  <select id="selectChildren" resultMap="BaseDeptMap">
     select
     <include refid="Base_Dept_List" />
     from department
@@ -33,8 +33,8 @@
   </select>
   <select id="selectUsers" resultType="com.ccc.oa.model.Member">
     select
-    id, department_id, role_id, username, password, name, gender, phoneNumber,
-    email, profilePicture, date, description
+    id, username, password, name, gender, phone,
+    email, avatar, date, description
     from member
     where department_id = #{id, jdbcType=BIGINT}
   </select>

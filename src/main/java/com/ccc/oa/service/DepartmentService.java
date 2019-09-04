@@ -12,11 +12,11 @@ public interface DepartmentService {
 
     List<Department> selectAllDepartment();
 
-    List<Department> selectByChildrenId(Long id);
+    List<Department> selectChildren(Long id);
 
     Department selectById(Long id);
 
-    Member selectUsers(Long id);
+    List<Member> selectUsers(Long id);
 
     int updateById(Department department);
 }

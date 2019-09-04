@@ -6,9 +6,9 @@ import com.ccc.oa.model.Member;
 import com.ccc.oa.model.Role;
 import com.ccc.oa.service.UserService;
 import com.ccc.oa.utils.AvatarUtil;
-import com.ccc.oa.utils.FileUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
+    private static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final Long DEFAULT_ROLE_ID = 5L;
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int deleteById(Long id) {
+        LOG.info("User "+ id +" Deleted Success");
         return userDao.deleteById(id);
     }
 
@@ -42,6 +44,7 @@ public class UserServiceImpl implements UserService {
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             member.setAvatar(AvatarUtil.getAvatarPath(member.getUsername()));
             member.setDate(new Date(new java.util.Date().getTime()));
+            LOG.info("User "+ member.getId() +" Added Success");
             return userDao.insert(member);
         }
         return 0;
@@ -81,6 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateById(Member member) {
         if (isExist(member)) {
+            LOG.info("User "+ member.getId() +" Updated Success");
             return userDao.updateById(member);
         }
         return 0;
@@ -90,6 +94,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int changePassword(Member member, String password) {
         member.setPassword(passwordEncoder.encode(password));
+        LOG.info("User "+ member.getId() +" Change Password Success");
         return userDao.updateById(member);
     }
 

@@ -5,9 +5,8 @@ import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
 import com.ccc.oa.service.DepartmentService;
 import com.ccc.oa.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +19,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final DepartmentService departmentService;
 
@@ -36,6 +34,7 @@ public class UserController {
         return "/user/user_list";
     }
 
+    @PreAuthorize("hasRole('ROLE_USERS')")
     @PostMapping(value = "/user_delete/{id}")
     @ResponseBody
     public boolean delete(@PathVariable Long id) {
@@ -52,6 +51,7 @@ public class UserController {
         return "/user/user_add";
     }
 
+    @PreAuthorize("hasRole('ROLE_USERS')")
     @PostMapping(value = "/user_added")
     public String added(@Validated Member member, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -92,6 +92,7 @@ public class UserController {
         return "/user/user_update";
     }
 
+    @PreAuthorize("hasRole('ROLE_USERS')")
     @PostMapping(value = "/user_updated")
     public String updated(Member member, Model model) {
         int queryResult = userService.updateById(member);

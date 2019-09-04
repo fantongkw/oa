@@ -48,7 +48,6 @@ public class WebSocketController {
         return chatUserService.getAll();
     }
 
-
     @MessageMapping("/transmit")
     public void handleMessage(ChatMessage chatMessage) {
         System.out.println("后台一对一推送！");

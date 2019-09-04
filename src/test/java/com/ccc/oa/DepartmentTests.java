@@ -2,6 +2,7 @@ package com.ccc.oa;
 
 import com.ccc.oa.dao.DepartmentDao;
 import com.ccc.oa.model.Department;
+import com.ccc.oa.model.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * @Created with IntelliJ IDEA.
@@ -32,11 +34,17 @@ public class DepartmentTests {
     }
 
     @Test
-    public void testSelectById(){
-        Department department = departmentDao.selectById(1L);
+    public void testSelectById() {
+        Department department = departmentDao.selectById(2L);
         /*System.out.println(department);*/
         System.out.println(department.getChildren().size());
         department.getChildren().forEach(System.out::println);
+    }
+
+    @Test
+    public void testSelectUsers() {
+        List<Member> member = departmentDao.selectUsers(2L);
+        member.forEach(e -> System.out.println(e.getDepartmentId()));
     }
 
     @Test

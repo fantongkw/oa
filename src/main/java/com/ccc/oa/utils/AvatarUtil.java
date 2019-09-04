@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-/***
+/**
  * @ClassName: AvatarUtil
  * @Author: Administrator
  * @Description: 根据用户名生成随机头像
@@ -129,7 +129,7 @@ public class AvatarUtil {
      * @return java.lang.String
      **/
 
-    public static String getInitials(@NonNull String name) {
+    private static String getInitials(@NonNull String name) {
         return name.substring(0,1).toUpperCase();
     }
 

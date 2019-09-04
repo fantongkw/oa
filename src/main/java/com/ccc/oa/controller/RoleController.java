@@ -3,9 +3,8 @@ package com.ccc.oa.controller;
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Role;
 import com.ccc.oa.service.RoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/role")
 public class RoleController {
-    private static final Logger LOG = LoggerFactory.getLogger(RoleController.class);
     private final RoleService roleService;
 
     @Autowired
@@ -32,6 +30,7 @@ public class RoleController {
         return "/role/role_list";
     }
 
+    @PreAuthorize("hasRole('ROLE_ROLES')")
     @PostMapping(value = "/role_delete/{id}")
     @ResponseBody
     public boolean delete(@PathVariable Long id){
@@ -44,6 +43,7 @@ public class RoleController {
         return "/role/role_add";
     }
 
+    @PreAuthorize("hasRole('ROLE_ROLES')")
     @PostMapping(value = "/role_added")
     public String added(@Validated Role role, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -80,6 +80,7 @@ public class RoleController {
         return "/role/role_update";
     }
 
+    @PreAuthorize("hasRole('ROLE_ROLES')")
     @PostMapping(value = "/role_updated")
     public String updated(@Validated Role role, BindingResult result, Model model) {
         if (result.hasErrors()) {

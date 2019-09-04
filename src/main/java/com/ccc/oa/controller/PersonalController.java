@@ -9,11 +9,10 @@ import com.ccc.oa.service.RoleService;
 import com.ccc.oa.service.UserService;
 import com.ccc.oa.utils.FileUtil;
 import com.ccc.oa.utils.ResultMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +45,7 @@ public class PersonalController {
         return "/personal/account";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/update_account")
     public String updated(@Validated Member member) {
         userService.updateById(member);
@@ -73,6 +73,7 @@ public class PersonalController {
         return "/personal/change_password";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/changed_password")
     public String changedPassword(@CurrentUser User user, @RequestParam(value="new_password") String password, HttpSession session, Model model){
         if (user == null) {
@@ -96,6 +97,7 @@ public class PersonalController {
         return "/personal/upload";
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/uploaded")
     @ResponseBody
     public ResultMessage<String> uploaded(@NonNull String picture, @CurrentUser User user) {

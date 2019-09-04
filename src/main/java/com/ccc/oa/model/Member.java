@@ -174,9 +174,7 @@ public class Member implements Serializable {
         return "Member{" +
                 " username='" + username + '\'' +
                 ", departmentId='" + departmentId + '\'' +
-                ", department='" + department + '\'' +
                 ", roleId='" + roleId + '\'' +
-                ", role='" + role + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +

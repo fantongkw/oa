@@ -47,7 +47,7 @@
   </select>
   <select id="selectDepartment" resultType="com.ccc.oa.model.Department">
     select
-    id, name, date, description, parent_id
+    id, name, date, description
     from department
     where id = #{departmentId,jdbcType=BIGINT}
   </select>

@@ -108,6 +108,7 @@ public class Department implements Serializable {
                 ", name='" + name + '\'' +
                 ", date=" + date +
                 ", description='" + description + '\'' +
+                ", parentId=" + parentId +
                 '}';
     }
 }

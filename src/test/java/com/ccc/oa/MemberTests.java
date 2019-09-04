@@ -24,7 +24,7 @@ public class MemberTests {
 
     @Test
     public void testSelectById(){
-        Member list = userService.selectById(80L);
+        Member list = userService.selectById(1L);
         System.out.println(list);
     }
 

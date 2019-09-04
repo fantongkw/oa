@@ -5,6 +5,8 @@ import com.ccc.oa.model.Member;
 import com.ccc.oa.model.Permission;
 import com.ccc.oa.model.Role;
 import com.ccc.oa.service.RoleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Service(value = "roleService")
 public class RoleServiceImpl implements RoleService {
+    private static final Logger LOG = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     private final RoleDao roleDao;
 
@@ -24,6 +27,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @Override
     public int deleteById(Long id) {
+        LOG.info("Role " + id + " Deleted Success");
         return roleDao.deleteById(id);
     }
 
@@ -31,6 +35,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int insert(Role role) {
         if (!isExist(role)) {
+            LOG.info("Role "+ role.getId() +" Added Success");
             return roleDao.insert(role);
         }
         return 0;
@@ -60,6 +65,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int updateById(Role role) {
         if (isExist(role)) {
+            LOG.info("Role "+ role.getId() +" Updated Success");
             return roleDao.updateById(role);
         }
         return 0;

@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
  * Java SDK
  * 
  */
-public class GeetestLib {
+public class GeetestUtil {
 
 	private final String apiUrl = "http://api.geetest.com";
 
@@ -71,7 +71,7 @@ public class GeetestLib {
 	 * @param captchaId
 	 * @param privateKey
 	 */
-	public GeetestLib(String captchaId, String privateKey, boolean newFailback) {
+	public GeetestUtil(String captchaId, String privateKey, boolean newFailback) {
 		this.captchaId = captchaId;
 		this.privateKey = privateKey;
 		this.newFailback = newFailback;

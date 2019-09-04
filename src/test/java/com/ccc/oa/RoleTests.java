@@ -24,18 +24,20 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OaApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class RoleTests {
-    @Autowired
-    private UserDao userDao;
 
     @Autowired
     private RoleService roleService;
 
     @Test
-    public void testSelectById(){
-        Member member = userDao.selectById(5L);
-        Role role = userDao.selectRole(member.getRoleId());
-        List<Permission> permissions = roleService.selectPermissions(role.getId());
-        permissions.forEach(System.out::println);
+    public void testSelectById() {
+        Role role = roleService.selectById(1L);
+        System.out.println(role);
+    }
+
+    @Test
+    public void testSelectUsers() {
+        List<Member> members = roleService.selectUsers(1L);
+        members.forEach(System.out::println);
     }
 
     @Test

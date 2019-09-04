@@ -14,11 +14,11 @@ public interface DepartmentDao {
 
     List<Department> selectAllDepartment();
 
-    List<Department> selectByChildrenId(@Param("id") Long id);
+    List<Department> selectChildren(@Param("id") Long id);
 
     Department selectById(@Param("id") Long id);
 
-    Member selectUsers(@Param("id") Long id);
+    List<Member> selectUsers(@Param("id") Long id);
 
     int updateById(Department department);
 

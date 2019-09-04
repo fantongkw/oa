@@ -1,7 +1,7 @@
 package com.ccc.oa.controller;
 
 import com.ccc.oa.config.GeetestConfig;
-import com.ccc.oa.utils.GeetestLib;
+import com.ccc.oa.utils.GeetestUtil;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class VerifyController {
     @GetMapping("/register")
     @ResponseBody
     public String startCaptcha(HttpServletRequest request) {
-        GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
+        GeetestUtil gtSdk = new GeetestUtil(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
                 GeetestConfig.isnewfailback());
         String resStr;
 
@@ -49,12 +49,12 @@ public class VerifyController {
     @PostMapping("/ajax-validate")
     @ResponseBody
     public Object verification(HttpServletRequest request) {
-        GeetestLib gtSdk = new GeetestLib(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
+        GeetestUtil gtSdk = new GeetestUtil(GeetestConfig.getGeetest_id(), GeetestConfig.getGeetest_key(),
                 GeetestConfig.isnewfailback());
 
-        String challenge = request.getParameter(GeetestLib.fn_geetest_challenge);
-        String validate = request.getParameter(GeetestLib.fn_geetest_validate);
-        String seccode = request.getParameter(GeetestLib.fn_geetest_seccode);
+        String challenge = request.getParameter(GeetestUtil.fn_geetest_challenge);
+        String validate = request.getParameter(GeetestUtil.fn_geetest_validate);
+        String seccode = request.getParameter(GeetestUtil.fn_geetest_seccode);
 
         //从session中获取gt-server状态
         int gt_server_status_code = (Integer) request.getSession().getAttribute(gtSdk.gtServerStatusSessionKey);

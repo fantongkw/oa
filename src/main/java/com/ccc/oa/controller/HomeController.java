@@ -2,7 +2,9 @@ package com.ccc.oa.controller;
 
 import com.ccc.oa.Exception.CustomException;
 import com.ccc.oa.model.Member;
+import com.ccc.oa.model.Notice;
 import com.ccc.oa.security.CurrentUser;
+import com.ccc.oa.service.NoticeService;
 import com.ccc.oa.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -30,11 +33,13 @@ public class HomeController {
     private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
 
     private final UserService userService;
+    private final NoticeService noticeService;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public HomeController(UserService userService, AuthenticationManager authenticationManager) {
+    public HomeController(UserService userService, NoticeService noticeService, AuthenticationManager authenticationManager) {
         this.userService = userService;
+        this.noticeService = noticeService;
         this.authenticationManager = authenticationManager;
     }
 
@@ -64,7 +69,10 @@ public class HomeController {
     }
 
     @GetMapping(value = "/notice")
-    public String notice(){
+    public String notice(Model model){
+        List<Notice> res = noticeService.getAll();
+        res.sort(Comparator.comparingLong(Notice::getCreated));
+        model.addAttribute("notices", res);
         return "/notice";
     }
 

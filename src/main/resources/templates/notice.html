@@ -249,13 +249,21 @@
                 <div class="card px-3">
                   <div class="card-body">
                     <h4 class="card-title">通知</h4>
-                    <div class="add-items d-flex">
+                    <div class="add-items d-flex" sec:authorize="hasRole('ROLE_NOTICE')">
                       <label for="creat"></label>
                       <input id="creat" type="text" class="form-control notice-list-input" placeholder="创建通知">
                       <button class="add btn btn-primary font-weight-bold notice-list-add-btn" id="add-notice" style="width: 74px;">新增</button>
                     </div>
                     <div class="list-wrapper">
                       <ul class="d-flex flex-column-reverse notice-list">
+                        <li th:each="notice : ${notices}">
+                          <div class="notice-title">
+                            <i class="notice-icon mdi mdi-message-text-outline"></i>
+                            <label class="form-check-label" th:text="${notice.title}"></label>
+                          </div>
+                          <div class="notice-time" th:text="${#dates.format(notice.created, 'yyyy-MM-dd hh:mm:ss')}"></div>
+                          <i sec:authorize="hasRole('ROLE_NOTICE')" th:data-id="${notice.id}" class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -263,6 +271,16 @@
               </div>
             </div>
           </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019
+                <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.
+              </span>
+            </div>
+          </footer>
+          <!-- partial -->
         </div>
         <!-- main-panel ends -->
       </div>

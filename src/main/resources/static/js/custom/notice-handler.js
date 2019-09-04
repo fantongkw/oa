@@ -10,7 +10,32 @@
   };
 
   function noticeTemplate(notice) {
-    noticeListItem.append("<li><div class='notice-title'><label class='form-check-label'><i class='notice-icon mdi mdi-message-text-outline'></i>" + notice.title + "</label></div><div class='notice-time'>"+ new Date(notice.created).toLocaleString() +"</div><i data-id='"+ notice.id +"' class='remove mdi mdi-close-circle-outline'></i></li>");
+    let date = new Date(notice.created);
+    let y = date.getFullYear();
+    let M = date.getMonth() + 1;
+    let d = date.getDate();
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+    if (M < 10) {
+      M = "0" + M;
+    }
+    if (d < 10) {
+      d = "0" + d;
+    }
+    if (h > 12) {
+      h %= 12;
+    }
+    if (h < 10) {
+      h = "0" + h;
+    }
+    if (m < 10) {
+      m = "0" + m;
+    }
+    if (s < 10) {
+      s = "0" + s;
+    }
+    noticeListItem.append("<li><div class='notice-title'><label class='form-check-label'><i class='notice-icon mdi mdi-message-text-outline'></i>" + notice.title + "</label></div><div class='notice-time'>"+ y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s +"</div><i data-id='"+ notice.id +"' class='remove mdi mdi-close-circle-outline'></i></li>");
   }
 
   function getId() {
@@ -27,17 +52,6 @@
 
   $(function() {
     getCsrf(csrf);
-    $.ajax({
-      url: "/notice/list",
-      type: "get",
-      dataType: "json",
-      success: function (response) {
-        for (let i = 0; i < response.length; i++) {
-          noticeTemplate(response[i]);
-        }
-      }
-    });
-
     $('.notice-list-add-btn').on("click", function(event) {
       event.preventDefault();
       let item = $(this).prevAll('.notice-list-input').val();
@@ -67,16 +81,20 @@
       }
     });
 
-    noticeListItem.on('click', '.remove', function() {
+    $(document).on('click', '.remove', function() {
+      let ele = $(this);
       $.ajax({
         url: "/notice/delete",
         type: "post",
-        data: {id: $(this).attr("data-id")},
+        data: {id: ele.attr("data-id")},
         beforeSend: function(xhr){
           xhr.setRequestHeader(csrf.headerName, csrf.token);
         },
         success: function () {
-          $(this).parent().remove();
+          ele.parent().remove();
+        },
+        error: function () {
+          console.log(data)
         }
       });
     });
