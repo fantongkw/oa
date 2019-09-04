@@ -47,8 +47,6 @@
  * Jquery
  * Bootstrapdash
  
-## 参考文档
- 
 ## License
 Copyright 2019 fantongkw
 
