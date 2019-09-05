@@ -67,6 +67,13 @@ function selectChatUser(user) {
   to.username = user.find('.user-name').text().trim();
   to.avatar = user.find('img').attr('src');
   $('.chat-app-tip').remove();
+  if ($(".chat-app-top").length > 0) {
+    $(".chat-app-top > .badge").text(to.username);
+  } else {
+    chatArea.append("<div class=\"chat-app-top\">\n" +
+        "      与 <div class=\"badge badge-primary badge-pill\">"+ to.username +"</div> 聊天中\n" +
+        "      </div>");
+  }
   $('.chat-text-field').show();
   user.addClass('active');
   prev = user;
