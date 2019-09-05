@@ -8,7 +8,7 @@
     <result column="description" jdbcType="VARCHAR" property="description"/>
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <association property="parent" javaType="Department" column="parent_id" fetchType="lazy" select="selectById"/>
-    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectChildrenId"/>
+    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectChildren"/>
     <collection property="members" ofType="Member" column="id" fetchType="lazy" select="selectUsers"/>
   </resultMap>
   <sql id="Base_Dept_List">
