@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int deleteById(Long id) {
-        LOG.info("User "+ id +" Deleted Success");
+        LOG.info("User " + id + " Deleted Success");
         return userDao.deleteById(id);
     }
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             member.setAvatar(AvatarUtil.getAvatarPath(member.getUsername()));
             member.setDate(new Date(new java.util.Date().getTime()));
-            LOG.info("User "+ member.getId() +" Added Success");
+            LOG.info("User " + member.getId() + " Added Success");
             return userDao.insert(member);
         }
         return 0;
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateById(Member member) {
         if (isExist(member)) {
-            LOG.info("User "+ member.getId() +" Updated Success");
+            LOG.info("User " + member.getId() + " Updated Success");
             return userDao.updateById(member);
         }
         return 0;
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int changePassword(Member member, String password) {
         member.setPassword(passwordEncoder.encode(password));
-        LOG.info("User "+ member.getId() +" Change Password Success");
+        LOG.info("User " + member.getId() + " Change Password Success");
         return userDao.updateById(member);
     }
 

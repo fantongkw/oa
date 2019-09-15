@@ -27,14 +27,14 @@ public class PermissionServiceImpl implements PermissionService {
     @Transactional
     @Override
     public int deleteById(Long id) {
-        LOG.info("Permission "+ id +" Deleted Success");
+        LOG.info("Permission " + id + " Deleted Success");
         return permissionDao.deleteById(id);
     }
 
     @Transactional
     @Override
     public int insert(Permission permission) {
-        LOG.info("Permission "+ permission.getId() +" Added Success");
+        LOG.info("Permission " + permission.getId() + " Added Success");
         return permissionDao.insert(permission);
     }
 
@@ -56,7 +56,7 @@ public class PermissionServiceImpl implements PermissionService {
     @Transactional
     @Override
     public int updateById(Permission permission) {
-        LOG.info("Permission "+ permission.getId() +" Updated Success");
+        LOG.info("Permission " + permission.getId() + " Updated Success");
         return permissionDao.updateById(permission);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class BCryptTests {
     @Test
-    public void test(){
+    public void test() {
         String pass = "12345678";
         BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
         String hashPass = encode.encode(pass);

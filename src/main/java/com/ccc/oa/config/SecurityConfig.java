@@ -32,34 +32,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/registered").permitAll()
-                    .antMatchers("/personal/**").hasRole("USER")
-                    .antMatchers("/app/**").hasRole("USER")
-                    .antMatchers("/dept/**").hasRole("DEPTS")
-                    .antMatchers("/user/**").hasRole("USERS")
-                    .antMatchers("/role/**").hasRole("ROLES")
-                    .antMatchers("/notice").hasRole("USER")
-                    .antMatchers("/**").permitAll()
-                    .and()
+                .antMatchers("/registered").permitAll()
+                .antMatchers("/personal/**").hasRole("USER")
+                .antMatchers("/app/**").hasRole("USER")
+                .antMatchers("/dept/**").hasRole("DEPTS")
+                .antMatchers("/user/**").hasRole("USERS")
+                .antMatchers("/role/**").hasRole("ROLES")
+                .antMatchers("/notice").hasRole("USER")
+                .antMatchers("/**").permitAll()
+                .and()
                 .sessionManagement()
-                    .maximumSessions(1)
-                        .sessionRegistry(sessionRegistry())
-                        .and()
-                    .and()
+                .maximumSessions(1)
+                .sessionRegistry(sessionRegistry())
+                .and()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .failureUrl("/login-error")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .failureUrl("/login-error")
+                .permitAll()
+                .and()
                 .rememberMe()
-                    .and()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/login-logout")
-                    .invalidateHttpSession(true)
-                    .permitAll()
-                    .and()
+                .logoutSuccessUrl("/login-logout")
+                .invalidateHttpSession(true)
+                .permitAll()
+                .and()
                 .rememberMe()
-                    .and()
+                .and()
                 .httpBasic();
     }
 
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public HttpFirewall httpFirewall(){
+    public HttpFirewall httpFirewall() {
         return new DefaultHttpFirewall();
     }
 

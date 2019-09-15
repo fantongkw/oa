@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     @Override
     public int deleteById(Long id) {
-        LOG.info("Department "+ id +" Deleted Success");
+        LOG.info("Department " + id + " Deleted Success");
         return departmentDao.deleteById(id);
     }
 
@@ -36,7 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public int insert(Department department) {
         if (!isExist(department)) {
             department.setDate(new java.sql.Date(new Date().getTime()));
-            LOG.info("Department "+ department.getId() +" Added Success");
+            LOG.info("Department " + department.getId() + " Added Success");
             return departmentDao.insert(department);
         }
         return 0;
@@ -53,7 +53,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department selectById(Long id){
+    public Department selectById(Long id) {
         return departmentDao.selectById(id);
     }
 
@@ -66,7 +66,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public int updateById(Department department) {
         if (isExist(department)) {
-            LOG.info("Department "+ department.getId() +" Updated Success");
+            LOG.info("Department " + department.getId() + " Updated Success");
             return departmentDao.updateById(department);
         }
         return 0;

@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   'use strict';
 
   let noticeListItem = $('.notice-list');
@@ -35,7 +35,7 @@
     if (s < 10) {
       s = "0" + s;
     }
-    noticeListItem.append("<li><div class='notice-title'><label class='form-check-label'><i class='notice-icon mdi mdi-message-text-outline'></i>" + notice.title + "</label></div><div class='notice-time'>"+ y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s +"</div><i data-id='"+ notice.id +"' class='remove mdi mdi-close-circle-outline'></i></li>");
+    noticeListItem.append("<li><div class='notice-title'><label class='form-check-label'><i class='notice-icon mdi mdi-message-text-outline'></i>" + notice.title + "</label></div><div class='notice-time'>" + y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s + "</div><i data-id='" + notice.id + "' class='remove mdi mdi-close-circle-outline'></i></li>");
   }
 
   function getId() {
@@ -50,9 +50,9 @@
     return s.join("");
   }
 
-  $(function() {
+  $(function () {
     getCsrf(csrf);
-    $('.notice-list-add-btn').on("click", function(event) {
+    $('.notice-list-add-btn').on("click", function (event) {
       event.preventDefault();
       let item = $(this).prevAll('.notice-list-input').val();
       if (item) {
@@ -67,7 +67,7 @@
           url: "/notice/add",
           type: "post",
           data: {id: notice.id, type: notice.type, username: notice.username, title: item, created: notice.created},
-          beforeSend: function(xhr){
+          beforeSend: function (xhr) {
             xhr.setRequestHeader(csrf.headerName, csrf.token);
           },
           success: function () {
@@ -81,13 +81,13 @@
       }
     });
 
-    $(document).on('click', '.remove', function() {
+    $(document).on('click', '.remove', function () {
       let ele = $(this);
       $.ajax({
         url: "/notice/delete",
         type: "post",
         data: {id: ele.attr("data-id")},
-        beforeSend: function(xhr){
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(csrf.headerName, csrf.token);
         },
         success: function () {

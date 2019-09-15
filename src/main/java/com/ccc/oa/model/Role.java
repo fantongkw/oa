@@ -20,7 +20,8 @@ public class Role implements Serializable {
     @JsonIgnore
     private List<Permission> permissions;
 
-    public Role() {}
+    public Role() {
+    }
 
     public Role(Role role) {
         this.id = role.id;

@@ -24,21 +24,21 @@ public class FileUtil {
     public static final String BASE_PATH = "/images/upload/";
 
     /**
+     * @return java.lang.String
      * @Description 获取UUID
      * @Date 2019/1/14 10:30
      * @Param []
-     * @return java.lang.String
      **/
 
     public static String uuid() {
         return getUUID(true);
     }
-    
+
     /**
+     * @return java.lang.String
      * @Description 生成UUID
      * @Date 2019/1/14 10:30
      * @Param [isDeleteSlash]
-     * @return java.lang.String
      **/
 
     public static String getUUID(boolean isDeleteSlash) {
@@ -47,10 +47,10 @@ public class FileUtil {
     }
 
     /**
-     * @Description 创建目录
-     * @Date 2019/1/13 21:42 
-     * @Param [path]
      * @return void
+     * @Description 创建目录
+     * @Date 2019/1/13 21:42
+     * @Param [path]
      **/
     public static void creatFile(String path) {
         File filePath = new File(path);
@@ -62,10 +62,10 @@ public class FileUtil {
     }
 
     /**
-     * @Description 获取项目资源路径
-     * @Date 2019/1/13 21:43 
-     * @Param []
      * @return java.lang.String
+     * @Description 获取项目资源路径
+     * @Date 2019/1/13 21:43
+     * @Param []
      **/
     public static String getResourcePath() {
         String path = "";
@@ -79,10 +79,10 @@ public class FileUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取唯一文件名(MultipartFile格式)
      * @Date 2019/7/4 17:36
      * @Param [file]
-     * @return java.lang.String
      **/
     public static String getUUIDFileName(MultipartFile file) {
         String fileName = file.getOriginalFilename();
@@ -94,53 +94,53 @@ public class FileUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取唯一文件名(Base64格式)
      * @Date 2019/7/4 17:40
      * @Param [file]
-     * @return java.lang.String
      **/
     public static String getUUIDFileName(String file) {
         return uuid() + getBase64Format(file);
     }
 
     /**
+     * @return java.lang.String[]
      * @Description base64划分数组(第一部分文件后缀 第二部分文件数据)
      * @Date 2019/7/4 17:55
      * @Param [file]
-     * @return java.lang.String[]
      **/
     private static String[] getBase64(String file) {
         return file.split("base64,");
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取文件后缀
      * @Date 2019/7/4 17:50
      * @Param [tailoring]
-     * @return java.lang.String
      **/
     private static String getBase64Format(String picture) {
         String dataPrefix = getBase64(picture)[0];
         String suffix;
-        if("data:image/jpeg;".equalsIgnoreCase(dataPrefix)){
+        if ("data:image/jpeg;".equalsIgnoreCase(dataPrefix)) {
             suffix = ".jpg";
-        } else if("data:image/x-icon;".equalsIgnoreCase(dataPrefix)){
+        } else if ("data:image/x-icon;".equalsIgnoreCase(dataPrefix)) {
             suffix = ".ico";
-        } else if("data:image/gif;".equalsIgnoreCase(dataPrefix)){
+        } else if ("data:image/gif;".equalsIgnoreCase(dataPrefix)) {
             suffix = ".gif";
-        } else if("data:image/png;".equalsIgnoreCase(dataPrefix)){
+        } else if ("data:image/png;".equalsIgnoreCase(dataPrefix)) {
             suffix = ".png";
-        }else{
+        } else {
             throw new CustomException("上传图片格式不合法");
         }
         return suffix;
     }
 
     /**
+     * @return int
      * @Description 获取文件大小
      * @Date 2019/7/4 18:00
      * @Param [tailoring]
-     * @return int
      **/
     private static int getPictureSize(String picture) {
         String base64Date = getBase64(picture)[1];
@@ -150,10 +150,10 @@ public class FileUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 上传图片
      * @Date 2019/1/13 21:48
      * @Param [tailoring]
-     * @return java.lang.String
      **/
     public static String uploadAvatar(String picture, String fileName) {
         if (null == picture || "".equals(picture.trim())) return "null";

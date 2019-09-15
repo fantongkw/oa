@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   'use strict';
   $(function () {
     let csrf = {
@@ -29,15 +29,15 @@
             closeModal: true
           }
         }
-      }).then(value =>  {
+      }).then(value => {
             if (value) {
               if (eleType === null || eleId === null) return;
-              let url = '/' + eleType + '/'+ eleType + '_delete/'+ eleId;
+              let url = '/' + eleType + '/' + eleType + '_delete/' + eleId;
               $.ajax({
                 url: url,
                 type: 'post',
                 dataType: "json",
-                beforeSend: (xhr) =>{
+                beforeSend: (xhr) => {
                   xhr.setRequestHeader(csrf.headerName, csrf.token);
                 },
                 success: function (response) {

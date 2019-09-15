@@ -2,15 +2,15 @@
   let win_height = $(window).height();
   let win_width = $(window).width();
   let tailoring = $(".tailoring-content");
-  if (win_width <= 768){
+  if (win_width <= 768) {
     tailoring.css({
-      "top": (win_height - tailoring.outerHeight())/2,
+      "top": (win_height - tailoring.outerHeight()) / 2,
       "left": 0
     });
-  }else{
+  } else {
     tailoring.css({
-      "top": (win_height - tailoring.outerHeight())/2,
-      "left": (win_width - tailoring.outerWidth())/2
+      "top": (win_height - tailoring.outerHeight()) / 2,
+      "left": (win_width - tailoring.outerWidth()) / 2
     });
   }
 })();
@@ -22,14 +22,14 @@ $("#replaceImg").on("click", function () {
 //图像上传
 $('#chooseImg').on('change', function () {
   let file = $('#chooseImg').get(0);
-  if (!file.files || !file.files[0]){
+  if (!file.files || !file.files[0]) {
     return;
   }
   let reader = new FileReader();
   reader.onload = function (evt) {
     let replaceSrc = evt.target.result;
     //更换cropper的图片
-    $('#tailoringImg').cropper('replace', replaceSrc,false);//默认false，适应高度，不失真
+    $('#tailoringImg').cropper('replace', replaceSrc, false);//默认false，适应高度，不失真
   };
   reader.readAsDataURL(file.files[0]);
 });
@@ -47,25 +47,25 @@ $('#tailoringImg').cropper({
   mouseWheelZoom: true,  //是否允许通过鼠标滚轮来缩放图片
   touchDragZoom: true,  //是否允许通过触摸移动来缩放图片
   rotatable: true,  //是否允许旋转图片
-  crop: function(e) {
+  crop: function (e) {
     // 输出结果数据裁剪图像。
   }
 });
 //旋转
-$(".cropper-rotate-btn").on("click",function () {
+$(".cropper-rotate-btn").on("click", function () {
   $('#tailoringImg').cropper("rotate", 45);
 });
 //复位
-$(".cropper-reset-btn").on("click",function () {
+$(".cropper-reset-btn").on("click", function () {
   $('#tailoringImg').cropper("reset");
 });
 //换向
 let flagX = true;
-$(".cropper-scaleX-btn").on("click",function () {
-  if(flagX){
+$(".cropper-scaleX-btn").on("click", function () {
+  if (flagX) {
     $('#tailoringImg').cropper("scaleX", -1);
     flagX = false;
-  }else{
+  } else {
     $('#tailoringImg').cropper("scaleX", 1);
     flagX = true;
   }
@@ -73,25 +73,26 @@ $(".cropper-scaleX-btn").on("click",function () {
 let base64url = '';
 
 //裁剪后的处理
-$("#sureCut").on("click",function () {
+$("#sureCut").on("click", function () {
   let tailoringImg = $("#tailoringImg");
-  if (tailoringImg.attr("src") == null ){
+  if (tailoringImg.attr("src") == null) {
     return false;
-  }else{
+  } else {
     let cas = tailoringImg.cropper('getCroppedCanvas');//获取被裁剪后的canvas
     base64url = cas.toDataURL('image/png'); //转换为base64地址形式
-    $("#finalImg").prop("src",base64url);//显示为图片的形式
+    $("#finalImg").prop("src", base64url);//显示为图片的形式
 
     //关闭裁剪框
     closeTailor();
   }
 });
+
 //关闭裁剪框
 function closeTailor() {
   $(".tailoring-container").toggle();
 }
 
-(function($) {
+(function ($) {
   'use strict';
   $(function () {
     let csrf = {
@@ -110,8 +111,8 @@ function closeTailor() {
         url: "/personal/uploaded",
         type: "post",
         dataType: "json",
-        data: {'picture' : base64url},
-        beforeSend: function(xhr) {
+        data: {'picture': base64url},
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(csrf.headerName, csrf.token);
         },
         success: function (response) {

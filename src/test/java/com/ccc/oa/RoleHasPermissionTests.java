@@ -19,20 +19,20 @@ public class RoleHasPermissionTests {
 
     @Test
     public void testDeleteById() {
-        roleHasPermissionService.deleteById(1L,1L);
+        roleHasPermissionService.deleteById(1L, 1L);
     }
 
     @Test
     public void testInsertPermissions() {
         List<Long> list = new ArrayList<>();
         list.add(1L);
-        roleHasPermissionService.insertPermissions(1L,list);
+        roleHasPermissionService.insertPermissions(1L, list);
     }
 
     @Test
     public void testInsertRoles() {
         List<Long> list = new ArrayList<>();
         list.add(1L);
-        roleHasPermissionService.insertRoles(list,1L);
+        roleHasPermissionService.insertRoles(list, 1L);
     }
 }

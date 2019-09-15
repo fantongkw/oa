@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccc.oa.dao.RoleHasPermissionDao">
-  <resultMap id="BaseResultMap" type="com.ccc.oa.model.RoleHasPermission">
-    <id column="Role_id" jdbcType="BIGINT" property="roleId" />
-    <id column="Permission_id" jdbcType="BIGINT" property="permissionId" />
-  </resultMap>
-  <delete id="deleteById" parameterType="map">
-    delete from role_has_permission
-    where Role_id = #{roleId,jdbcType=BIGINT}
-      and Permission_id = #{permissionId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByRoleId" parameterType="java.lang.Long">
-    delete from role_has_permission
-    where Role_id = #{roleId,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByPermissionId" parameterType="java.lang.Long">
-    delete from role_has_permission
-    where Permission_id = #{permissionId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insertPermissions" parameterType="com.ccc.oa.model.RoleHasPermission">
-    insert into role_has_permission (Role_id, Permission_id)
-    values
-    <foreach collection="list" item="permissionId" separator=",">
-      (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
-    </foreach>
-  </insert>
-  <insert id="insertRoles" parameterType="com.ccc.oa.model.RoleHasPermission">
-    insert into role_has_permission (Role_id, Permission_id)
-    values
-    <foreach collection="list" item="roleId" separator=",">
-      (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
-    </foreach>
-  </insert>
+    <resultMap id="BaseResultMap" type="com.ccc.oa.model.RoleHasPermission">
+        <id column="Role_id" jdbcType="BIGINT" property="roleId"/>
+        <id column="Permission_id" jdbcType="BIGINT" property="permissionId"/>
+    </resultMap>
+    <delete id="deleteById" parameterType="map">
+        delete from role_has_permission
+        where Role_id = #{roleId,jdbcType=BIGINT}
+        and Permission_id = #{permissionId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByRoleId" parameterType="java.lang.Long">
+        delete from role_has_permission
+        where Role_id = #{roleId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByPermissionId" parameterType="java.lang.Long">
+        delete from role_has_permission
+        where Permission_id = #{permissionId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insertPermissions" parameterType="com.ccc.oa.model.RoleHasPermission">
+        insert into role_has_permission (Role_id, Permission_id)
+        values
+        <foreach collection="list" item="permissionId" separator=",">
+            (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <insert id="insertRoles" parameterType="com.ccc.oa.model.RoleHasPermission">
+        insert into role_has_permission (Role_id, Permission_id)
+        values
+        <foreach collection="list" item="roleId" separator=",">
+            (#{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
 
 </mapper>

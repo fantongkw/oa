@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
 /**
  * @ClassName: AvatarUtil
  * @Author: Administrator
@@ -27,10 +28,10 @@ public class AvatarUtil {
     private static final int HEIGHT = 1024;
 
     /**
+     * @return java.awt.image.BufferedImage
      * @Description 初始化头像数据
      * @Date 2019/1/28 17:27
      * @Param [content, font, wight, height]
-     * @return java.awt.image.BufferedImage
      **/
 
     private static BufferedImage createImage(String content, Font font, Integer wight, Integer height) {
@@ -48,15 +49,15 @@ public class AvatarUtil {
         double y = (height - rectangle2D.getHeight()) / 2;
         double ascent = -rectangle2D.getY();
         double baseY = y + ascent;
-        graphics2D.drawString(content, (int)x, (int)baseY);
+        graphics2D.drawString(content, (int) x, (int) baseY);
         return bufferedImage;
     }
 
     /**
+     * @return java.awt.image.BufferedImage
      * @Description 自定义头像数据
      * @Date 2019/1/28 17:27
      * @Param [content, font, wight, height]
-     * @return java.awt.image.BufferedImage
      **/
 
     private static BufferedImage getImage(String content, Font font, Integer wight, Integer height) {
@@ -69,10 +70,10 @@ public class AvatarUtil {
     }
 
     /**
+     * @return void
      * @Description 生成头像
      * @Date 2019/1/28 17:27
      * @Param [content, font, wight, height, path]
-     * @return void
      **/
 
     private static String generateImage(String content, Font font, Integer wight, Integer height, String path) {
@@ -86,10 +87,10 @@ public class AvatarUtil {
     }
 
     /**
+     * @return void
      * @Description 生成头像
      * @Date 2019/1/28 17:27
      * @Param [content, path]
-     * @return void
      **/
 
     private static String generateImage(String content, String path) {
@@ -97,23 +98,23 @@ public class AvatarUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取头像路径
      * @Date 2019/1/28 17:42
      * @Param [content, font, wight, height]
-     * @return java.lang.String
      **/
 
     public static String getAvatarPath(@NonNull String content, Font font, Integer wight, Integer height) {
         String path = FileUtil.getResourcePath();
-        String fileName = generateImage(getInitials(content), font, wight, height,path);
+        String fileName = generateImage(getInitials(content), font, wight, height, path);
         return FileUtil.BASE_PATH + fileName;
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取头像路径
      * @Date 2019/1/28 17:27
      * @Param [content]
-     * @return java.lang.String
      **/
 
     public static String getAvatarPath(@NonNull String content) {
@@ -123,25 +124,25 @@ public class AvatarUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取首字母并大写
      * @Date 2019/1/28 17:27
      * @Param [name]
-     * @return java.lang.String
      **/
 
     private static String getInitials(@NonNull String name) {
-        return name.substring(0,1).toUpperCase();
+        return name.substring(0, 1).toUpperCase();
     }
 
     /**
+     * @return java.awt.Color
      * @Description 获取随机颜色
      * @Date 2019/1/28 17:28
      * @Param []
-     * @return java.awt.Color
      **/
 
-    private static Color getRandomColor(){
-        String[] RandomColor = new String[] {
+    private static Color getRandomColor() {
+        String[] RandomColor = new String[]{
                 "230,184,175", "244,204,204", "252,229,205", "255,242,204", "217,234,211",
                 "208,224,227", "201,218,248", "207,226,243", "217,210,233", "234,209,220",
                 "221,126,107", "234,153,153", "249,203,156", "255,229,153", "182,215,168",

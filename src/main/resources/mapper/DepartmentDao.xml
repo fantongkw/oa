@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccc.oa.dao.DepartmentDao">
-  <resultMap id="BaseDeptMap" type="com.ccc.oa.model.Department">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name"/>
-    <result column="date" jdbcType="DATE" property="date"/>
-    <result column="description" jdbcType="VARCHAR" property="description"/>
-    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
-    <association property="parent" javaType="Department" column="parent_id" fetchType="lazy" select="selectById"/>
-    <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectChildren"/>
-    <collection property="members" ofType="Member" column="id" fetchType="lazy" select="selectUsers"/>
-  </resultMap>
-  <sql id="Base_Dept_List">
-    id, name, date, description, parent_id
-  </sql>
-  <select id="selectById" resultMap="BaseDeptMap">
-    select
-    <include refid="Base_Dept_List" />
-    from department
-    where id = #{id, jdbcType=BIGINT}
-  </select>
-  <select id="selectAllDepartment" resultMap="BaseDeptMap">
-    select
-    <include refid="Base_Dept_List" />
-    from department
-  </select>
-  <select id="selectChildren" resultMap="BaseDeptMap">
-    select
-    <include refid="Base_Dept_List" />
-    from department
-    where parent_id = #{id, jdbcType=BIGINT}
-  </select>
-  <select id="selectUsers" resultType="com.ccc.oa.model.Member">
-    select
-    id, username, password, name, gender, phone,
-    email, avatar, date, description
-    from member
-    where department_id = #{id, jdbcType=BIGINT}
-  </select>
-  <delete id="deleteById" parameterType="java.lang.Long" >
-    delete from department
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.ccc.oa.model.Department">
-    insert into department
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="parentId != null">
-        parent_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="date != null">
-        date,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="parentId != null">
-        #{parentId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="date != null">
-        #{date,jdbcType=DATE},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateById" parameterType="com.ccc.oa.model.Department">
-    update department
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="date != null">
-        date = #{date,jdbcType=DATE},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseDeptMap" type="com.ccc.oa.model.Department">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="date" jdbcType="DATE" property="date"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="parent_id" jdbcType="BIGINT" property="parentId"/>
+        <association property="parent" javaType="Department" column="parent_id" fetchType="lazy" select="selectById"/>
+        <collection property="children" ofType="Department" column="id" fetchType="lazy" select="selectChildren"/>
+        <collection property="members" ofType="Member" column="id" fetchType="lazy" select="selectUsers"/>
+    </resultMap>
+    <sql id="Base_Dept_List">
+        id, name, date, description, parent_id
+    </sql>
+    <select id="selectById" resultMap="BaseDeptMap">
+        select
+        <include refid="Base_Dept_List"/>
+        from department
+        where id = #{id, jdbcType=BIGINT}
+    </select>
+    <select id="selectAllDepartment" resultMap="BaseDeptMap">
+        select
+        <include refid="Base_Dept_List"/>
+        from department
+    </select>
+    <select id="selectChildren" resultMap="BaseDeptMap">
+        select
+        <include refid="Base_Dept_List"/>
+        from department
+        where parent_id = #{id, jdbcType=BIGINT}
+    </select>
+    <select id="selectUsers" resultType="com.ccc.oa.model.Member">
+        select
+        id, username, password, name, gender, phone,
+        email, avatar, date, description
+        from member
+        where department_id = #{id, jdbcType=BIGINT}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from department
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.ccc.oa.model.Department">
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="date != null">
+                date,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">
+                #{parentId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="date != null">
+                #{date,jdbcType=DATE},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.ccc.oa.model.Department">
+        update department
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="date != null">
+                date = #{date,jdbcType=DATE},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ccc.oa.dao.PermissionDao">
-  <resultMap id="BasePermissionMap" type="com.ccc.oa.model.Permission">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="method" jdbcType="VARCHAR" property="method" />
-    <collection property="roles" ofType="Role" column="id" fetchType="lazy" select="selectRole"/>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, name, description, url, method
-  </sql>
-  <select id="selectAllPermission" resultMap="BasePermissionMap">
-    select
-    <include refid="Base_Column_List" />
-    from permission
-  </select>
-  <select id="selectById" parameterType="java.lang.Long" resultMap="BasePermissionMap">
-    select 
-    <include refid="Base_Column_List" />
-    from permission
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <select id="selectRoles" resultType="com.ccc.oa.model.Role">
-    select
-    r.id, r.name, r.description
-    from permission p, role_has_permission rp, role r
-    where r.id = rp.Role_id
-    and rp.Permission_id = p.id
-    and p.id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteById" parameterType="java.lang.Long">
-    delete from permission
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.ccc.oa.model.Permission">
-    insert into permission
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="method != null">
-        method,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null">
-        #{method,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateById" parameterType="com.ccc.oa.model.Permission">
-    update permission
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null">
-        method = #{method,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BasePermissionMap" type="com.ccc.oa.model.Permission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <collection property="roles" ofType="Role" column="id" fetchType="lazy" select="selectRole"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, description, url, method
+    </sql>
+    <select id="selectAllPermission" resultMap="BasePermissionMap">
+        select
+        <include refid="Base_Column_List"/>
+        from permission
+    </select>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BasePermissionMap">
+        select
+        <include refid="Base_Column_List"/>
+        from permission
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectRoles" resultType="com.ccc.oa.model.Role">
+        select
+        r.id, r.name, r.description
+        from permission p, role_has_permission rp, role r
+        where r.id = rp.Role_id
+        and rp.Permission_id = p.id
+        and p.id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        delete from permission
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.ccc.oa.model.Permission">
+        insert into permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="method != null">
+                method,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                #{method,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.ccc.oa.model.Permission">
+        update permission
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                method = #{method,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

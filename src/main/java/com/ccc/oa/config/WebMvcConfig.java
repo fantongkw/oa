@@ -13,9 +13,11 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
+
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
 @Configuration
@@ -68,7 +70,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory>  customizer() {
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> customizer() {
         return (factory -> {
             ErrorPage error401Page = new ErrorPage(HttpStatus.FORBIDDEN, "/403.html");
             ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");

@@ -23,7 +23,7 @@ public class MemberTests {
     private UserService userService;
 
     @Test
-    public void testSelectById(){
+    public void testSelectById() {
         Member list = userService.selectById(1L);
         System.out.println(list);
     }
@@ -35,7 +35,7 @@ public class MemberTests {
     }
 
     @Test
-    public void testSelectRole(){
+    public void testSelectRole() {
         Member list = userService.selectById(11L);
         Role role = userService.selectRole(list.getRoleId());
         System.out.println(role);
@@ -48,7 +48,7 @@ public class MemberTests {
     }
 
     @Test
-    public void testSaveUser(){
+    public void testSaveUser() {
         Member member = new Member();
         member.setName("vasd");
         member.setUsername("aaaaaa");
@@ -57,7 +57,7 @@ public class MemberTests {
     }
 
     @Test
-    public void testDelUser(){
+    public void testDelUser() {
         userService.deleteById(7L);
     }
 

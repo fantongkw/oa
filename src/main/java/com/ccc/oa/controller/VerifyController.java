@@ -60,7 +60,7 @@ public class VerifyController {
         int gt_server_status_code = (Integer) request.getSession().getAttribute(gtSdk.gtServerStatusSessionKey);
 
         //从session中获取userid
-        String userid = (String)request.getSession().getAttribute("userid");
+        String userid = (String) request.getSession().getAttribute("userid");
 
         //自定义参数,可选择添加
         HashMap<String, String> param = new HashMap<>();

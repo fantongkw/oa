@@ -21,12 +21,11 @@ public class CustomChannelInterceptor implements ChannelInterceptor {
             if (StompCommand.CONNECT.equals(command)) {
                 String ttlString = accessor.getFirstNativeHeader("ttl");
                 long ttl = 30000;
-                if(ttlString != null) {
+                if (ttlString != null) {
                     try {
                         ttl = Long.parseLong(ttlString);
-                    }
-                    catch(Exception ex) {
-                        LOG.error("TTL header received but not in correct format {}",ttlString);
+                    } catch (Exception ex) {
+                        LOG.error("TTL header received but not in correct format {}", ttlString);
                     }
                 }
                 accessor.addNativeHeader("expires", Long.toString(System.currentTimeMillis() + ttl));

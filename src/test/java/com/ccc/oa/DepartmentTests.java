@@ -48,7 +48,7 @@ public class DepartmentTests {
     }
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         Department department = new Department();
         department.setName("aaa");
         department.setDescription("aaa");

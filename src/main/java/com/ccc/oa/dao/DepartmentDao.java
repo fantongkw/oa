@@ -4,6 +4,7 @@ import com.ccc.oa.model.Department;
 import com.ccc.oa.model.Member;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository(value = "DepartmentDao")

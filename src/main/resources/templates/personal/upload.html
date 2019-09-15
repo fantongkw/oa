@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>修改头像</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css"
+          th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="../../static/css/cropper.css" th:href="@{/css/cropper.css}">
     <link rel="stylesheet" href="../../static/css/ajax-upload.css" th:href="@{/css/ajax-upload.css}">
@@ -31,11 +32,13 @@
           </form>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <i class="mdi mdi-bell-outline"></i>
                 <!--<span class="count">0</span>-->
               </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                   aria-labelledby="messageDropdown">
                 <a class="dropdown-item py-3">
                   <p class="mb-0 font-weight-medium float-left">您有0封未读邮件</p>
                   <span class="badge badge-pill badge-primary float-right">查看</span>
@@ -45,18 +48,20 @@
                   <div class="preview-thumbnail">
                   </div>
                   <div class="preview-item-content flex-grow py-2">
-                    <p class="preview-subject ellipsis font-weight-medium text-dark"> </p>
-                    <p class="font-weight-light small-text"> </p>
+                    <p class="preview-subject ellipsis font-weight-medium text-dark"></p>
+                    <p class="font-weight-light small-text"></p>
                   </div>
                 </a>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <i class="mdi mdi-email-outline"></i>
                 <!--<span class="count bg-success">0</span>-->
               </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                   aria-labelledby="notificationDropdown">
                 <a class="dropdown-item py-3 border-bottom">
                   <p class="mb-0 font-weight-medium float-left"> 您有0个新通知 </p>
                   <span class="badge badge-pill badge-primary float-right">查看</span>
@@ -64,7 +69,7 @@
                 <a class="dropdown-item preview-item py-3">
                   <div class="preview-item-content">
                     <h6 class="preview-subject font-weight-normal text-dark mb-1"></h6>
-                    <p class="font-weight-light small-text mb-0">  </p>
+                    <p class="font-weight-light small-text mb-0"></p>
                   </div>
                 </a>
               </div>
@@ -77,7 +82,8 @@
               </div>
             </li>
             <li v-if="display" class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <img class="img-xs rounded-circle" src="" :src="avatar" alt="Profile image">
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -101,7 +107,8 @@
               </div>
             </li>
           </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                  data-toggle="offcanvas">
             <span class="icon-menu"></span>
           </button>
         </div>
@@ -167,7 +174,8 @@
               </div>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-              <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false" aria-controls="apps-dropdown">
+              <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false"
+                 aria-controls="apps-dropdown">
                 <span class="menu-title">应用程序</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -263,17 +271,19 @@
                           <div class="col-md-6">
                             <div class="ajax-upload-dragdrop">
                               <button id="replaceImg" type="button" class="btn btn-info">更换头像</button>
-                              <div style="width: 320px;height: 320px;border: solid 1px #555;padding: 5px;margin-top: 10px;margin-bottom: 10px">
+                              <div
+                                  style="width: 320px;height: 320px;border: solid 1px #555;padding: 5px;margin-top: 10px;margin-bottom: 10px">
                                 <img id="finalImg" src="" width="100%" alt="">
                               </div>
-                              <button id="submit" type="button" class="btn btn-info" >确定</button>
-                              <button id="reset" type="button" class="btn btn-secondary" >取消</button>
+                              <button id="submit" type="button" class="btn btn-info">确定</button>
+                              <button id="reset" type="button" class="btn btn-secondary">取消</button>
                               <div style="display: none" class="tailoring-container">
                                 <div class="black-cloth" onclick="closeTailor(this)"></div>
                                 <div class="tailoring-content">
                                   <div class="tailoring-content-one">
                                     <label title="上传图片" for="chooseImg" class="btn btn-info">
-                                      <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg" class="hidden">
+                                      <input type="file" accept="image/jpg,image/jpeg,image/png" name="file"
+                                             id="chooseImg" class="hidden">
                                       选择图片
                                     </label>
                                     <div class="close-tailoring" onclick="closeTailor(this)">×</div>
@@ -324,7 +334,7 @@
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="../../static/js/inject/cropper.min.js" th:src="@{/js/inject/cropper.min.js}"></script>
-    <script src="../../static/js/inject/sweetalert.min.js"  th:src="@{/js/inject/sweetalert.min.js}"></script>
+    <script src="../../static/js/inject/sweetalert.min.js" th:src="@{/js/inject/sweetalert.min.js}"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="../../static/js/inject/off-canvas.js" th:src="@{/js/inject/off-canvas.js}"></script>
@@ -332,7 +342,7 @@
     <script src="../../static/js/inject/userData.js" th:src="@{/js/inject/userData.js}"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="../../static/js/custom/csrf.js"  th:src="@{/js/custom/csrf.js}"></script>
+    <script src="../../static/js/custom/csrf.js" th:src="@{/js/custom/csrf.js}"></script>
     <script src="../../static/js/custom/tailoring/tailoring-pic.js" th:src="@{/js/custom/tailoring-pic.js}"></script>
     <!-- End custom js for this page-->
   </body>

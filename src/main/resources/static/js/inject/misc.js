@@ -1,6 +1,6 @@
-(function($) {
+(function ($) {
   'use strict';
-  $(function() {
+  $(function () {
     let sidebar = $('.sidebar');
 
     //Add active class to nav-link based on url dynamically
@@ -66,7 +66,7 @@
     $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');
 
 
-    $(".purchace-popup .popup-dismiss").on("click",function(){
+    $(".purchace-popup .popup-dismiss").on("click", function () {
       $(".purchace-popup").slideToggle();
     });
   });

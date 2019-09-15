@@ -19,7 +19,7 @@ function connect() {
   stomp.heartbeat.outgoing = 100000;
   stomp.heartbeat.incoming = 100000;
   let headers = {
-    Authorization:''
+    Authorization: ''
   };
   stomp.connect(headers, () => {
     stomp.subscribe("/topic/status/connect", message => {
@@ -71,7 +71,7 @@ function selectChatUser(user) {
     $(".chat-app-top > .badge").text(to.username);
   } else {
     chatArea.append("<div class=\"chat-app-top\">\n" +
-        "      与 <div class=\"badge badge-primary badge-pill\">"+ to.username +"</div> 聊天中\n" +
+        "      与 <div class=\"badge badge-primary badge-pill\">" + to.username + "</div> 聊天中\n" +
         "      </div>");
   }
   $('.chat-text-field').show();
@@ -102,10 +102,10 @@ function userTemplate(user) {
   $('.chat-list-item-wrapper').append("<div class=\"list-item\">\n" +
       "                        <div class=\"profile-image\">\n" +
       "                          <div class=\"dot-indicator sm bg-success\"></div>\n" +
-      "                          <img class=\"img-sm rounded-circle\" src=\""+ user.avatar +" \" alt=\"profile image\">\n" +
+      "                          <img class=\"img-sm rounded-circle\" src=\"" + user.avatar + " \" alt=\"profile image\">\n" +
       "                        </div> \n" +
-      "                        <p class=\"user-name\">"+ user.username +"</p>\n" +
-      "                        <p class=\"chat-time\">"+ new Date(user.connectionTime).toLocaleString() +"</p>\n" +
+      "                        <p class=\"user-name\">" + user.username + "</p>\n" +
+      "                        <p class=\"chat-time\">" + new Date(user.connectionTime).toLocaleString() + "</p>\n" +
       "                     <!--<p class=\"chat-text\">最后一次的消息</p>-->\n" +
       "                      </div>")
 }
@@ -113,11 +113,11 @@ function userTemplate(user) {
 function messageInTemplate(message) {
   chatArea.append("<div class=\"chat-bubble incoming-chat\">\n" +
       "                                  <div class=\"sender-details\">\n" +
-      "                                    <img class=\"sender-avatar img-xs rounded-circle\" src=\""+ to.avatar +"\" alt=\"profile image\">\n" +
-      "                                    <p class=\"seen-text\">"+ new Date(message.created).toLocaleString() +"</p>\n" +
+      "                                    <img class=\"sender-avatar img-xs rounded-circle\" src=\"" + to.avatar + "\" alt=\"profile image\">\n" +
+      "                                    <p class=\"seen-text\">" + new Date(message.created).toLocaleString() + "</p>\n" +
       "                                  </div>\n" +
       "                                  <div class=\"chat-message\">\n" +
-      "                                    <p class=\"font-weight-bold\">"+ message.from +"</p>\n" +
+      "                                    <p class=\"font-weight-bold\">" + message.from + "</p>\n" +
       "                                    <p>" + message.message + "</p>\n" +
       "                                  </div>\n" +
       "                                </div>");
@@ -126,12 +126,12 @@ function messageInTemplate(message) {
 function messageOutTemplate(message) {
   chatArea.append("<div class=\"chat-bubble outgoing-chat\">\n" +
       "                                  <div class=\"sender-details\">\n" +
-      "                                    <img class=\"sender-avatar img-xs rounded-circle\" src=\""+ from.avatar +"\" alt=\"profile image\">\n" +
-      "                                    <p class=\"seen-text\">"+ new Date(message.created).toLocaleString() +"</p>\n" +
+      "                                    <img class=\"sender-avatar img-xs rounded-circle\" src=\"" + from.avatar + "\" alt=\"profile image\">\n" +
+      "                                    <p class=\"seen-text\">" + new Date(message.created).toLocaleString() + "</p>\n" +
       "                                  </div>\n" +
       "                                  <div class=\"chat-message\">\n" +
-      "                                    <p class=\"font-weight-bold\">"+ message.from +"</p>\n" +
-      "                                    <p>"+ message.message +"</p>\n" +
+      "                                    <p class=\"font-weight-bold\">" + message.from + "</p>\n" +
+      "                                    <p>" + message.message + "</p>\n" +
       "                                  </div>\n" +
       "                                </div>");
 }
@@ -151,17 +151,20 @@ function sendMessage() {
   messageOutTemplate(chatMessage);
   stomp.send("/app/transmit", {}, JSON.stringify(chatMessage));
 }
-(function($) {
+
+(function ($) {
   'use strict';
   $(function () {
     from.username = $('.profile-name').text();
     from.avatar = $('.profile-image > img').attr('src');
     getUsers();
-    $(document).on('click', ".list-item", function() {
+    $(document).on('click', ".list-item", function () {
       selectChatUser($(this));
       selectChatMessage();
     });
-    $('#chat').on('submit', e => { e.preventDefault();});
+    $('#chat').on('submit', e => {
+      e.preventDefault();
+    });
     $('#send').on('click', function () {
       let value = $('#input');
       if (to.username !== null || value.val() !== '') {

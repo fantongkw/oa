@@ -25,21 +25,21 @@ public class RoleController {
     }
 
     @GetMapping(value = "/role_list")
-    public String list(Model model){
-        model.addAttribute("objects",roleService.selectAllRole());
+    public String list(Model model) {
+        model.addAttribute("objects", roleService.selectAllRole());
         return "/role/role_list";
     }
 
     @PreAuthorize("hasRole('ROLE_ROLES')")
     @PostMapping(value = "/role_delete/{id}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){
-        int queryResult =  roleService.deleteById(id);
+    public boolean delete(@PathVariable Long id) {
+        int queryResult = roleService.deleteById(id);
         return queryResult == 1;
     }
 
     @GetMapping(value = "/role_add")
-    public String add(){
+    public String add() {
         return "/role/role_add";
     }
 
@@ -53,7 +53,7 @@ public class RoleController {
         int queryResult = roleService.insert(role);
         if (queryResult == 1) {
             return "redirect:/role/role_list";
-        }else {
+        } else {
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "角色添加失败");
             return "/role/role_add";
@@ -61,7 +61,7 @@ public class RoleController {
     }
 
     @GetMapping(value = "/role_update")
-    public String update(Model model){
+    public String update(Model model) {
         Role objectId = new Role();
         model.addAttribute("objectId", objectId);
         List<Role> objects = roleService.selectAllRole();
@@ -90,7 +90,7 @@ public class RoleController {
         int queryResult = roleService.updateById(role);
         if (queryResult == 1) {
             return "redirect:/role/role_list";
-        }else {
+        } else {
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "角色更新失败");
             return "/role/role_update";

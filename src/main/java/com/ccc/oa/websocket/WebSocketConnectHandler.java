@@ -36,7 +36,7 @@ public class WebSocketConnectHandler implements ApplicationListener<SessionConne
         Member member = userService.loadUserByUsername(user.getName());
         ChatUser chatUser = new ChatUser(member.getUsername(), member.getAvatar(), null, new Date().getTime());
         template.convertAndSend("/topic/status/connect", chatUser);
-        chatUserService.add(user.getName(),chatUser );
+        chatUserService.add(user.getName(), chatUser);
 
     }
 }

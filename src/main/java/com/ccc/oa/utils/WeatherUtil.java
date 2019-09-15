@@ -31,17 +31,17 @@ import java.security.cert.X509Certificate;
 public class WeatherUtil {
 
     /**
+     * @return java.net.URI
      * @Description 构建url请求接口
      * @Date 2018/12/25 19:44
      * @Param [city]
-     * @return java.net.URI
      **/
 
-    private static URI weatherUrl (String city) {
+    private static URI weatherUrl(String city) {
         String key = "70ed382c4a6ada2b78b0415affc6b43a";
         URI uri = null;
         try {
-            uri = new URI("https://restapi.amap.com/v3/weather/weatherInfo?key="+ key +"&city="+ city);
+            uri = new URI("https://restapi.amap.com/v3/weather/weatherInfo?key=" + key + "&city=" + city);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -49,10 +49,10 @@ public class WeatherUtil {
     }
 
     /**
+     * @return org.apache.http.impl.client.CloseableHttpClient
      * @Description 创建一个http请求
      * @Date 2018/12/25 19:44
      * @Param []
-     * @return org.apache.http.impl.client.CloseableHttpClient
      **/
 
     private static CloseableHttpClient createSSLClientDefault() {
@@ -67,13 +67,13 @@ public class WeatherUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 获取天气信息
      * @Date 2018/12/25 19:44
      * @Param [city]
-     * @return java.lang.String
      **/
 
-    public static String request (String city) {
+    public static String request(String city) {
         CloseableHttpClient httpClient = createSSLClientDefault();
         HttpGet httpGet = new HttpGet(weatherUrl(city));
         RequestConfig requestConfig = RequestConfig.custom()

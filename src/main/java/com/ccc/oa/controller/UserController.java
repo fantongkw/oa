@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user_list")
-    public String list(Model model){
+    public String list(Model model) {
         model.addAttribute("objects", userService.selectAllUser());
         return "/user/user_list";
     }
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user_add")
-    public String add(Model model){
+    public String add(Model model) {
         List<Member> objects = userService.selectAllUser();
         List<Department> departments = departmentService.selectAllDepartment();
         model.addAttribute("objects", objects);
@@ -98,7 +98,7 @@ public class UserController {
         int queryResult = userService.updateById(member);
         if (queryResult == 1) {
             return "redirect:/user/user_list";
-        }else {
+        } else {
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "员工更新失败");
             return "/user/user_update";

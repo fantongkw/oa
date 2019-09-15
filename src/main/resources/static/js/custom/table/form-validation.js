@@ -25,7 +25,7 @@
             geetest_validate: result.geetest_validate,
             geetest_seccode: result.geetest_seccode
           },
-          beforeSend: function(xhr){
+          beforeSend: function (xhr) {
             xhr.setRequestHeader(csrf.headerName, csrf.token);
           },
           success: function (data) {
@@ -53,6 +53,7 @@
       }
     });
   }
+
   function duplicateLogin(data) {
     if (resubmit) {
       return false;
@@ -63,16 +64,16 @@
   }
 
   $(function () {
-    $.validator.addMethod("isPhone", function(value, element) {
+    $.validator.addMethod("isPhone", function (value, element) {
       let length = value.length;
       let mobile = /^1[356789]\d{9}$/;
       return this.optional(element) || (length === 11 && mobile.test(value));
     });
-    $.validator.addMethod("isEmail", function(value, element) {
+    $.validator.addMethod("isEmail", function (value, element) {
       let email = /^[a-z0-9]+@([a-z0-9]+\.)+[a-z]{2,4}$/i;
       return this.optional(element) || (email.test(value));
     });
-    $.validator.addMethod("isRule", function(value, element) {
+    $.validator.addMethod("isRule", function (value, element) {
       let rule = /^[A-Z0-9a-z]*$/;
       return this.optional(element) || (rule.test(value));
     });
@@ -81,7 +82,7 @@
     if (form === "login") {
       verify();
       $('#login').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           if (decide) {
             duplicateLogin(data);
           } else {
@@ -91,7 +92,7 @@
             }, 3000);
           }
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -129,7 +130,7 @@
           $(element).next().children().addClass(errorClass).removeClass(validClass)
               .children().addClass('mdi-close-circle-outline').removeClass('mdi-check-circle-outline');
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
           $(element).next().children().removeClass(errorClass).addClass(validClass)
               .children().removeClass('mdi-close-circle-outline').addClass('mdi-check-circle-outline');
@@ -139,7 +140,7 @@
     if (form === "register") {
       verify();
       $('#register').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           if (decide) {
             duplicateLogin(data);
           } else {
@@ -149,7 +150,7 @@
             }, 3000);
           }
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -209,7 +210,7 @@
           $(element).next().children().addClass(errorClass).removeClass(validClass)
               .children().addClass('mdi-close-circle-outline').removeClass('mdi-check-circle-outline');
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
           $(element).next().children().removeClass(errorClass).addClass(validClass)
               .children().removeClass('mdi-close-circle-outline').addClass('mdi-check-circle-outline');
@@ -218,10 +219,10 @@
     }
     if (form === "editable-form") {
       $('#editable-form').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -275,7 +276,7 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
@@ -286,10 +287,10 @@
         return this.optional(element) || value !== old_password;
       });
       $('#change_password').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -302,10 +303,10 @@
               data: {
                 password: () => {
                   return $('#old_password').val();
-                  }
                 }
               }
-            },
+            }
+          },
           new_password: {
             required: true,
             minlength: 8,
@@ -343,17 +344,17 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
     }
     if (form === "dept-add-validation") {
       $('#dept-add-validation').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -385,17 +386,17 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
     }
     if (form === "dept-update-validation") {
       $('#dept-update-validation').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -431,7 +432,7 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
@@ -467,17 +468,17 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
     }
     if (form === "role-update-validation") {
       $('#role-update-validation').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -513,17 +514,17 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
     }
     if (form === "user-add-validation") {
       $('#user-add-validation').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -601,17 +602,17 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });
     }
     if (form === "user-update-validation") {
       $('#user-update-validation').validate({
-        submitHandler: function(data) {
+        submitHandler: function (data) {
           duplicateLogin(data);
         },
-        onfocusout: function(element) {
+        onfocusout: function (element) {
           $(element).valid();
         },
         rules: {
@@ -665,7 +666,7 @@
         highlight: function (element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
         }
       });

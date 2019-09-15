@@ -34,14 +34,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = userDao.loadUserByUsername(username);
-        if(member == null) {
+        if (member == null) {
             throw new UsernameNotFoundException("Could not find member " + username);
         }
         Role role = userDao.selectRole(member.getRoleId());
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         List<Permission> permissions = roleDao.selectPermissions(role.getId());
-        for (Permission permission : permissions){
-            if (permission != null && permission.getName() != null){
+        for (Permission permission : permissions) {
+            if (permission != null && permission.getName() != null) {
                 grantedAuthorities.add(new SimpleGrantedAuthority(permission.getName()));
             }
         }

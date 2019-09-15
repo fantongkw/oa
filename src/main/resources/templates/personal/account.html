@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>账户信息</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" href="../../static/fonts/mdi/css/materialdesignicons.min.css"
+          th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
     <!-- inject:css -->
     <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
     <!-- Layout styles -->
@@ -28,11 +29,13 @@
           </form>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
-              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <i class="mdi mdi-bell-outline"></i>
                 <!--<span class="count">0</span>-->
               </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                   aria-labelledby="messageDropdown">
                 <a class="dropdown-item py-3">
                   <p class="mb-0 font-weight-medium float-left">您有0封未读邮件</p>
                   <span class="badge badge-pill badge-primary float-right">查看</span>
@@ -42,18 +45,20 @@
                   <div class="preview-thumbnail">
                   </div>
                   <div class="preview-item-content flex-grow py-2">
-                    <p class="preview-subject ellipsis font-weight-medium text-dark"> </p>
-                    <p class="font-weight-light small-text"> </p>
+                    <p class="preview-subject ellipsis font-weight-medium text-dark"></p>
+                    <p class="font-weight-light small-text"></p>
                   </div>
                 </a>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link count-indicator" id="notificationDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <i class="mdi mdi-email-outline"></i>
                 <!--<span class="count bg-success">0</span>-->
               </a>
-              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+                   aria-labelledby="notificationDropdown">
                 <a class="dropdown-item py-3 border-bottom">
                   <p class="mb-0 font-weight-medium float-left"> 您有0个新通知 </p>
                   <span class="badge badge-pill badge-primary float-right">查看</span>
@@ -61,7 +66,7 @@
                 <a class="dropdown-item preview-item py-3">
                   <div class="preview-item-content">
                     <h6 class="preview-subject font-weight-normal text-dark mb-1"></h6>
-                    <p class="font-weight-light small-text mb-0">  </p>
+                    <p class="font-weight-light small-text mb-0"></p>
                   </div>
                 </a>
               </div>
@@ -74,7 +79,8 @@
               </div>
             </li>
             <li v-if="display" class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
-              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
+                 aria-expanded="false">
                 <img class="img-xs rounded-circle" src="" :src="avatar" alt="Profile image">
               </a>
               <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
@@ -98,7 +104,8 @@
               </div>
             </li>
           </ul>
-          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                  data-toggle="offcanvas">
             <span class="icon-menu"></span>
           </button>
         </div>
@@ -164,7 +171,8 @@
               </div>
             </li>
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-              <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false" aria-controls="apps-dropdown">
+              <a class="nav-link" data-toggle="collapse" href="#apps-dropdown" aria-expanded="false"
+                 aria-controls="apps-dropdown">
                 <span class="menu-title">应用程序</span>
                 <i class="menu-arrow"></i>
               </a>
@@ -253,7 +261,7 @@
                         <img src="" :src="avatar" class="img-lg rounded-circle mb-2" alt="profile image">
                         <h4>{{ username }}</h4>
                         <p class="text-muted">{{ role }}</p>
-                        <p class="mt-4 card-text">  </p>
+                        <p class="mt-4 card-text"></p>
                         <button class="btn btn-rounded btn-primary btn-sm mt-3 mb-4">关注</button>
                       </div>
                       <div class="row border-top pt-3 mt-auto">
@@ -279,14 +287,17 @@
                   <div class="card-body">
                     <div class="card-body">
                       <h4 class="card-title"> 修改账户信息 </h4>
-                      <form id="editable-form" class="forms-sample" th:action="@{/personal/update_account}" method="post">
+                      <form id="editable-form" class="forms-sample" th:action="@{/personal/update_account}"
+                            method="post">
                         <div class="form-group row">
                           <div class="col-lg-2">
                             <label for="department" class="col-form-label">所属部门</label></div>
                           <div class="col-lg-10">
                             <select class="form-control" id="department" name="department">
                               <option value="">请选择部门</option>
-                              <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}">department</option>
+                              <option th:each="department : ${departments}" th:value="${department.id}"
+                                      th:text="${department.name}">department
+                              </option>
                             </select>
                           </div>
                         </div>
@@ -295,7 +306,8 @@
                             <label for="name" class="col-form-label">姓名</label>
                           </div>
                           <div class="col-lg-10">
-                            <input type="text" class="form-control" id="name" name="name" th:value="${user.name}" minlength="4" maxlength="20"  placeholder="请输入名称">
+                            <input type="text" class="form-control" id="name" name="name" th:value="${user.name}"
+                                   minlength="4" maxlength="20" placeholder="请输入名称">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -313,7 +325,8 @@
                           <div class="col-lg-2">
                             <label for="phone" class="col-form-label">手机号码</label></div>
                           <div class="col-lg-10">
-                            <input type="text" class="form-control" id="phone" name="phone" th:value="${user.phone}" placeholder="请输入手机号码">
+                            <input type="text" class="form-control" id="phone" name="phone" th:value="${user.phone}"
+                                   placeholder="请输入手机号码">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -321,7 +334,8 @@
                             <label for="email" class="col-form-label">电子邮箱</label>
                           </div>
                           <div class="col-lg-10">
-                            <input type="text" class="form-control" id="email" name="email" th:value="${user.email}" placeholder="请输入电子邮箱">
+                            <input type="text" class="form-control" id="email" name="email" th:value="${user.email}"
+                                   placeholder="请输入电子邮箱">
                           </div>
                         </div>
                         <div class="form-group row">
@@ -329,7 +343,9 @@
                             <label for="description" class="col-form-label">员工描述</label>
                           </div>
                           <div class="col-lg-10">
-                            <textarea class="form-control" id="description" name="description" th:value="${user.description}" maxlength="100" rows="2" placeholder="请输入描述"></textarea>
+                            <textarea class="form-control" id="description" name="description"
+                                      th:value="${user.description}" maxlength="100" rows="2"
+                                      placeholder="请输入描述"></textarea>
                           </div>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -371,8 +387,9 @@
     <script src="../../static/js/inject/userData.js" th:src="@{/js/inject/userData.js}"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="../../static/js/custom/csrf.js"  th:src="@{/js/custom/csrf.js}"></script>
-    <script src="../../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
+    <script src="../../static/js/custom/csrf.js" th:src="@{/js/custom/csrf.js}"></script>
+    <script src="../../static/js/custom/table/form-validation.js"
+            th:src="@{/js/custom/table/form-validation.js}"></script>
     <!-- End custom js for this page-->
   </body>
 

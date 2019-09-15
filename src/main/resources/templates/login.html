@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>登陆</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../static/fonts/mdi/css/materialdesignicons.min.css" th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" href="../static/fonts/mdi/css/materialdesignicons.min.css"
+          th:href="@{/fonts/mdi/css/materialdesignicons.min.css}">
     <!-- endinject -->
     <!-- inject:css -->
     <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
@@ -33,7 +34,8 @@
                   <div class="form-group">
                     <label class="label" for="username">用户名</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" id="username" name="username" minlength="4" placeholder="请输入用户名">
+                      <input type="text" class="form-control" id="username" name="username" minlength="4"
+                             placeholder="请输入用户名">
                       <div class="input-group-append">
                         <span class="input-group-text">
                           <i class="mdi mdi-check-circle-outline"></i>
@@ -44,7 +46,8 @@
                   <div class="form-group">
                     <label class="label" for="password">密码</label>
                     <div class="input-group">
-                      <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="请输入密码" autocomplete>
+                      <input type="password" class="form-control" id="password" name="password" minlength="8"
+                             placeholder="请输入密码" autocomplete>
                       <div class="input-group-append">
                         <span class="input-group-text">
                           <i class="mdi mdi-check-circle-outline" aria-label="success"></i>
@@ -54,7 +57,7 @@
                   </div>
                   <div class="form-group">
                     <label class="label">完成验证：</label>
-                    <div id="captcha" name="captcha" >
+                    <div id="captcha" name="captcha">
                       <div id="wait" class="bar-loader">
                         <span></span>
                         <span></span>
@@ -66,12 +69,13 @@
                     <p id="notice" class="text-danger" style="display: none;">请先完成验证</p>
                   </div>
                   <div class="form-group">
-                    <button type="submit" class="btn btn-primary submit-btn btn-block" >登陆</button>
+                    <button type="submit" class="btn btn-primary submit-btn btn-block">登陆</button>
                   </div>
                   <div class="form-group d-flex justify-content-between">
                     <div class="form-check form-check-flat mt-0">
                       <label class="form-check-label" for="remember-me">
-                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked/> 保持登录状态
+                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked/>
+                        保持登录状态
                         <i class="input-helper"></i>
                       </label>
                     </div>
@@ -110,7 +114,7 @@
     <!-- inject:js -->
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="../static/js/custom/csrf.js"  th:src="@{/js/custom/csrf.js}"></script>
+    <script src="../static/js/custom/csrf.js" th:src="@{/js/custom/csrf.js}"></script>
     <script src="../static/js/custom/table/form-validation.js" th:src="@{/js/custom/table/form-validation.js}"></script>
     <script src="../static/js/custom/qrcode.js" th:src="@{/js/custom/qrcode.js}"></script>
     <!-- End custom js for this page-->

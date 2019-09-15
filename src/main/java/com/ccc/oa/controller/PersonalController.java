@@ -37,7 +37,7 @@ public class PersonalController {
     }
 
     @GetMapping("/account")
-    public String account(@CurrentUser User user, Model model){
+    public String account(@CurrentUser User user, Model model) {
         Member account = userService.loadUserByUsername(user.getUsername());
         List<Department> departments = departmentService.selectAllDepartment();
         model.addAttribute("user", account);
@@ -53,7 +53,7 @@ public class PersonalController {
     }
 
     @GetMapping("/dept_details")
-    public String deptDetails(@CurrentUser User user, Model model){
+    public String deptDetails(@CurrentUser User user, Model model) {
         Long departmentId = userService.loadUserByUsername(user.getUsername()).getDepartmentId();
         Department department = departmentService.selectById(departmentId);
         model.addAttribute("department", department);
@@ -61,7 +61,7 @@ public class PersonalController {
     }
 
     @GetMapping("/role_details")
-    public String roleDetails(@CurrentUser User user, Model model){
+    public String roleDetails(@CurrentUser User user, Model model) {
         Long roleId = userService.loadUserByUsername(user.getUsername()).getRoleId();
         Role role = roleService.selectById(roleId);
         model.addAttribute("role", role);
@@ -69,15 +69,15 @@ public class PersonalController {
     }
 
     @GetMapping("/change_password")
-    public String changePassword(){
+    public String changePassword() {
         return "/personal/change_password";
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/changed_password")
-    public String changedPassword(@CurrentUser User user, @RequestParam(value="new_password") String password, HttpSession session, Model model){
+    public String changedPassword(@CurrentUser User user, @RequestParam(value = "new_password") String password, HttpSession session, Model model) {
         if (user == null) {
-         return "redirect:/personal/change_password";
+            return "redirect:/personal/change_password";
         }
         Member member = userService.loadUserByUsername(user.getUsername());
         int success = userService.changePassword(member, password);

@@ -44,12 +44,12 @@ public class HomeController {
     }
 
     @GetMapping(value = {"/", "/home"})
-    public String index(){
+    public String index() {
         return "/home";
     }
 
     @GetMapping(value = "/login")
-    public String login(@CurrentUser User user){
+    public String login(@CurrentUser User user) {
         if (user != null) {
             return "redirect:/home";
         }
@@ -69,7 +69,7 @@ public class HomeController {
     }
 
     @GetMapping(value = "/notice")
-    public String notice(Model model){
+    public String notice(Model model) {
         List<Notice> res = noticeService.getAll();
         res.sort(Comparator.comparingLong(Notice::getCreated));
         model.addAttribute("notices", res);
@@ -92,14 +92,14 @@ public class HomeController {
         }
         String password = member.getPassword();
         int success = userService.insert(member);
-        try{
+        try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(member.getUsername(), password);
             token.setDetails(new WebAuthenticationDetails(request));
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-        } catch(AuthenticationException e){
-            LOG.error("Authentication exception!",e);
+        } catch (AuthenticationException e) {
+            LOG.error("Authentication exception!", e);
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "服务器繁忙，请稍后重试");
             return "/register";
@@ -119,6 +119,8 @@ public class HomeController {
     }
 
     @GetMapping(value = "test")
-    public String test() { return "/test"; }
+    public String test() {
+        return "/test";
+    }
 
 }

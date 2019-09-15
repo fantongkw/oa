@@ -26,7 +26,8 @@ public class Department implements Serializable {
     @JsonIgnore
     private List<Department> children;
 
-    public Department() {}
+    public Department() {
+    }
 
     public Department(Department department) {
         this.id = department.id;
@@ -63,7 +64,9 @@ public class Department implements Serializable {
         this.name = name;
     }
 
-    public Date getDate() { return date; }
+    public Date getDate() {
+        return date;
+    }
 
     public void setDate(Date date) {
         this.date = date;

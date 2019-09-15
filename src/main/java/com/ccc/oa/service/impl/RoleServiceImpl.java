@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int insert(Role role) {
         if (!isExist(role)) {
-            LOG.info("Role "+ role.getId() +" Added Success");
+            LOG.info("Role " + role.getId() + " Added Success");
             return roleDao.insert(role);
         }
         return 0;
@@ -65,7 +65,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int updateById(Role role) {
         if (isExist(role)) {
-            LOG.info("Role "+ role.getId() +" Updated Success");
+            LOG.info("Role " + role.getId() + " Updated Success");
             return roleDao.updateById(role);
         }
         return 0;

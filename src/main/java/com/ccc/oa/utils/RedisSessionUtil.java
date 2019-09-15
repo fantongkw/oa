@@ -29,10 +29,10 @@ public class RedisSessionUtil {
     }
 
     /**
+     * @return int
      * @Description 获取所有的在线的session
      * @Date 2019/4/12 13:31
      * @Param []
-     * @return int
      **/
     public int getAllSession() {
         Set<String> keys = redisTemplate.keys(getAllSessionKey());
@@ -40,10 +40,10 @@ public class RedisSessionUtil {
     }
 
     /**
+     * @return java.util.Map<java.lang.String, java.lang.String>
      * @Description 通过sessionId获取session信息
      * @Date 2019/4/12 13:32
      * @Param [sessionId]
-     * @return java.util.Map<java.lang.String,java.lang.String>
      **/
     public Map<String, String> getSession(String sessionId) {
         HashOperations<String, String, String> hash = redisTemplate.opsForHash();
@@ -51,10 +51,10 @@ public class RedisSessionUtil {
     }
 
     /**
+     * @return java.util.Set<java.lang.String>
      * @Description 通过过期时间获取session信息
      * @Date 2019/4/12 13:33
      * @Param [expiration]
-     * @return java.util.Set<java.lang.String>
      **/
     public Set<String> getExpiration(long expiration) {
         SetOperations<String, String> set = redisTemplate.opsForSet();
@@ -62,21 +62,21 @@ public class RedisSessionUtil {
     }
 
     /**
+     * @return java.lang.String
      * @Description 通过sessionId获取过期时间
      * @Date 2019/4/12 13:34
      * @Param [sessionId]
-     * @return java.lang.String
      **/
     public String getExpired(String sessionId) {
         ValueOperations value = redisTemplate.opsForValue();
-        return (String)value.get(getExpiredKey(sessionId));
+        return (String) value.get(getExpiredKey(sessionId));
     }
 
     /**
+     * @return java.util.Set<java.lang.String>
      * @Description 通过用户名获取session
      * @Date 2019/4/12 13:34
      * @Param [principalName]
-     * @return java.util.Set<java.lang.String>
      **/
     public Set<String> getPrincipal(String principalName) {
         SetOperations<String, String> set = redisTemplate.opsForSet();

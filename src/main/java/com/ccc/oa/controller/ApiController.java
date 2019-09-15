@@ -46,7 +46,7 @@ public class ApiController {
     }
 
     @GetMapping("/user")
-    public ResultMessage<Map<String, String>> getUserDetail(@CurrentUser User user){
+    public ResultMessage<Map<String, String>> getUserDetail(@CurrentUser User user) {
         Map<String, String> result = new HashMap<>();
         if (user != null) {
             Member member = userService.loadUserByUsername(user.getUsername());
@@ -69,7 +69,7 @@ public class ApiController {
     }
 
     @GetMapping("/username")
-    public Boolean getUserExists(String username){
+    public Boolean getUserExists(String username) {
         Member member = userService.loadUserByUsername(username);
         return member == null;
     }

@@ -25,7 +25,7 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/dept_list")
-    public String list(Model model){
+    public String list(Model model) {
         Department department = new Department();
         List<Department> objects = departmentService.selectAllDepartment();
         objects.forEach(dept -> {
@@ -40,13 +40,13 @@ public class DepartmentController {
     @PreAuthorize("hasRole('ROLE_DEPTS')")
     @PostMapping(value = "/dept_delete/{id}")
     @ResponseBody
-    public boolean delete(@PathVariable Long id){
+    public boolean delete(@PathVariable Long id) {
         int queryResult = departmentService.deleteById(id);
         return queryResult == 1;
     }
 
     @GetMapping(value = "/dept_add")
-    public String add(){
+    public String add() {
         return "/dept/dept_add";
     }
 
@@ -61,7 +61,7 @@ public class DepartmentController {
         int queryResult = departmentService.insert(department);
         if (queryResult == 1) {
             return "redirect:/dept/dept_list";
-        }else {
+        } else {
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "部门添加失败");
             return "/dept/dept_add";
@@ -69,7 +69,7 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/dept_update")
-    public String update(Model model){
+    public String update(Model model) {
         Department objectId = new Department();
         model.addAttribute("objectId", objectId);
         List<Department> objects = departmentService.selectAllDepartment();
@@ -78,7 +78,7 @@ public class DepartmentController {
     }
 
     @GetMapping(value = "/dept_update/{id}")
-    public String updateById(@PathVariable Long id, Model model){
+    public String updateById(@PathVariable Long id, Model model) {
         if (id != null) {
             Department objectId = departmentService.selectById(id);
             model.addAttribute("objectId", objectId);
@@ -98,7 +98,7 @@ public class DepartmentController {
         int queryResult = departmentService.updateById(department);
         if (queryResult == 1) {
             return "redirect:/dept/dept_list";
-        }else {
+        } else {
             model.addAttribute("error", true);
             model.addAttribute("errorMsg", "部门更新失败");
             return "/dept/dept_update";

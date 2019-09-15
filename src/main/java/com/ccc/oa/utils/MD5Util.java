@@ -19,31 +19,31 @@ public class MD5Util extends DigestUtils {
     private static final char[] HEX_CHARS = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
+     * @return java.lang.String
      * @Description 返回加密后的字符串
      * @Date 2019/4/2 11:09
      * @Param [password]
-     * @return java.lang.String
      **/
     public static String encode(String password) {
         password = (password + SALT);
         return digestAsHexString(password.getBytes());
     }
-    
+
     /**
-     * @Description 返回加密后的字符数组
-     * @Date 2019/4/2 11:13 
-     * @Param [bytes]
      * @return char[]
+     * @Description 返回加密后的字符数组
+     * @Date 2019/4/2 11:13
+     * @Param [bytes]
      **/
     private static char[] digestAsHexChars(byte[] bytes) {
         return encodeHex(bytes);
     }
 
     /**
+     * @return java.lang.String
      * @Description 返回加密后的字符串
      * @Date 2019/4/2 11:15
      * @Param [bytes]
-     * @return java.lang.String
      **/
     private static String digestAsHexString(byte[] bytes) {
         char[] hexDigest = digestAsHexChars(bytes);
@@ -51,15 +51,15 @@ public class MD5Util extends DigestUtils {
     }
 
     /**
+     * @return char[]
      * @Description 通过散列算法加密
      * @Date 2019/4/2 11:15
      * @Param [bytes]
-     * @return char[]
      **/
     private static char[] encodeHex(byte[] bytes) {
         char[] chars = new char[32];
 
-        for(int i = 0; i < chars.length; i += 2) {
+        for (int i = 0; i < chars.length; i += 2) {
             byte b = bytes[i / 2];
             chars[i] = HEX_CHARS[b >>> 4 & 15];
             chars[i + 1] = HEX_CHARS[b & 15];

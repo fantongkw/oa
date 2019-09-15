@@ -29,8 +29,8 @@
         $(this).data('eventObject', eventObject);
 
         $(this).draggable({
-          zIndex        : 999,
-          revert        : true,
+          zIndex: 999,
+          revert: true,
           revertDuration: 0
         })
 
@@ -57,13 +57,13 @@
 
     //初始化日历
     $('#calendar').fullCalendar({
-      header  : {
-        left  : 'prev,next today',
+      header: {
+        left: 'prev,next today',
         center: 'title',
-        right : 'month,agendaWeek,agendaDay'
+        right: 'month,agendaWeek,agendaDay'
       },
-      eventClick: function(calEvent) {
-        $(this).attr({"data-toggle":"modal","data-target":"#op-event"});
+      eventClick: function (calEvent) {
+        $(this).attr({"data-toggle": "modal", "data-target": "#op-event"});
         let edit = '<button id="edit-event" type="button" class="btn btn-warning">修改</button>';
         let delete1 = '<button id="delete-event" type="button" class="btn btn-danger" data-dismiss="modal">删除</button>';
         $('.modal-footer').empty().append(edit).append(delete1);
@@ -74,7 +74,7 @@
           calEvent.start = $("#datetimepicker").val();
           calEvent.backgroundColor = $("#colorpicker").val();
           if (title !== "" && start !== "" && backgroundColor !== "") {
-            $(this).attr('data-dismiss',"modal");
+            $(this).attr('data-dismiss', "modal");
             $('#calendar').fullCalendar('updateEvent', calEvent);
           }
         });
@@ -82,67 +82,67 @@
           if (calEvent.id === 0) {
             return;
           }
-          $('#calendar').fullCalendar( 'removeEvents' , calEvent.id );
+          $('#calendar').fullCalendar('removeEvents', calEvent.id);
         })
       },
       locale: initialLocaleCode,
       timeFormat: 'H(:mm)',
       editable: true,
       eventLimit: 2,
-      events    : [
+      events: [
         {
-          id             : getId(),
-          title          : '全天的事件',
-          start          : '2019-5-22',
+          id: getId(),
+          title: '全天的事件',
+          start: '2019-5-22',
           backgroundColor: '#8862e0', //red
         },
         {
-          id             : getId(),
-          title          : '长的事件',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
+          id: getId(),
+          title: '长的事件',
+          start: new Date(y, m, d - 5),
+          end: new Date(y, m, d - 2),
           backgroundColor: '#ffaf00', //yellow
         },
         {
-          id             : getId(),
-          title          : '开会',
-          start          : new Date(y, m, d + 2, 10, 30),
-          allDay         : false,
+          id: getId(),
+          title: '开会',
+          start: new Date(y, m, d + 2, 10, 30),
+          allDay: false,
           backgroundColor: '#2196f3', //Blue
         },
         {
-          id             : getId(),
-          title          : '午餐',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
+          id: getId(),
+          title: '午餐',
+          start: new Date(y, m, d, 12, 0),
+          end: new Date(y, m, d, 14, 0),
+          allDay: false,
           backgroundColor: '#00c0ef', //Info (aqua)
         },
         {
-          id             : getId(),
-          title          : '生日派对',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
+          id: getId(),
+          title: '生日派对',
+          start: new Date(y, m, d + 1, 19, 0),
+          end: new Date(y, m, d + 1, 22, 30),
+          allDay: false,
           backgroundColor: '#19d895', //Success (green)
         },
         {
-          id             : getId(),
-          title          : '访问网页',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'https://www.baidu.com/',
+          id: getId(),
+          title: '访问网页',
+          start: new Date(y, m, 28),
+          end: new Date(y, m, 29),
+          url: 'https://www.baidu.com/',
           backgroundColor: '#ff6258', //Primary (light-blue)
         }
       ],
       //开启拖动
-      droppable : true,
-      drop      : function (date, allDay) {
+      droppable: true,
+      drop: function (date, allDay) {
         let originalEventObject = $(this).data('eventObject');
         let copiedEventObject = $.extend({}, originalEventObject);
-        copiedEventObject.id              = getId();
-        copiedEventObject.start           = date;
-        copiedEventObject.allDay          = allDay;
+        copiedEventObject.id = getId();
+        copiedEventObject.start = date;
+        copiedEventObject.allDay = allDay;
         copiedEventObject.backgroundColor = $(this).css('background-color');
         $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
         if ($('#drop-remove').is(':checked')) {
@@ -158,7 +158,7 @@
       e.preventDefault();
       currentColor = $(this).css('color');
 
-      $('#add-new-event').css({ 'background-color': currentColor});
+      $('#add-new-event').css({'background-color': currentColor});
     });
     $('#add-new-event').on('click', function (e) {
       e.preventDefault();
@@ -171,7 +171,7 @@
       let event = $('<div />');
       event.css({
         'background-color': currentColor,
-        'color'           : '#fff'
+        'color': '#fff'
       }).addClass('fc-event');
       event.html(val);
       $('#external-events').prepend(event);
@@ -184,7 +184,7 @@
     $(`#datetimepicker`).datetimepicker({
       language: 'zh-CN',
       weekStart: 1,
-      todayBtn:  1,
+      todayBtn: 1,
       autoclose: 1,
       todayHighlight: 1,
       format: 'yyyy-mm-dd hh:ii',
@@ -201,9 +201,9 @@
         start = $("#datetimepicker").val();
         backgroundColor = $("#colorpicker").val();
         if (title !== "" && start !== "" && backgroundColor !== "") {
-          $(this).attr('data-dismiss',"modal");
+          $(this).attr('data-dismiss', "modal");
           $('#calendar').fullCalendar('renderEvent', {
-            id   : getId(),
+            id: getId(),
             title: title,
             start: start,
             backgroundColor: backgroundColor,

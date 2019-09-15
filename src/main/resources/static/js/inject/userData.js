@@ -1,4 +1,3 @@
-
 const app = new Vue({
   el: '#app',
   props: {
@@ -15,7 +14,7 @@ const app = new Vue({
       display: false
     }
   },
-  mounted () {
+  mounted() {
     axios.get('/api/user')
         .then(response => {
           if (response.data.status === 200) {

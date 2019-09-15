@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
 
-@JsonIgnoreProperties(value = { "handler" })
+@JsonIgnoreProperties(value = {"handler"})
 public class Member implements Serializable {
     private static final long serialVersionUID = 6834568878933467652L;
     private Long id;
@@ -33,12 +33,13 @@ public class Member implements Serializable {
     //@Email(regexp = "^[a-z0-9]+@([a-z0-9]+\\.)+[a-z]{2,6}$", message = "邮箱格式不正确")
     private String email;
     private String avatar;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     @Size(max = 100, message = "描述长度最大100")
     private String description;
 
-    public Member() {}
+    public Member() {
+    }
 
     public Member(Member member) {
         this.id = member.id;
